@@ -1,0 +1,154 @@
+// Single source of truth for brochure facts used across sections.
+// Do NOT add a possession date/year anywhere — explicitly withheld per source doc.
+
+export const CONTACT = {
+  phone: "+919711005826",
+  phoneDisplay: "+91 97110 05826",
+  tollFree: "1800 123 3333",
+  email: "feedback@M3Mindia.com",
+  whatsappNumber: "919711005826",
+};
+
+export function whatsappLink(message: string) {
+  return `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(message)}`;
+}
+
+export const RERA = [
+  "RC/REP/HARERA/GGM/1030/762/2026/02 | Dated: 02.01.2026",
+  "RC/REP/HARERA/GGM/991/723/2025/94 | Dated: 16.10.2025",
+];
+
+export const DISCLAIMER =
+  "The contents, information, images, visuals or sketches, computer generated images including landscaping on the advertisement are merely representative images or artistic renderings for general informational purposes only, unless specifically claimed to be actual photograph. The materials, designs, square footages, fixtures and amenities depicted by artist's or computer rendering are only for illustration and not necessarily be part of the offer. 'M3M Forestia West I' is a distinct component of the Industrial Plotted Colony and not an Affordable Group Housing Project under the Affordable Housing Policy, 2013, is being developed by M/s M3M India Infrastructure Private Limited (\"Promoter\") as an integral part/constituent/block of the larger project namely Gurgaon International City. The Project is registered with Haryana Real Estate Regulatory Authority. All details are available on www.haryanarera.gov.in and should be independently verified. Nothing contained herein constitutes a legal offer. *Taxes and statutory charges are extra as per applicable norms.";
+
+export const RESIDENCE_SIZES = [
+  { label: "3 BHK", size: "1,905 sq.ft." },
+  { label: "3 BHK", size: "1,910 sq.ft." },
+  { label: "3 BHK + Study", size: "2,440 sq.ft." },
+  { label: "3 BHK + Study", size: "2,455 sq.ft." },
+];
+
+export const PRICE = {
+  starting: "₹2.5 Cr onwards",
+  reference: "Ref. unit: 1,905 sq.ft. @ ₹13,500/PSF",
+  plans: ["10:90 Payment Plan", "20:80 Payment Plan"],
+};
+
+export const STATS = [
+  { value: "4", label: "Expressways at the doorstep" },
+  { value: "20", suffix: " min", label: "To IGI Airport" },
+  { value: "2", suffix: " min", label: "To Global City" },
+  { value: "60", suffix: "%", label: "Less travel time to major hubs" },
+];
+
+export const ECOSYSTEM = [
+  {
+    title: "Habitats",
+    body: "Homes shaped around calm, comfort, and natural surroundings, designed to restore balance every day.",
+  },
+  {
+    title: "Innovation",
+    body: "A new-age ecosystem where future-ready businesses flourish — a global hub powered by innovation and intelligent planning.",
+  },
+  {
+    title: "Workspaces",
+    body: "Thoughtfully planned work environments for modern enterprises, where productivity and well-being coexist.",
+  },
+  {
+    title: "Experiences",
+    body: "A world-class retail and lifestyle destination designed for connection, leisure, and everyday moments.",
+  },
+];
+
+export const CENTRAL_GROVE = [
+  {
+    title: "Skywalk",
+    tag: "A path that leads to peace",
+    body: "A thoughtfully designed skywalk spans the landscape, offering uninterrupted connections and panoramic views.",
+    image: "/images/skywalk.webp",
+  },
+  {
+    title: "Whispering Falls",
+    tag: "Where nature invites you to stay",
+    body: "Graceful water cascades flow through lush green settings, complemented by generous sit-out spaces for relaxed gatherings.",
+    image: "/images/central-grove-bg.webp",
+  },
+  {
+    title: "Forest Trail",
+    tag: "Stroll amidst the greens",
+    body: "Shaded, bamboo-lined trails winding through the property — designed to slow you down and let calm take over.",
+    image: "/images/forest-trail.webp",
+  },
+];
+
+export const AMENITY_CATEGORIES = [
+  {
+    key: "sports",
+    label: "Sports",
+    items: [
+      "Sports Lounge",
+      "Basketball Court",
+      "Squash Court",
+      "Tennis Court",
+      "Cricket Net",
+      "Badminton Court",
+    ],
+  },
+  {
+    key: "fitness",
+    label: "Fitness & Wellness",
+    items: [
+      "Rock Climbing Wall",
+      "Boxing Studio",
+      "Pilates Studio",
+      "Meditation Room",
+      "Yoga Zone",
+      "Halotherapy Room",
+      "Ayurvedic Treatment Room",
+      "Hammam Suite",
+    ],
+  },
+  {
+    key: "entertainment",
+    label: "Entertainment",
+    items: [
+      "Karaoke Lounge",
+      "Virtual Gaming Zone",
+      "Indoor Golf",
+      "Bowling Alley",
+      "Art Studio",
+      "Music Room",
+      "Cigar Lounge",
+      "Multi-cuisine Restaurant",
+      "Mini Golf",
+    ],
+  },
+  {
+    key: "business",
+    label: "Business",
+    items: ["Conference Rooms", "Business Lounge", "Co-working Spaces", "VC Room"],
+  },
+  {
+    key: "rejuvenate",
+    label: "Rejuvenate",
+    items: [
+      "Butterfly Valley",
+      "Rain Garden",
+      "Viewing Decks",
+      "Barbeque Area",
+      "Amphitheatre",
+      "Gazebo",
+    ],
+  },
+];
+
+export const GALLERY_IMAGES = [
+  { src: "/images/sanctuary-pool.webp", caption: "A Sanctuary of Luxury Within the Greens" },
+  { src: "/images/central-grove-aerial.webp", caption: "The Central Grove" },
+  { src: "/images/jogging-track.webp", caption: "3.5 km Jogging & Cycling Track" },
+  { src: "/images/peacock-card.webp", caption: "Bird Sanctuaries, Just Next Door" },
+  { src: "/images/lantern-pod.webp", caption: "Curated Corners for Connection" },
+  { src: "/images/cafe-terrace.webp", caption: "Café Terrace at Club Eden" },
+  { src: "/images/arrival-fountain.webp", caption: "A Grand Arrival Rooted in Nature" },
+  { src: "/images/garden-peace.webp", caption: "Here, Peace Finds Its Colors" },
+];

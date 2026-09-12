@@ -1,0 +1,111 @@
+import { useLayoutEffect, useRef } from "react";
+import { MapPin } from "lucide-react";
+import { gsap } from "../lib/gsap";
+import { STATS } from "../lib/content";
+
+const NODES = [
+  { label: "Dwarka Expressway", angle: -100, radius: 42 },
+  { label: "NH8", angle: -40, radius: 40 },
+  { label: "KMP Expressway", angle: 20, radius: 42 },
+  { label: "Gurgaon–Rewari Expressway", angle: 75, radius: 40 },
+  { label: "IGI Airport · 20 min", angle: 130, radius: 42 },
+  { label: "Global City · 2 min", angle: 180, radius: 38 },
+  { label: "Sultanpur Bird Sanctuary", angle: -150, radius: 40 },
+];
+
+function nodePos(angle: number, radius: number) {
+  const rad = (angle * Math.PI) / 180;
+  return {
+    left: `${50 + radius * Math.cos(rad)}%`,
+    top: `${50 + radius * Math.sin(rad) * 0.75}%`,
+  };
+}
+
+export default function Location() {
+  const root = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".loc-node", {
+        opacity: 0,
+        scale: 0.6,
+        stagger: 0.08,
+        duration: 0.6,
+        ease: "back.out(2)",
+        scrollTrigger: { trigger: ".loc-diagram", start: "top 70%" },
+      });
+
+      STATS.forEach((s) => {
+        const target = { val: 0 };
+        const el = document.querySelector<HTMLSpanElement>(`[data-stat="${s.label}"]`);
+        if (!el) return;
+        gsap.to(target, {
+          val: Number(s.value),
+          duration: 1.6,
+          ease: "power2.out",
+          scrollTrigger: { trigger: root.current, start: "top 75%" },
+          onUpdate: () => {
+            el.textContent = Math.round(target.val).toString();
+          },
+        });
+      });
+    }, root);
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section id="location" ref={root} className="relative py-28 sm:py-36 bg-forest-950">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="text-center mb-16">
+          <p className="text-xs sm:text-sm tracking-[0.4em] text-gold-400 mb-5">
+            AT THE CENTER OF LIFE &amp; GROWTH
+          </p>
+          <h2 className="font-display text-3xl sm:text-5xl text-cream-50 max-w-2xl mx-auto leading-tight">
+            Strategically Placed, <span className="italic text-gold-400">Effortlessly Connected</span>
+          </h2>
+          <p className="mt-5 text-cream-100/70 max-w-xl mx-auto">
+            Amid major expressways and growth corridors — cutting travel time to
+            major hubs by up to 60%.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-[1fr_1.1fr] gap-16 items-center">
+          <div className="grid grid-cols-2 gap-6">
+            {STATS.map((s) => (
+              <div key={s.label} className="border-l-2 border-gold-500/60 pl-5">
+                <div className="font-display text-4xl sm:text-5xl text-gold-400">
+                  <span data-stat={s.label}>0</span>
+                  {s.suffix ?? ""}
+                </div>
+                <p className="mt-2 text-sm text-cream-100/70 leading-snug">{s.label}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="loc-diagram relative aspect-square max-w-md mx-auto w-full">
+            <div className="absolute inset-[15%] rounded-full border border-dashed border-forest-700" />
+            <div className="absolute inset-0 grid place-items-center">
+              <div className="loc-node z-10 flex flex-col items-center gap-1.5 rounded-full bg-gold-500 text-forest-950 px-4 py-3 shadow-lg shadow-black/40">
+                <MapPin size={18} />
+                <span className="text-[10px] font-medium tracking-wide text-center leading-tight">
+                  M3M FORESTIA
+                  <br />
+                  WEST
+                </span>
+              </div>
+            </div>
+            {NODES.map((n) => (
+              <div
+                key={n.label}
+                className="loc-node absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-forest-700 bg-forest-900/90 px-3 py-1.5 text-[11px] text-cream-100/85 whitespace-nowrap"
+                style={nodePos(n.angle, n.radius)}
+              >
+                {n.label}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

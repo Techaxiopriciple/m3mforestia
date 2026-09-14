@@ -9,6 +9,7 @@ export default function Hero({ ready }: { ready: boolean }) {
 
   useLayoutEffect(() => {
     if (!ready) return;
+
     const ctx = gsap.context(() => {
       gsap
         .timeline({ defaults: { ease: "power3.out" } })
@@ -19,15 +20,23 @@ export default function Hero({ ready }: { ready: boolean }) {
         .from(".hero-cta", { opacity: 0, y: 20, duration: 0.8, stagger: 0.1 }, 1.05)
         .from(".hero-scroll", { opacity: 0, duration: 0.6 }, 1.4);
     }, root);
+
     return () => ctx.revert();
   }, [ready]);
 
   return (
-    <section id="top" ref={root} className="relative min-h-dvh w-full overflow-hidden py-28 lg:py-0">
+    <section
+      id="top"
+      ref={root}
+      className={`relative min-h-dvh w-full overflow-hidden py-28 lg:py-0 ${
+        ready ? "" : "invisible"
+      }`}
+    >
       <div
         className="hero-bg absolute inset-0 bg-[url(/images/hero-main.webp)] bg-cover bg-center"
         style={{ willChange: "transform" }}
       />
+
       <div className="absolute inset-0 bg-gradient-to-t from-forest-950 via-forest-950/50 to-forest-950/20" />
       <div className="absolute inset-0 bg-gradient-to-r from-forest-950/70 via-transparent to-forest-950/40" />
 
@@ -42,7 +51,9 @@ export default function Hero({ ready }: { ready: boolean }) {
               <span className="hero-title-line block">A Life Curated</span>
             </span>
             <span className="block overflow-hidden pb-[0.3em] -mt-[0.3em]">
-              <span className="hero-title-line block italic text-gold-400">by Nature</span>
+              <span className="hero-title-line block italic text-gold-400">
+                by Nature
+              </span>
             </span>
           </h1>
 
@@ -58,6 +69,7 @@ export default function Hero({ ready }: { ready: boolean }) {
             >
               Explore Residences
             </a>
+
             <span className="text-cream-50/90 text-sm tracking-wide border-l border-cream-100/30 pl-5">
               {PRICE.starting}
             </span>

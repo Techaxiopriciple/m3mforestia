@@ -1,11 +1,11 @@
-import { useLayoutEffect, useRef, useState } from "react";
-import { Phone, Mail, Send } from "lucide-react";
+import { useLayoutEffect, useRef } from "react";
+import { Phone, Mail } from "lucide-react";
 import { gsap } from "../lib/gsap";
-import { CONTACT, RESIDENCE_SIZES, whatsappLink } from "../lib/content";
+import { CONTACT } from "../lib/content";
+import EnquiryForm from "../components/EnquiryForm";
 
 export default function Enquiry() {
   const root = useRef<HTMLDivElement>(null);
-  const [form, setForm] = useState({ name: "", phone: "", unit: RESIDENCE_SIZES[0].size });
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -20,14 +20,6 @@ export default function Enquiry() {
     }, root);
     return () => ctx.revert();
   }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const message = `Hi, I'm ${form.name || "interested in M3M Forestia West"}. Phone: ${
-      form.phone || "—"
-    }. I'd like details for a ${form.unit} unit.`;
-    window.open(whatsappLink(message), "_blank", "noopener,noreferrer");
-  };
 
   return (
     <section id="enquiry" ref={root} className="relative py-28 sm:py-36 bg-forest-950">
@@ -54,53 +46,7 @@ export default function Enquiry() {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="enq-fade rounded-3xl border border-forest-700 bg-forest-900/50 p-8 space-y-5">
-          <div>
-            <label className="block text-xs tracking-wide text-cream-100/60 mb-2">Full Name</label>
-            <input
-              required
-              value={form.name}
-              onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-              className="w-full rounded-lg bg-forest-950 border border-forest-700 px-4 py-3 text-cream-50 text-sm focus:outline-none focus:border-gold-500"
-              placeholder="Your name"
-            />
-          </div>
-          <div>
-            <label className="block text-xs tracking-wide text-cream-100/60 mb-2">Phone Number</label>
-            <input
-              required
-              type="tel"
-              value={form.phone}
-              onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-              className="w-full rounded-lg bg-forest-950 border border-forest-700 px-4 py-3 text-cream-50 text-sm focus:outline-none focus:border-gold-500"
-              placeholder="+91 00000 00000"
-            />
-          </div>
-          <div>
-            <label className="block text-xs tracking-wide text-cream-100/60 mb-2">Unit Interest</label>
-            <select
-              value={form.unit}
-              onChange={(e) => setForm((f) => ({ ...f, unit: e.target.value }))}
-              className="w-full rounded-lg bg-forest-950 border border-forest-700 px-4 py-3 text-cream-50 text-sm focus:outline-none focus:border-gold-500"
-            >
-              {RESIDENCE_SIZES.map((r) => (
-                <option key={r.size} value={r.size}>
-                  {r.label} · {r.size}
-                </option>
-              ))}
-            </select>
-          </div>
-          <button
-            type="submit"
-            className="w-full flex items-center justify-center gap-2 rounded-full bg-gold-500 text-forest-950 px-6 py-3.5 text-sm font-medium hover:bg-gold-400 transition-colors"
-          >
-            <Send size={16} />
-            Send via WhatsApp
-          </button>
-          <p className="text-[11px] text-cream-100/50 text-center leading-relaxed">
-            No spam — this opens a WhatsApp chat directly with our sales team.
-          </p>
-        </form>
+        <EnquiryForm className="enq-fade rounded-3xl border border-forest-700 bg-forest-900/50 p-8" />
       </div>
     </section>
   );

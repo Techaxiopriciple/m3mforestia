@@ -7,14 +7,16 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ onComplete: onDone });
+      // Kept short — this is a branded flourish, not a real loading gate. It used to
+      // run ~2.7s fixed regardless of asset state, which read as slow page load.
       tl.from(".preloader-word", {
         yPercent: 110,
         stagger: 0.08,
-        duration: 0.9,
+        duration: 0.5,
         ease: "power3.out",
       })
-        .to(".preloader-word", { yPercent: -110, stagger: 0.05, duration: 0.6, ease: "power3.in" }, "+=0.5")
-        .to(root.current, { yPercent: -100, duration: 0.9, ease: "power4.inOut" }, "-=0.2");
+        .to(".preloader-word", { yPercent: -110, stagger: 0.05, duration: 0.35, ease: "power3.in" }, "+=0.15")
+        .to(root.current, { yPercent: -100, duration: 0.5, ease: "power4.inOut" }, "-=0.15");
     }, root);
     return () => ctx.revert();
   }, [onDone]);

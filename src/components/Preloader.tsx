@@ -11,7 +11,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
       tl.from(".preloader-word", {
         yPercent: 110,
         stagger: 0.12,
-        duration: 0.7,
+        duration: 0.9,
         ease: "power3.out",
       })
         .to(
@@ -19,7 +19,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
           {
             yPercent: -110,
             stagger: 0.08,
-            duration: 0.5,
+            duration: 0.7,
             ease: "power3.in",
           },
           "+=0.3"
@@ -28,7 +28,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
           root.current,
           {
             yPercent: -100,
-            duration: 0.7,
+            duration: 0.9,
             ease: "power4.inOut",
           },
           "-=0.2"

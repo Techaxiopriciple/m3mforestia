@@ -14,7 +14,7 @@ export default function FloatingContact() {
           <img
             src="/images/logo/Forestia.png"
             alt="M3M Forestia"
-            className="max-w-full max-h-full object-contain scale-250"
+            className="max-w-full max-h-full object-contain scale-125"
           />
         </a>
         <a

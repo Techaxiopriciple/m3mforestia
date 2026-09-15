@@ -26,10 +26,11 @@ export default function Nav() {
       }`}
     >
       <nav className="mx-auto max-w-7xl px-5 sm:px-8 h-20 flex items-center justify-between">
-        <a href="#top" className="font-display text-cream-50 leading-none">
-          <span className="block text-xs tracking-[0.35em] text-gold-400">M3M</span>
-          <span className="block text-xl sm:text-2xl tracking-wide">FORESTIA WEST</span>
-        </a>
+        <img
+          src="/images/logo/m3m-transparent-logo.png"
+          alt="M3M Forestia"
+          className="h-12 sm:h-14 w-auto object-contain"
+        />
 
         <div className="hidden lg:flex items-center gap-9">
           {LINKS.map((l) => (

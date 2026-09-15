@@ -2,7 +2,6 @@ import { useLayoutEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { gsap } from "../lib/gsap";
 import { PRICE } from "../lib/content";
-import EnquiryForm from "../components/EnquiryForm";
 
 export default function Hero({ ready }: { ready: boolean }) {
   const root = useRef<HTMLDivElement>(null);
@@ -32,9 +31,14 @@ export default function Hero({ ready }: { ready: boolean }) {
         ready ? "" : "invisible"
       }`}
     >
-      <div
-        className="hero-bg absolute inset-0 bg-[url(/images/hero-main.webp)] bg-cover bg-center"
-        style={{ willChange: "transform" }}
+      <video
+        className="hero-bg absolute inset-0 w-full h-full object-cover"
+        src="/images/banner-video-forestia.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
       />
 
       <div className="absolute inset-0 bg-gradient-to-r from-forest-950/70 via-transparent to-forest-950/40" />
@@ -74,12 +78,6 @@ export default function Hero({ ready }: { ready: boolean }) {
             </span>
           </div>
         </div>
-
-        <EnquiryForm
-          compact
-          title="Get Callback & Floor Plans"
-          className="hero-cta rounded-3xl border border-cream-100/15 bg-forest-950/60 backdrop-blur-md p-6 sm:p-8"
-        />
       </div>
 
       <div className="hero-scroll absolute bottom-8 inset-x-0 hidden lg:flex flex-col items-center gap-2 text-cream-100/70 text-xs tracking-[0.3em]">

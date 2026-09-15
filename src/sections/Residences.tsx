@@ -4,10 +4,10 @@ import { gsap } from "../lib/gsap";
 import { PRICE, RESIDENCE_SIZES } from "../lib/content";
 
 const IMAGES = [
-  "/images/sanctuary-pool.webp",
-  "/images/arrival-fountain.webp",
-  "/images/central-grove-aerial.webp",
-  "/images/wellbeing.webp",
+  "/images/M3M-IMT-Manesar-Arrival-Area.jpg",
+  "/images/M3M-IMT-Manesar-Waterbody-Seating-Cam.jpg",
+  "/images/M3M-IMT-Manesar-Landscape-Top.jpg",
+  "/images/M3M-IMT-Manesar-Sports-Area.jpg",
 ];
 
 const SLIDES = RESIDENCE_SIZES.map((r, i) => ({ ...r, image: IMAGES[i] }));
@@ -20,7 +20,7 @@ export default function Residences() {
   useLayoutEffect(() => {
     if (!track.current) return;
     gsap.to(track.current, {
-      xPercent: -100 * active,
+      xPercent: (-100 / SLIDES.length) * active,
       duration: 0.9,
       ease: "power3.inOut",
     });

@@ -63,6 +63,14 @@ export default function EnquiryForm({
         <Send size={16} />
         {compact ? "Get a Callback" : "Send via WhatsApp"}
       </button>
+      <div className="pt-1 text-center space-y-1">
+        <p className="text-[10px] text-cream-100/45 leading-relaxed">
+          RERA REG. NO. RC/REP/HARERA/GGM/1030/762/2026/02
+        </p>
+        <p className="text-[10px] text-cream-100/45 leading-relaxed">
+          RERA REG. NO. RC/REP/HARERA/GGM/991/723/2025/94
+        </p>
+      </div>
       {!compact && (
         <p className="text-[11px] text-cream-100/50 text-center leading-relaxed">
           No spam — this opens a WhatsApp chat directly with our sales team.

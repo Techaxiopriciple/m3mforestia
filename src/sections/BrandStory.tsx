@@ -65,7 +65,7 @@ export default function BrandStory() {
 
       {/* Story Content */}
       <div className="story-text absolute left-0 right-0 top-[75%] -translate-y-1/2 w-full max-w-3xl mx-auto px-6 text-center">
-        <p className="story-line text-[10px] sm:text-xs tracking-[0.35em] text-gold-400 mb-5 sm:mb-6">
+        <p className="story-line text-[10px] sm:text-xs tracking-[0.35em] text-gold-400 mb-3 sm:mb-4">
           BEYOND SURFACES &amp; STRUCTURES
         </p>
 

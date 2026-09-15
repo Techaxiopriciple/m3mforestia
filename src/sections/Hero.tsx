@@ -40,6 +40,32 @@ export default function Hero({ ready }: { ready: boolean }) {
         playsInline
         preload="auto"
       />
+      {/* Client Logos */}
+      <div className="absolute left-5 sm:left-8 bottom-6 z-20 flex items-center gap-3">
+        <a
+          href="#top"
+          aria-label="M3M Forestia"
+          className="w-20 h-16 flex items-center justify-center rounded-lg p-2"
+        >
+          <img
+            src="/images/logo/forestia-logo_new_1.png"
+            alt="M3M Forestia"
+            className="w-[72px] h-[58px] object-contain scale-125"
+          />
+        </a>
+
+        <a
+          href="#top"
+          aria-label="GIC Logo"
+          className="w-20 h-16 flex items-center justify-center rounded-lg p-2"
+        >
+          <img
+            src="/images/logo/gic.webp"
+            alt="GIC Logo"
+            className="w-[72px] h-[58px] object-contain brightness-0 invert"
+          />
+        </a>
+      </div>
 
       <div className="absolute inset-0 bg-gradient-to-r from-forest-950/70 via-transparent to-forest-950/40" />
 

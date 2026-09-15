@@ -22,12 +22,14 @@ export default function Nav() {
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-colors duration-500 ${
-        scrolled ? "bg-forest-950/90 backdrop-blur-sm shadow-lg shadow-black/20" : "bg-transparent"
+        scrolled
+          ? "bg-forest-950/90 backdrop-blur-sm shadow-lg shadow-black/20"
+          : "bg-forest-950/45 backdrop-blur-[2px]"
       }`}
     >
       <nav className="mx-auto max-w-7xl px-5 sm:px-8 h-20 flex items-center justify-between">
         <img
-          src="/images/logo/m3m-transparent-logo.png"
+          src="/images/logo/logo.webp"
           alt="M3M Forestia"
           className="h-12 sm:h-14 w-auto object-contain"
         />
@@ -37,7 +39,7 @@ export default function Nav() {
             <a
               key={l.href}
               href={l.href}
-              className="text-sm text-cream-100/80 hover:text-gold-400 transition-colors"
+              className="text-sm font-medium text-cream-50 hover:text-gold-400 transition-colors"
             >
               {l.label}
             </a>

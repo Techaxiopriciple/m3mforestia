@@ -19,7 +19,7 @@ export default function BrandStory() {
 
       gsap.from(".story-line", {
         opacity: 0,
-        y: 40,
+        y: 20,
         stagger: 0.15,
         duration: 1,
         ease: "power3.out",
@@ -37,7 +37,7 @@ export default function BrandStory() {
     <section
       id="story"
       ref={root}
-      className="relative py-32 sm:py-44 overflow-hidden"
+      className="relative min-h-[520px] sm:min-h-[600px] lg:min-h-[700px] flex items-center overflow-hidden"
     >
       {/* Background Video */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -51,7 +51,7 @@ export default function BrandStory() {
           preload="auto"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-b from-forest-950 via-forest-950/70 to-forest-950" />
+        <div className="absolute inset-0 bg-gradient-to-b from-forest-950/30 via-forest-950/20 to-forest-950/40" />
       </div>
 
       {/* GIC Logo */}
@@ -63,22 +63,17 @@ export default function BrandStory() {
         />
       </div>
 
-      <div className="story-text max-w-4xl mx-auto px-6 text-center">
-        <p className="story-line text-xs sm:text-sm tracking-[0.4em] text-gold-400 mb-8">
+      {/* Story Content */}
+      <div className="story-text absolute left-0 right-0 top-[75%] -translate-y-1/2 w-full max-w-3xl mx-auto px-6 text-center">
+        <p className="story-line text-[10px] sm:text-xs tracking-[0.35em] text-gold-400 mb-5 sm:mb-6">
           BEYOND SURFACES &amp; STRUCTURES
         </p>
 
-        <h2 className="story-line font-display text-3xl sm:text-5xl md:text-6xl leading-tight text-cream-50">
+        <h2 className="story-line font-display text-2xl sm:text-3xl md:text-4xl leading-[1.2] text-cream-50">
           True luxury today is found in spaces that feel{" "}
           <span className="italic text-gold-400">open, calm,</span> and deeply
           connected to their surroundings.
         </h2>
-
-        <p className="story-line mt-8 text-cream-100/70 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-          It is defined by balance, wellness, and the freedom to breathe easily —
-          and live consciously. Thoughtfully envisioned forest-themed residences,
-          crafted for those who seek harmony and conscious living.
-        </p>
       </div>
     </section>
   );

@@ -16,24 +16,47 @@ export default function Ecosystem() {
         stagger: 0.12,
         duration: 0.9,
         ease: "power3.out",
-        scrollTrigger: { trigger: root.current, start: "top 70%" },
+        scrollTrigger: {
+          trigger: root.current,
+          start: "top 70%",
+        },
       });
     }, root);
+
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={root} className="relative py-28 sm:py-36 bg-forest-900">
+    <section
+      ref={root}
+      className="relative py-28 sm:py-36 overflow-hidden"
+    >
+      {/* Background Image */}
+      <div className="absolute inset-0 -z-10">
+        <img
+          src="/images/M3M-IMT-Manesar-Arrival-Area.jpg"
+          alt=""
+          className="w-full h-full object-cover"
+        />
+
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-forest-950/55" />
+      </div>
+
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-16">
           <p className="text-xs sm:text-sm tracking-[0.4em] text-gold-400 mb-5">
             GURGAON INTERNATIONAL CITY
           </p>
+
           <h2 className="font-display text-3xl sm:text-5xl text-cream-50 max-w-2xl mx-auto leading-tight">
             A Life Built Within the{" "}
-            <span className="italic text-gold-400">Largest Integrated City</span> of
-            Gurgaon
+            <span className="italic text-gold-400">
+              Largest Integrated City
+            </span>{" "}
+            of Gurgaon
           </h2>
+
           <p className="mt-5 text-cream-100/70 max-w-xl mx-auto">
             Where living, working, innovation, and experiences coexist seamlessly.
           </p>
@@ -42,14 +65,25 @@ export default function Ecosystem() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {ECOSYSTEM.map((item, i) => {
             const Icon = ICONS[i];
+
             return (
               <div
                 key={item.title}
-                className="eco-card rounded-2xl border border-forest-700 bg-forest-950/40 p-8 hover:border-gold-500/60 transition-colors"
+                className="eco-card rounded-2xl border border-cream-50/20 bg-forest-950/50 backdrop-blur-sm p-8 hover:border-gold-500/60 transition-colors"
               >
-                <Icon className="text-gold-400" size={28} strokeWidth={1.5} />
-                <h3 className="font-display text-2xl text-cream-50 mt-6">{item.title}</h3>
-                <p className="mt-3 text-sm text-cream-100/65 leading-relaxed">{item.body}</p>
+                <Icon
+                  className="text-gold-400"
+                  size={28}
+                  strokeWidth={1.5}
+                />
+
+                <h3 className="font-display text-2xl text-cream-50 mt-6">
+                  {item.title}
+                </h3>
+
+                <p className="mt-3 text-sm text-cream-100/70 leading-relaxed">
+                  {item.body}
+                </p>
               </div>
             );
           })}

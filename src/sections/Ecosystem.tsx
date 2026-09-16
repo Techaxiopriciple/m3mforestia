@@ -81,7 +81,7 @@ export default function Ecosystem() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-display text-lg sm:text-xl font-medium text-cream-50 hover:text-gold-400 transition-colors tracking-[0.16em] leading-snug uppercase min-h-[3.5rem] flex items-center justify-center">
+                  <h3 className="font-display text-lg sm:text-xl font-medium text-cream-50 hover:text-gold-400 transition-colors tracking-[0.16em] leading-snug uppercase whitespace-pre-line min-h-[3.5rem] flex items-center justify-center">
                     {item.title}
                   </h3>
                 </div>

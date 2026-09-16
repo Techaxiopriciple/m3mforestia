@@ -47,7 +47,7 @@ export const ECOSYSTEM = [
     body: "Gurugram’s Largest Integrated Township Development",
   },
   {
-    title: "INTEGRATED LIVING",
+    title: "INTEGRATED\nLIVING",
     body: "Residential, Commercial, and Employment Zones",
   },
   {

@@ -43,20 +43,61 @@ export const STATS = [
 
 export const ECOSYSTEM = [
   {
-    title: "Habitats",
-    body: "Homes shaped around calm, comfort, and natural surroundings, designed to restore balance every day.",
+    title: "150 Acres Township",
+    body: "Gurugram’s Largest Integrated Township Development",
   },
   {
-    title: "Innovation",
-    body: "A new-age ecosystem where future-ready businesses flourish — a global hub powered by innovation and intelligent planning.",
+    title: "INTEGRATED LIVING",
+    body: "Residential, Commercial, and Employment Zones",
   },
   {
-    title: "Workspaces",
-    body: "Thoughtfully planned work environments for modern enterprises, where productivity and well-being coexist.",
+    title: "GLOBAL CITY IN PROXIMITY",
+    body: "Adjacent to Upcoming Gurgaon Urban Hub",
   },
   {
-    title: "Experiences",
-    body: "A world-class retail and lifestyle destination designed for connection, leisure, and everyday moments.",
+    title: "CITY-SCALE OPPORTUNITY",
+    body: "Invest in the New Growth Axis of Gurgaon",
+  },
+];
+
+export const CONNECTIVITY = [
+  {
+    title: "IGI Airport",
+    time: "20 min",
+  },
+  {
+    title: "Rewari Expressway",
+    time: "10 min",
+  },
+  {
+    title: "Jaipur Highway",
+    time: "20 min",
+  },
+];
+
+export const CENTRAL_CONNECTIVITY = [
+  {
+    title: "KMP Expressway",
+    time: "10 min",
+  },
+  {
+    title: "Dwarka Expressway",
+    time: "10 min",
+  },
+];
+
+export const ECO_ICON = [
+  {
+    image: "/images/eco/diverse_housing_icon_blue.png",
+  },
+  {
+    image: "/images/eco/Icons-Immobilie_Haus-Hochhaus.webp",
+  },
+  {
+    image: "/images/eco/locations.png",
+  },
+  {
+    image: "/images/eco/business-growth-management-svgrepo-com.png", 
   },
 ];
 

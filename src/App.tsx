@@ -4,9 +4,8 @@ import Nav from "./components/Nav";
 import FloatingContact from "./components/FloatingContact";
 import Footer from "./components/Footer";
 import Hero from "./sections/Hero";
-import BrandStory from "./sections/BrandStory";
 import Ecosystem from "./sections/Ecosystem";
-import Location from "./sections/Location";
+import GrandWelcome from "./sections/GrandWelcome";
 import Residences from "./sections/Residences";
 import CentralGrove from "./sections/CentralGrove";
 import ClubEden from "./sections/ClubEden";
@@ -24,9 +23,8 @@ export default function App() {
       <FloatingContact />
       <main>
         <Hero ready={!loading} />
-        <BrandStory />
         <Ecosystem />
-        <Location />
+        <GrandWelcome />
         <Residences />
         <CentralGrove />
         <ClubEden />

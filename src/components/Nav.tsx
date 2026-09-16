@@ -23,13 +23,13 @@ export default function Nav() {
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-colors duration-500 ${
         scrolled
-          ? "bg-forest-950/90 backdrop-blur-sm shadow-lg shadow-black/20"
-          : "bg-forest-950/45 backdrop-blur-[2px]"
+          ? "bg-white/95 backdrop-blur-sm shadow-lg shadow-forest-950/10"
+          : "bg-forest-950/35 backdrop-blur-[2px]"
       }`}
     >
       <nav className="mx-auto max-w-7xl px-5 sm:px-8 h-20 flex items-center justify-between">
         <img
-          src="/images/logo/logo.webp"
+          src={scrolled ? "/images/logo/m3m-logo.png" : "/images/logo/logo.webp"}
           alt="M3M Forestia"
           className="h-12 sm:h-14 w-auto object-contain"
         />
@@ -39,14 +39,22 @@ export default function Nav() {
             <a
               key={l.href}
               href={l.href}
-              className="text-sm font-medium text-cream-50 hover:text-gold-400 transition-colors"
+              className={`text-sm font-medium transition-colors ${
+                scrolled
+                  ? "text-forest-900 hover:text-forest-600"
+                  : "text-cream-50 hover:text-gold-400"
+              }`}
             >
               {l.label}
             </a>
           ))}
           <a
             href="#enquiry"
-            className="rounded-full border border-gold-500 px-5 py-2 text-sm text-gold-400 hover:bg-gold-500 hover:text-forest-950 transition-colors"
+            className={`rounded-full border px-5 py-2 text-sm transition-colors ${
+              scrolled
+                ? "border-forest-700 text-forest-700 hover:bg-forest-700 hover:text-white"
+                : "border-gold-500 text-gold-400 hover:bg-gold-500 hover:text-forest-950"
+            }`}
           >
             Enquire Now
           </a>
@@ -54,7 +62,7 @@ export default function Nav() {
 
         <button
           aria-label="Toggle menu"
-          className="lg:hidden text-cream-50"
+          className={scrolled ? "lg:hidden text-forest-900" : "lg:hidden text-cream-50"}
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X size={26} /> : <Menu size={26} />}
@@ -62,13 +70,13 @@ export default function Nav() {
       </nav>
 
       {open && (
-        <div className="lg:hidden bg-forest-950/98 border-t border-forest-700 px-5 pb-6 flex flex-col gap-4">
+        <div className="lg:hidden bg-white border-t border-forest-100 px-5 pb-6 flex flex-col gap-4 shadow-lg shadow-forest-950/10">
           {LINKS.map((l) => (
             <a
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="text-cream-100/90 py-2 border-b border-forest-800 text-sm"
+              className="text-forest-900 py-2 border-b border-forest-100 text-sm"
             >
               {l.label}
             </a>
@@ -76,7 +84,7 @@ export default function Nav() {
           <a
             href="#enquiry"
             onClick={() => setOpen(false)}
-            className="mt-2 rounded-full border border-gold-500 px-5 py-3 text-center text-sm text-gold-400"
+            className="mt-2 rounded-full border border-forest-700 px-5 py-3 text-center text-sm text-forest-700"
           >
             Enquire Now
           </a>

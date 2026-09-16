@@ -42,16 +42,16 @@ export default function ClubEden() {
   const current = AMENITY_CATEGORIES.find((c) => c.key === active)!;
 
   return (
-    <section id="amenities" ref={root} className="relative py-28 sm:py-36 bg-forest-950">
+    <section id="amenities" ref={root} className="relative py-28 sm:py-36 bg-white">
       <div className="max-w-6xl mx-auto px-6">
         <div className="eden-fade text-center mb-14">
-          <p className="text-xs sm:text-sm tracking-[0.4em] text-gold-400 mb-5">
+          <p className="text-xs sm:text-sm tracking-[0.4em] text-forest-600 mb-5">
             INTRODUCING CLUB EDEN
           </p>
-          <h2 className="font-display text-3xl sm:text-5xl text-cream-50 max-w-2xl mx-auto leading-tight">
-            Live the <span className="italic text-gold-400">Extravagant Club Lifestyle</span>
+          <h2 className="font-display text-3xl sm:text-5xl text-forest-950 max-w-2xl mx-auto leading-tight">
+            Live the <span className="italic text-forest-600">Extravagant Club Lifestyle</span>
           </h2>
-          <p className="mt-5 text-cream-100/70 max-w-xl mx-auto">
+          <p className="mt-5 text-forest-900/70 max-w-xl mx-auto">
             Contemporary in design and rich in experiences — wellness, leisure, and
             celebration where every day feels refreshed.
           </p>
@@ -77,8 +77,8 @@ export default function ClubEden() {
                 onClick={() => setActive(cat.key)}
                 className={`flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm transition-colors ${
                   isActive
-                    ? "border-gold-500 bg-gold-500 text-forest-950"
-                    : "border-forest-700 text-cream-100/75 hover:border-gold-500/60"
+                    ? "border-forest-700 bg-forest-700 text-white"
+                    : "border-forest-200 text-forest-900/75 hover:border-forest-600/60"
                 }`}
               >
                 <Icon size={16} />
@@ -95,7 +95,7 @@ export default function ClubEden() {
           {current.items.map((item) => (
             <div
               key={item}
-              className="rounded-xl border border-forest-700 bg-forest-900/60 px-4 py-3.5 text-sm text-cream-100/85 text-center"
+              className="rounded-xl border border-forest-100 bg-forest-50 px-4 py-3.5 text-sm text-forest-900/85 text-center"
             >
               {item}
             </div>

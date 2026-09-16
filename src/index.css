@@ -6,6 +6,10 @@
   --color-forest-800: #11311e;
   --color-forest-700: #17452a;
   --color-forest-600: #205934;
+  --color-forest-500: #2c7043;
+  --color-forest-200: #c7dac9;
+  --color-forest-100: #dde8de;
+  --color-forest-50: #f0f5ef;
   --color-gold-300: #e6d4ac;
   --color-gold-400: #d8bd84;
   --color-gold-500: #c6a366;
@@ -23,23 +27,23 @@ html {
 }
 
 body {
-  background: var(--color-forest-950);
-  color: var(--color-cream-100);
+  background: #ffffff;
+  color: var(--color-forest-950);
   font-family: var(--font-sans);
   overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--color-gold-500);
-  color: var(--color-forest-950);
+  background: var(--color-forest-600);
+  color: #ffffff;
 }
 
-/* thin gold scrollbar, webkit only — cosmetic, degrades fine elsewhere */
+/* thin green scrollbar, webkit only — cosmetic, degrades fine elsewhere */
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-forest-950);
+  background: #ffffff;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-forest-700);

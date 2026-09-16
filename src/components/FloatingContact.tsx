@@ -9,14 +9,14 @@ export default function FloatingContact() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
-        className="grid place-items-center size-13 rounded-full bg-[#25D366] text-white shadow-lg shadow-black/30 hover:scale-105 transition-transform"
+        className="grid place-items-center size-13 rounded-full bg-[#25D366] text-white shadow-lg shadow-forest-950/30 hover:scale-105 transition-transform"
       >
         <MessageCircle size={24} fill="white" strokeWidth={0} />
       </a>
       <a
         href={`tel:${CONTACT.phone}`}
         aria-label="Call us"
-        className="grid place-items-center size-13 rounded-full bg-gold-500 text-forest-950 shadow-lg shadow-black/30 hover:scale-105 transition-transform"
+        className="grid place-items-center size-13 rounded-full bg-gold-500 text-forest-950 shadow-lg shadow-forest-950/30 hover:scale-105 transition-transform"
       >
         <Phone size={20} />
       </a>

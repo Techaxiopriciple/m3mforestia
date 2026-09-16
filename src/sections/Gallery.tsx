@@ -40,12 +40,12 @@ export default function Gallery() {
   }, [openIndex]);
 
   return (
-    <section id="gallery" ref={root} className="relative py-28 sm:py-36 bg-forest-900">
+    <section id="gallery" ref={root} className="relative py-28 sm:py-36 bg-white">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-14">
-          <p className="text-xs sm:text-sm tracking-[0.4em] text-gold-400 mb-5">GALLERY</p>
-          <h2 className="font-display text-3xl sm:text-5xl text-cream-50 leading-tight">
-            Curated to Take You <span className="italic text-gold-400">Close to Nature</span>
+          <p className="text-xs sm:text-sm tracking-[0.4em] text-forest-600 mb-5">GALLERY</p>
+          <h2 className="font-display text-3xl sm:text-5xl text-forest-950 leading-tight">
+            Curated to Take You <span className="italic text-forest-600">Close to Nature</span>
           </h2>
         </div>
 

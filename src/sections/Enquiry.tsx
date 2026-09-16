@@ -22,31 +22,31 @@ export default function Enquiry() {
   }, []);
 
   return (
-    <section id="enquiry" ref={root} className="relative py-28 sm:py-36 bg-forest-950">
+    <section id="enquiry" ref={root} className="relative py-28 sm:py-36 bg-white">
       <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
         <div className="enq-fade">
-          <p className="text-xs sm:text-sm tracking-[0.4em] text-gold-400 mb-5">GET IN TOUCH</p>
-          <h2 className="font-display text-3xl sm:text-5xl text-cream-50 leading-tight">
-            Experience a <span className="italic text-gold-400">Different Rhythm of Living</span>
+          <p className="text-xs sm:text-sm tracking-[0.4em] text-forest-600 mb-5">GET IN TOUCH</p>
+          <h2 className="font-display text-3xl sm:text-5xl text-forest-950 leading-tight">
+            Experience a <span className="italic text-forest-600">Different Rhythm of Living</span>
           </h2>
-          <p className="mt-5 text-cream-100/70 leading-relaxed">
+          <p className="mt-5 text-forest-900/70 leading-relaxed">
             Share your details and our team will reach out with floor plans,
             pricing, and a personal walkthrough of M3M Forestia West.
           </p>
 
           <div className="mt-10 space-y-4">
-            <a href={`tel:${CONTACT.phone}`} className="flex items-center gap-3 text-cream-100/85 hover:text-gold-400">
-              <Phone size={18} className="text-gold-400" />
+            <a href={`tel:${CONTACT.phone}`} className="flex items-center gap-3 text-forest-900/85 hover:text-forest-600">
+              <Phone size={18} className="text-forest-600" />
               {CONTACT.phoneDisplay} · {CONTACT.tollFree}
             </a>
-            <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-3 text-cream-100/85 hover:text-gold-400">
-              <Mail size={18} className="text-gold-400" />
+            <a href={`mailto:${CONTACT.email}`} className="flex items-center gap-3 text-forest-900/85 hover:text-forest-600">
+              <Mail size={18} className="text-forest-600" />
               {CONTACT.email}
             </a>
           </div>
         </div>
 
-        <EnquiryForm className="enq-fade rounded-3xl border border-forest-700 bg-forest-900/50 p-8" />
+        <EnquiryForm className="enq-fade rounded-3xl border border-forest-100 bg-forest-50 p-8 shadow-xl shadow-forest-950/5" />
       </div>
     </section>
   );

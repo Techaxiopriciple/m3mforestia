@@ -49,7 +49,7 @@ export default function Ecosystem() {
         />
 
         {/* Overlay */}
-        <div className="absolute inset-0 bg-forest-950/50" />
+        <div className="absolute inset-0 bg-forest-900/55" />
       </div>
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
@@ -111,7 +111,7 @@ export default function Ecosystem() {
             {CONNECTIVITY.map((item) => (
               <div
                 key={item.title}
-                className="connectivity-item border border-gold-400/50 px-5 py-4 bg-forest-950/25"
+                className="connectivity-item border border-gold-400/50 px-5 py-4 bg-forest-900/40"
               >
                 <p className="text-sm sm:text-base font-medium text-cream-50 hover:text-gold-400 transition-colors">
                   {item.title}
@@ -129,7 +129,7 @@ export default function Ecosystem() {
             {CENTRAL_CONNECTIVITY.map((item) => (
               <div
                 key={item.title}
-                className="connectivity-item w-full sm:w-56 border border-gold-400/50 px-5 py-4 bg-forest-950/25"
+                className="connectivity-item w-full sm:w-56 border border-gold-400/50 px-5 py-4 bg-forest-900/40"
               >
                 <p className="text-sm sm:text-base font-medium text-cream-50 hover:text-gold-400 transition-colors">
                   {item.title}
@@ -146,7 +146,7 @@ export default function Ecosystem() {
           <div className="flex justify-center mt-8">
             <a
               href="#enquiry"
-              className="connectivity-item flex items-center justify-center bg-cream-50 text-forest-950 px-7 py-4 text-sm font-medium hover:bg-gold-400 hover:text-forest-950 transition-colors"
+              className="connectivity-item flex items-center justify-center bg-white text-forest-950 px-7 py-4 text-sm font-medium hover:bg-forest-700 hover:text-white transition-colors"
             >
               Enquire Now
             </a>

@@ -26,13 +26,13 @@ export default function EnquiryForm({
   return (
     <form onSubmit={handleSubmit} className={`space-y-4 ${className}`}>
       {title && (
-        <p className="text-sm font-medium tracking-wide text-cream-50 mb-1">{title}</p>
+        <p className="text-sm font-medium tracking-wide text-forest-950 mb-1">{title}</p>
       )}
       <input
         required
         value={form.name}
         onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-        className="w-full rounded-lg bg-forest-950 border border-forest-700 px-4 py-3 text-cream-50 text-sm focus:outline-none focus:border-gold-500"
+        className="w-full rounded-lg bg-white border border-forest-200 px-4 py-3 text-forest-950 text-sm focus:outline-none focus:border-forest-600"
         placeholder="Your name"
       />
       <input
@@ -40,14 +40,14 @@ export default function EnquiryForm({
         type="tel"
         value={form.phone}
         onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-        className="w-full rounded-lg bg-forest-950 border border-forest-700 px-4 py-3 text-cream-50 text-sm focus:outline-none focus:border-gold-500"
+        className="w-full rounded-lg bg-white border border-forest-200 px-4 py-3 text-forest-950 text-sm focus:outline-none focus:border-forest-600"
         placeholder="+91 00000 00000"
       />
       {!compact && (
         <select
           value={form.unit}
           onChange={(e) => setForm((f) => ({ ...f, unit: e.target.value }))}
-          className="w-full rounded-lg bg-forest-950 border border-forest-700 px-4 py-3 text-cream-50 text-sm focus:outline-none focus:border-gold-500"
+          className="w-full rounded-lg bg-white border border-forest-200 px-4 py-3 text-forest-950 text-sm focus:outline-none focus:border-forest-600"
         >
           {RESIDENCE_SIZES.map((r) => (
             <option key={r.size} value={r.size}>
@@ -58,21 +58,21 @@ export default function EnquiryForm({
       )}
       <button
         type="submit"
-        className="w-full flex items-center justify-center gap-2 rounded-full bg-gold-500 text-forest-950 px-6 py-3.5 text-sm font-medium hover:bg-gold-400 transition-colors"
+        className="w-full flex items-center justify-center gap-2 rounded-full bg-forest-700 text-white px-6 py-3.5 text-sm font-medium hover:bg-forest-800 transition-colors"
       >
         <Send size={16} />
         {compact ? "Get a Callback" : "Send via WhatsApp"}
       </button>
       <div className="pt-1 text-center space-y-1">
-        <p className="text-[10px] text-cream-100/45 leading-relaxed">
+        <p className="text-[10px] text-forest-900/45 leading-relaxed">
           RERA REG. NO. RC/REP/HARERA/GGM/1030/762/2026/02
         </p>
-        <p className="text-[10px] text-cream-100/45 leading-relaxed">
+        <p className="text-[10px] text-forest-900/45 leading-relaxed">
           RERA REG. NO. RC/REP/HARERA/GGM/991/723/2025/94
         </p>
       </div>
       {!compact && (
-        <p className="text-[11px] text-cream-100/50 text-center leading-relaxed">
+        <p className="text-[11px] text-forest-900/50 text-center leading-relaxed">
           No spam — this opens a WhatsApp chat directly with our sales team.
         </p>
       )}

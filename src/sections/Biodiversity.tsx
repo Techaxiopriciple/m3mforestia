@@ -17,7 +17,7 @@ export default function Biodiversity() {
   const loop = [...ITEMS, ...ITEMS];
 
   return (
-    <section className="relative py-16 sm:py-20 bg-forest-900 border-y border-forest-700 overflow-hidden">
+    <section className="relative py-16 sm:py-20 bg-forest-800 border-y border-forest-700 overflow-hidden">
       <div className="text-center mb-10 px-6">
         <h2 className="font-display text-2xl sm:text-4xl text-cream-50">
           Where Nature Paints a <span className="italic text-gold-400">New Story Every Season</span>

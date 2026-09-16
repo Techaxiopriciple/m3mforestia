@@ -59,7 +59,7 @@ export default function Hero({ ready }: { ready: boolean }) {
         </a>
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-forest-950/70 via-transparent to-forest-950/40" />
+      <div className="absolute inset-0 bg-gradient-to-r from-forest-950/30 via-transparent to-forest-950/10" />
 
       <div className="relative z-10 min-h-dvh max-w-7xl mx-auto px-5 sm:px-8 py-24 lg:py-0 grid lg:grid-cols-[1.3fr_1fr] gap-12 items-center">
         <div>

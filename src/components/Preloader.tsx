@@ -43,7 +43,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
       ref={root}
       className="fixed inset-0 z-100 bg-white grid place-items-center overflow-hidden"
     >
-      <div className="absolute inset-0 bg-[url(/images/logo-hero.webp)] bg-cover bg-center opacity-10" />
+      <div className="absolute inset-0 bg-[url(/images/logo-hero.webp)] bg-cover bg-center opacity-25" />
 
       <div className="relative overflow-hidden">
         {/* Source PNG is a white cutout (for dark backgrounds) — recolored green here via a mask so it reads on the white preloader */}

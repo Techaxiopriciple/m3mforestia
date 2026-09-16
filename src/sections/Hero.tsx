@@ -40,29 +40,21 @@ export default function Hero({ ready }: { ready: boolean }) {
         playsInline
         preload="auto"
       />
-      {/* Client Logos */}
-      <div className="absolute left-5 sm:left-8 bottom-6 z-20 flex items-center gap-3">
-        <a
-          href="#top"
-          aria-label="M3M Forestia"
-          className="w-20 h-16 flex items-center justify-center rounded-lg p-2"
-        >
+      {/* Client Logos — sized by height so the wide Forestia wordmark and the compact GIC mark read as the same size */}
+      <div className="absolute left-5 sm:left-8 bottom-6 z-20 flex items-end gap-4">
+        <a href="#top" aria-label="M3M Forestia" className="flex items-center justify-center p-2">
           <img
             src="/images/logo/forestia-logo_new_1.png"
             alt="M3M Forestia"
-            className="w-[72px] h-[58px] object-contain scale-125"
+            className="h-[52px] sm:h-[62px] w-auto object-contain"
           />
         </a>
 
-        <a
-          href="#top"
-          aria-label="GIC Logo"
-          className="w-20 h-16 flex items-center justify-center rounded-lg p-2"
-        >
+        <a href="#top" aria-label="GIC Logo" className="flex items-center justify-center p-2">
           <img
             src="/images/logo/gic.webp"
             alt="GIC Logo"
-            className="w-[72px] h-[58px] object-contain brightness-0 invert"
+            className="h-[52px] sm:h-[62px] w-auto object-contain brightness-0 invert"
           />
         </a>
       </div>

@@ -46,9 +46,20 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
       <div className="absolute inset-0 bg-[url(/images/logo-hero.webp)] bg-cover bg-center opacity-10" />
 
       <div className="relative overflow-hidden">
-        <span className="preloader-word block font-display text-forest-800 text-4xl sm:text-6xl tracking-[0.2em]">
-          FORESTIA
-        </span>
+        {/* Source PNG is a white cutout (for dark backgrounds) — recolored green here via a mask so it reads on the white preloader */}
+        <div
+          className="preloader-word w-64 sm:w-80 lg:w-96 aspect-[2511/780] bg-forest-600"
+          style={{
+            WebkitMaskImage: "url(/images/logo/forestia-logo_new_1.png)",
+            maskImage: "url(/images/logo/forestia-logo_new_1.png)",
+            WebkitMaskSize: "contain",
+            maskSize: "contain",
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+            WebkitMaskPosition: "center",
+            maskPosition: "center",
+          }}
+        />
       </div>
     </div>
   );

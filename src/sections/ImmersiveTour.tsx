@@ -2,27 +2,14 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { Play } from "lucide-react";
 import { gsap } from "../lib/gsap";
 
-const TOUR_ITEMS = [
-  {
-    label: "Construction Update",
-    video: "/images/Forestia_CONSTRUCTION-UPDATE.mp4",
-    // Video ke upar dikhne wala text aur subtitle
-    subtitle: "GURGAON INTERNATIONAL CITY",
-    title: "CONSTRUCTION UPDATE SEPTEMBER 2026",
-  },
-  {
-    label: "Construction Milestone",
-    video: "/images/forestia-construction-update.mp4",
-    subtitle: "GURGAON INTERNATIONAL CITY",
-    title: "CONSTRUCTION MILESTONE",
-  },
-];
+const VIDEO_DATA = {
+  video: "/images/Forestia_CONSTRUCTION-UPDATE.mp4",
+  title: "Construction Update | August 2026",
+};
 
 export default function ImmersiveTour() {
   const root = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  
-  const [activeTab, setActiveTab] = useState(0);
   const [playing, setPlaying] = useState(false);
 
   useLayoutEffect(() => {
@@ -38,15 +25,6 @@ export default function ImmersiveTour() {
     }, root);
     return () => ctx.revert();
   }, []);
-
-  const handleTabChange = (index: number) => {
-    setActiveTab(index);
-    setPlaying(false);
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
-  };
 
   const togglePlay = async () => {
     const el = videoRef.current;
@@ -66,76 +44,52 @@ export default function ImmersiveTour() {
     }
   };
 
-  const currentItem = TOUR_ITEMS[activeTab];
-
   return (
     <section id="immersive-tour" ref={root} className="relative py-12 sm:py-20 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Header with Heading and Tabs */}
-        <div className="tour-fade flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-          <h2 className="font-display text-2xl sm:text-4xl text-forest-950">
-            Immersive Tour
+      <div className="max-w-4xl mx-auto px-6">
+        
+        {/* Section Heading */}
+        <div className="tour-fade text-center mb-10">
+          <h2 className="font-display text-3xl sm:text-4xl text-forest-950">
+            Construction Update
           </h2>
-
-          <div className="flex flex-wrap items-center gap-2 bg-gray-100 p-1.5 rounded-full self-start md:self-auto">
-            {TOUR_ITEMS.map((item, index) => {
-              const isActive = activeTab === index;
-              return (
-                <button
-                  key={item.label}
-                  onClick={() => handleTabChange(index)}
-                  className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
-                    isActive
-                      ? "bg-forest-950 text-white shadow-md"
-                      : "text-forest-950/70 hover:text-forest-950 hover:bg-gray-200/60"
-                  }`}
-                >
-                  {item.label}
-                </button>
-              );
-            })}
-          </div>
         </div>
 
-        {/* Video Player Box */}
-        <div className="tour-fade relative rounded-2xl overflow-hidden bg-forest-950 shadow-2xl aspect-video">
+        {/* Clean Video Player Box */}
+        <div className="tour-fade relative rounded-xl overflow-hidden bg-forest-950 shadow-2xl w-full h-64 sm:h-96 group">
           <video
             ref={videoRef}
-            key={currentItem.video}
-            src={currentItem.video}
+            src={VIDEO_DATA.video}
             className="absolute inset-0 w-full h-full object-cover"
             playsInline
             preload="auto"
-            muted
-            loop
+            controls={false}
             onPlay={() => setPlaying(true)}
             onPause={() => setPlaying(false)}
+            onEnded={() => setPlaying(false)}
           />
 
-          {/* Overlay & Text - Video play hote hi hide ho jayega, pause hone par dikhega */}
+          {/* Title Overlay (Video play hone par fade out ho jayega, pause hone par dikhega) */}
           <div
-            className={`absolute inset-0 bg-forest-950/50 flex flex-col items-center justify-center text-center p-6 transition-opacity duration-500 z-10 pointer-events-none ${
+            className={`absolute inset-0 bg-forest-950/40 flex flex-col items-center justify-center text-center p-6 transition-opacity duration-500 z-10 pointer-events-none ${
               playing ? "opacity-0" : "opacity-100"
             }`}
           >
-            <p className="text-xs sm:text-sm tracking-[0.25em] text-cream-200 uppercase mb-2 font-medium">
-              {currentItem.subtitle}
-            </p>
             <h3 className="font-display text-xl sm:text-3xl lg:text-4xl text-cream-50 tracking-wider">
-              {currentItem.title}
+              {VIDEO_DATA.title}
             </h3>
             <div className="w-24 sm:w-48 h-[1px] bg-cream-50/50 mt-4" />
           </div>
 
-          {/* Center Play Button */}
+          {/* Center Play/Pause Button */}
           <button
-            aria-label={playing ? `Pause ${currentItem.label}` : `Play ${currentItem.label}`}
+            aria-label={playing ? "Pause video" : "Play video"}
             onClick={togglePlay}
             className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 z-20 ${
-              playing ? "opacity-0 hover:opacity-100" : "opacity-100"
+              playing ? "opacity-0 group-hover:opacity-100" : "opacity-100"
             }`}
           >
-            <span className="grid place-items-center size-16 sm:size-20 rounded-full bg-white/95 text-forest-950 shadow-xl hover:scale-105 transition-transform">
+            <span className="grid place-items-center size-16 sm:size-20 rounded-full bg-white/95 text-forest-950 shadow-xl hover:scale-105 transition-transform cursor-pointer">
               <Play size={28} className="ml-1" fill="currentColor" />
             </span>
           </button>
@@ -143,4 +97,4 @@ export default function ImmersiveTour() {
       </div>
     </section>
   );
-} 
+}

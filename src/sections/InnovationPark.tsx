@@ -35,9 +35,9 @@ export default function InnovationPark() {
         </h2>
       </div>
 
-      {/* Edge-to-Edge Full Width Cards Section */}
-      <div className="ip-fade w-full px-0 sm:px-4">
-        <div className="flex flex-col lg:flex-row gap-0 sm:gap-3 h-auto lg:h-[480px] w-full">
+      {/* Edge-to-Edge Continuous Cards Section with Zero Gap and No Rounded Corners */}
+      <div className="ip-fade w-full px-0">
+        <div className="flex flex-col lg:flex-row gap-0 h-auto lg:h-[480px] w-full">
           {INNOVATION_PARK.map((item: InnovationItem, index: number) => {
             const isActive = activeIndex === index;
             const isFirst = index === 0;
@@ -50,11 +50,11 @@ export default function InnovationPark() {
                 style={{
                   transitionProperty: "flex-basis, width",
                 }}
-                className={`relative cursor-pointer overflow-hidden rounded-none sm:rounded-2xl transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+                className={`relative cursor-pointer overflow-hidden rounded-none transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${
                   isActive
                     ? "lg:flex-[2.8] h-[380px] lg:h-full"
                     : "lg:flex-[1] h-[120px] lg:h-full"
-                } h-80 sm:h-96 lg:h-full shadow-lg group`}
+                } h-80 sm:h-96 lg:h-full shadow-none group`}
               >
                 {/* Background Image */}
                 <img

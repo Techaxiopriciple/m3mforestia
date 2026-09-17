@@ -201,6 +201,36 @@ export const AMENITY_CATEGORIES = [
   },
 ];
 
+// Images sourced from the official M3M Gurgaon International City page
+// (m3mindia.com/gurgaon-international-city) for the sibling Innovation Park.
+export const INNOVATION_PARK = [
+  {
+    title: "Data Centers",
+    tagline: "Powering India's Digital Backbone",
+    image: "/images/innovation-park/park-1.webp",
+  },
+  {
+    title: "Data Centers",
+    tagline: "Powering India's Digital Backbone",
+    image: "/images/innovation-park/park-2.webp",
+  },
+  {
+    title: "EV & Clean Tech",
+    tagline: "Driving the Mobility Revolution",
+    image: "/images/innovation-park/park-3.webp",
+  },
+  {
+    title: "Biotech & Pharma",
+    tagline: "Innovating for a Healthier Tomorrow",
+    image: "/images/innovation-park/park-4.webp",
+  },
+  {
+    title: "Logistics Hub",
+    tagline: "Connecting Enterprise to Opportunity",
+    image: "/images/innovation-park/park-5.webp",
+  },
+];
+
 export const GALLERY_IMAGES = [
   { src: "/images/sanctuary-pool.webp", caption: "A Sanctuary of Luxury Within the Greens" },
   { src: "/images/central-grove-aerial.webp", caption: "The Central Grove" },

@@ -9,11 +9,9 @@ import GrandWelcome from "./sections/GrandWelcome";
 import Clubhouse from "./sections/Clubhouse";
 import Residences from "./sections/Residences";
 import FloorPlans from "./sections/FloorPlans";
-import CentralGrove from "./sections/CentralGrove";
 import ClubEden from "./sections/ClubEden";
 import Biodiversity from "./sections/Biodiversity";
-import Gallery from "./sections/Gallery";
-import Enquiry from "./sections/Enquiry";
+import InnovationPark from "./sections/InnovationPark";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -29,12 +27,10 @@ export default function App() {
         <GrandWelcome />
         <Residences />
         <Clubhouse />
-        <FloorPlans />
-        <CentralGrove />
         <ClubEden />
         <Biodiversity />
-        <Gallery />
-        <Enquiry />
+        <InnovationPark />
+        <FloorPlans />
       </main>
       <Footer />
     </>

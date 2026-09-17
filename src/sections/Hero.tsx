@@ -41,22 +41,25 @@ export default function Hero({ ready }: { ready: boolean }) {
         preload="auto"
       />
       {/* Client Logos — sized by height so the wide Forestia wordmark and the compact GIC mark read as the same size */}
-      <div className="absolute left-5 sm:left-8 bottom-6 z-20 flex items-end gap-4">
-        <a href="#top" aria-label="M3M Forestia" className="flex items-center justify-center p-2">
-          <img
-            src="/images/logo/forestia-logo_new_1.png"
-            alt="M3M Forestia"
-            className="h-[52px] sm:h-[62px] w-auto object-contain"
-          />
-        </a>
+      {/* Wrapped in the same max-w-7xl/px container as Nav so the logos line up with the nav logo's left edge */}
+      <div className="absolute inset-x-0 bottom-6 z-20">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 flex items-end gap-4">
+          <a href="#top" aria-label="M3M Forestia" className="flex items-center justify-center p-2">
+            <img
+              src="/images/logo/forestia-logo_new_1.png"
+              alt="M3M Forestia"
+              className="h-[52px] sm:h-[62px] w-auto object-contain"
+            />
+          </a>
 
-        <a href="#top" aria-label="GIC Logo" className="flex items-center justify-center p-2">
-          <img
-            src="/images/logo/gic.webp"
-            alt="GIC Logo"
-            className="h-[52px] sm:h-[62px] w-auto object-contain brightness-0 invert"
-          />
-        </a>
+          <a href="#top" aria-label="GIC Logo" className="flex items-center justify-center p-2">
+            <img
+              src="/images/logo/gic.webp"
+              alt="GIC Logo"
+              className="h-[52px] sm:h-[62px] w-auto object-contain brightness-0 invert"
+            />
+          </a>
+        </div>
       </div>
 
       <div className="absolute inset-0 bg-gradient-to-r from-forest-950/30 via-transparent to-forest-950/10" />

@@ -40,7 +40,7 @@ export default function Gallery() {
   }, [openIndex]);
 
   return (
-    <section id="gallery" ref={root} className="relative py-28 sm:py-36 bg-white">
+    <section id="gallery" ref={root} className="relative py-10 sm:py-14 bg-white">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-14">
           <p className="text-xs sm:text-sm tracking-[0.4em] text-forest-600 mb-5">GALLERY</p>

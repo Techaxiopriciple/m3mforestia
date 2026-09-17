@@ -42,31 +42,8 @@ export default function ClubEden() {
   const current = AMENITY_CATEGORIES.find((c) => c.key === active)!;
 
   return (
-    <section id="amenities" ref={root} className="relative py-28 sm:py-36 bg-white">
+    <section id="amenities" ref={root} className="relative py-10 sm:py-14 bg-white">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="eden-fade text-center mb-14">
-          <p className="text-xs sm:text-sm tracking-[0.4em] text-forest-600 mb-5">
-            INTRODUCING CLUB EDEN
-          </p>
-          <h2 className="font-display text-3xl sm:text-5xl text-forest-950 max-w-2xl mx-auto leading-tight">
-            Live the <span className="italic text-forest-600">Extravagant Club Lifestyle</span>
-          </h2>
-          <p className="mt-5 text-forest-900/70 max-w-xl mx-auto">
-            Contemporary in design and rich in experiences — wellness, leisure, and
-            celebration where every day feels refreshed.
-          </p>
-        </div>
-
-        <div className="eden-fade relative rounded-3xl overflow-hidden mb-14">
-          <img
-            src="/images/connections-hero.webp"
-            alt="Club Eden central grove"
-            loading="lazy"
-            className="w-full h-64 sm:h-96 object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-forest-950 via-forest-950/10 to-transparent" />
-        </div>
-
         <div className="eden-fade flex flex-wrap justify-center gap-3 mb-10">
           {AMENITY_CATEGORIES.map((cat) => {
             const Icon = ICONS[cat.key];

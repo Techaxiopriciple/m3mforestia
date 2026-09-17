@@ -52,7 +52,7 @@ export default function FloorPlans() {
   }, [activeIndex]);
 
   return (
-    <section id="floorplans" ref={root} className="relative py-24 sm:py-36 bg-white overflow-hidden">
+    <section id="floorplans" ref={root} className="relative py-10 sm:py-14 bg-white overflow-hidden">
       {/* Floating leaf accents, consistent with the rest of the site */}
       <div className="hidden sm:block absolute left-[-6%] lg:left-[-70px] top-[12%] w-28 lg:w-36 pointer-events-none z-10">
         <img src="/images/leaf-l.webp" alt="" className="fp-leaf w-full h-auto opacity-90" />

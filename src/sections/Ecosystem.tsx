@@ -131,9 +131,9 @@ export default function Ecosystem() {
         </div>
 
         {/* GIC Video */}
-        <div className="eco-item mt-10 sm:mt-12 rounded-3xl overflow-hidden">
+        <div className="eco-item mt-10 sm:mt-12 max-w-3xl mx-auto rounded-3xl overflow-hidden">
           <video
-            className="w-full h-[300px] sm:h-[420px] lg:h-[600px] object-cover"
+            className="w-full h-[200px] sm:h-[280px] lg:h-[360px] object-cover"
             src="/images/gic-banner-video.mp4"
             autoPlay
             muted
@@ -253,7 +253,7 @@ export default function Ecosystem() {
           <div key={locationTab} className="eco-tabpane rounded-3xl overflow-hidden">
             {locationTab === "av" ? (
               <video
-                className="w-full h-[300px] sm:h-[420px] lg:h-[600px] object-cover"
+                className="w-full h-[200px] sm:h-[280px] lg:h-[360px] object-cover"
                 src="/images/gic-banner-video.mp4"
                 autoPlay
                 muted

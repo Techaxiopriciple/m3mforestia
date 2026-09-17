@@ -165,7 +165,7 @@ export default function Residences() {
     <section
       id="residences"
       ref={root}
-      className="relative py-28 sm:py-36 bg-white overflow-hidden"
+      className="relative py-10 sm:py-14 bg-white overflow-hidden"
     >
       <div className="max-w-6xl mx-auto px-6">
         <div className="res-fade-in flex flex-wrap items-end justify-between gap-6 mb-14">

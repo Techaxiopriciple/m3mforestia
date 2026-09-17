@@ -22,7 +22,7 @@ export default function Enquiry() {
   }, []);
 
   return (
-    <section id="enquiry" ref={root} className="relative py-28 sm:py-36 bg-white">
+    <section id="enquiry" ref={root} className="relative py-10 sm:py-14 bg-white">
       <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
         <div className="enq-fade">
           <p className="text-xs sm:text-sm tracking-[0.4em] text-forest-600 mb-5">GET IN TOUCH</p>

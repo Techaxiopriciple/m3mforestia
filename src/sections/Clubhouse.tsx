@@ -34,7 +34,7 @@ export default function Clubhouse() {
   }, [total]);
 
   return (
-    <section id="clubhouse" ref={root} className="relative py-24 sm:py-36 bg-white overflow-hidden">
+    <section id="clubhouse" ref={root} className="relative py-10 sm:py-14 bg-white overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16">
         
         {/* Main 2-Column Grid */}

@@ -20,7 +20,7 @@ export default function GrandWelcome() {
   }, []);
 
   return (
-    <section id="arrival" ref={root} className="relative py-20 sm:py-28 overflow-hidden bg-white">
+    <section id="arrival" ref={root} className="relative py-10 sm:py-14 overflow-hidden bg-white">
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
         <div className="grand-fade text-center">
           <h2 className="font-display text-3xl sm:text-5xl text-forest-950 leading-tight">

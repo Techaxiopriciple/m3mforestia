@@ -4,16 +4,16 @@ import { gsap } from "../lib/gsap";
 import { PRICE, RESIDENCE_SIZES } from "../lib/content";
 
 const IMAGES = [
-  "/images/M3M-IMT-Manesar-Tree-Closeup.jpg",
-  "/images/M3M-IMT-Manesar-Sports-Area.jpg",
-  "/images/M3M-IMT-Manesar-Waterbody-Seating-Cam.jpg",
-  "/images/M3M-IMT-Manesar-Waterfeature-Seating-Cam.jpg",
-  "/images/M3M-IMT-Manesar-Landscape-Top.jpg",
-  "/images/M3M-IMT-Manesar-Pool-Cam.jpg",
-  "/images/M3M-IMT-Manesar-Jogging-Track-Cam.jpg",
-  "/images/M3M-IMT-Manesar-Kids-Play-Area.jpg",
-  "/images/M3M-IMT-Manesar-Landscape-Cam.jpg",
-  "/images/M3M-IMT-Manesar-Overbridge-Cam.jpg"
+  "images/M3M-IMT-Manesar---Tree-Closeup.jpg",
+  "images/M3M-IMT-Manesar-Sports-Area.jpg",
+  "images/M3M-IMT-Manesar-Waterbody-Seating-Cam.jpg",
+  "images/M3M-IMT-Manesar-Waterfeature-Seating-Cam.jpg",
+  "images/M3M-IMT-Manesar---Landscape-Top.jpg",
+  "images/M3M-IMT-Manesar-Pool-Cam.jpg",
+  "images/M3M-IMT-Manesar-Jogging-Track-Cam.jpg",
+  "images/M3M-IMT-Manesar-Kids-Play-Area.jpg",
+  "images/M3M-IMT-Manesar-Landscape-Cam.jpg",
+  "images/M3M-IMT-Manesar-Overbridge-Cam.jpg"
 ];
 
 const SLIDES = RESIDENCE_SIZES.map((r, i) => ({

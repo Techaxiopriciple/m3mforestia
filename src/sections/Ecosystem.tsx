@@ -131,9 +131,9 @@ export default function Ecosystem() {
         </div>
 
         {/* GIC Video */}
-        <div className="eco-item mt-10 sm:mt-12 max-w-3xl mx-auto rounded-3xl overflow-hidden">
+        <div className="eco-item mt-10 sm:mt-12 max-w-[59rem] mx-auto rounded-3xl overflow-hidden">
           <video
-            className="w-full h-[240px] sm:h-[336px] lg:h-[432px] object-cover"
+            className="w-full h-[296px] sm:h-[415px] lg:h-[534px] object-cover"
             src="/images/gic-banner-video.mp4"
             autoPlay
             muted

@@ -11,6 +11,7 @@ import FloorPlans from "./sections/FloorPlans";
 import ClubEden from "./sections/ClubEden";
 import Biodiversity from "./sections/Biodiversity";
 import InnovationPark from "./sections/InnovationPark";
+import ImmersiveTour from "./sections/ImmersiveTour";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -29,6 +30,7 @@ export default function App() {
         <Biodiversity />
         <InnovationPark />
         <FloorPlans />
+        <ImmersiveTour />
       </main>
       <Footer />
     </>

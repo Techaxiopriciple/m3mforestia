@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState, useEffect } from "react";
-import { Trees, Sparkles, ArrowRight, ChevronLeft, ChevronRight, Sun } from "lucide-react";
+import { Trees, Sparkles, ArrowRight, ChevronLeft, ChevronRight, Footprints, Waves, Baby, Bird } from "lucide-react";
 import { gsap } from "../lib/gsap";
 import { PRICE } from "../lib/content";
 
@@ -7,7 +7,7 @@ import { PRICE } from "../lib/content";
 const carouselSlides = [
   {
     id: 1,
-    image: "images/M3M-IMT-Manesar-Sports-Area.jpg",
+    image: "/images/M3M-IMT-Manesar-Sports-Area.jpg",
     title: "Forest-Themed Sports & Greens",
     tag: "Active Living",
     subtitle: "150-acre sustainable luxury ecosystem",
@@ -15,7 +15,7 @@ const carouselSlides = [
   },
   {
     id: 2,
-    image: "/images/arrival-fountain.webp", // You can use any alternative secondary image here
+    image: "/images/arrival-fountain.webp",
     title: "Eco Clubhouse & Wellness",
     tag: "Rejuvenation",
     subtitle: "State-of-the-art holistic health spaces",
@@ -23,11 +23,35 @@ const carouselSlides = [
   },
   {
     id: 3,
-    image: "images/M3M-IMT-Manesar-Sports-Area.jpg", // Replace with another image if available
-    title: "Stargazing Deck & Canopies",
+    image: "/images/M3M-IMT-Manesar-Jogging-Track-Cam.jpg",
+    title: "300m Jogging & Fitness Trail",
+    tag: "Wellness Trail",
+    subtitle: "Shaded, tree-lined tracks for everyday movement",
+    icon: <Footprints size={18} />
+  },
+  {
+    id: 4,
+    image: "/images/M3M-IMT-Manesar-Waterbody-Seating-Cam.jpg",
+    title: "Cascading Waterfall Courtyard",
     tag: "Serenity",
-    subtitle: "Immersive nature trails and treehouse decks",
-    icon: <Sun size={18} />
+    subtitle: "A tranquil water feature beneath the sky bridge",
+    icon: <Waves size={18} />
+  },
+  {
+    id: 5,
+    image: "/images/M3M-IMT-Manesar-Kids-Play-Area.jpg",
+    title: "Whimsical Kids' Play Zone",
+    tag: "Family Living",
+    subtitle: "Imaginative, colourful play spaces for little ones",
+    icon: <Baby size={18} />
+  },
+  {
+    id: 6,
+    image: "/images/M3M-IMT-Manesar-Forest-Garden.jpg",
+    title: "Lantern-Lit Forest Garden",
+    tag: "Biodiversity",
+    subtitle: "Native birdlife and lantern trees, just outside your door",
+    icon: <Bird size={18} />
   }
 ];
 
@@ -35,7 +59,7 @@ export default function LuxuryEditorialResidences() {
   const root = useRef<HTMLDivElement>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Auto-slide effect every 4 seconds
+  // Auto-slide effect fixed with functional update to prevent closure issues
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
@@ -128,14 +152,14 @@ export default function LuxuryEditorialResidences() {
               <div className="absolute top-4 right-4 z-20 flex gap-2">
                 <button 
                   onClick={handlePrevSlide}
-                  className="size-9 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-black/60 transition-colors"
+                  className="size-9 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-black/60 transition-colors cursor-pointer"
                   aria-label="Previous Slide"
                 >
                   <ChevronLeft size={16} />
                 </button>
                 <button 
                   onClick={handleNextSlide}
-                  className="size-9 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-black/60 transition-colors"
+                  className="size-9 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-black/60 transition-colors cursor-pointer"
                   aria-label="Next Slide"
                 >
                   <ChevronRight size={16} />
@@ -181,11 +205,11 @@ export default function LuxuryEditorialResidences() {
         </div>
 
         {/* Plan Pills Footer */}
-        <div className="editorial-fade pt-8 border-t border-forest-100 flex flex-wrap justify-center gap-3">
+        <div className="editorial-fade pt-8 border-t border-forest-800 flex flex-wrap justify-center gap-3">
           {PRICE.plans.map((p) => (
             <span
               key={p}
-              className="rounded-full border border-forest-200 bg-forest-50/50 px-6 py-2.5 text-xs sm:text-sm text-forest-900/80 font-medium tracking-wide shadow-sm"
+              className="rounded-full border border-gold-500/40 bg-forest-900/90 px-6 py-2.5 text-xs sm:text-sm text-cream-50 font-semibold tracking-wide shadow-md"
             >
               {p}
             </span>

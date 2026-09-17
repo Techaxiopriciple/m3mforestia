@@ -107,7 +107,7 @@ export default function Clubhouse() {
           {/* Right Column: Large Featured Cinematic Image */}
           <div className="club-fade lg:col-span-6 relative">
             <div
-              className="relative rounded-2xl sm:rounded-3xl overflow-hidden h-[380px] sm:h-[500px] lg:h-[580px] shadow-2xl shadow-forest-950/10 bg-forest-900"
+              className="relative rounded-2xl sm:rounded-3xl overflow-hidden h-[308px] sm:h-[405px] lg:h-[470px] shadow-2xl shadow-forest-950/10 bg-forest-900"
               onMouseEnter={() => (paused.current = true)}
               onMouseLeave={() => (paused.current = false)}
             >

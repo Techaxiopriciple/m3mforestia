@@ -32,10 +32,10 @@ export const RESIDENCE_SIZES = [
 // brochure) are available — the section renders a labelled placeholder
 // instead of a fabricated or third-party layout.
 export const FLOOR_PLANS = [
-  { type: "Type A", label: "3 BHK", size: "1,905 sq.ft.", image: "" },
-  { type: "Type B", label: "3 BHK", size: "1,910 sq.ft.", image: "" },
-  { type: "Type C", label: "3 BHK + Study", size: "2,440 sq.ft.", image: "" },
-  { type: "Type D", label: "3 BHK + Study", size: "2,455 sq.ft.", image: "" },
+  { type: "Type A", label: "3 BHK", size: "1,905 sq.ft.", image: "/images/floorplans/type-a-1905sqft.png" },
+  { type: "Type B", label: "3 BHK", size: "1,910 sq.ft.", image: "/images/floorplans/type-b-1910sqft.png" },
+  { type: "Type C", label: "3 BHK + Study", size: "2,440 sq.ft.", image: "/images/floorplans/type-c-2440sqft.png" },
+  { type: "Type D", label: "3 BHK + Study", size: "2,455 sq.ft.", image: "/images/floorplans/type-d-2455sqft.png" },
 ];
 
 export const PRICE = {

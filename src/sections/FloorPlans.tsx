@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, LayoutGrid, Maximize2, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, LayoutGrid, X } from "lucide-react";
 import { gsap } from "../lib/gsap";
 import { FLOOR_PLANS, whatsappLink } from "../lib/content";
 
@@ -8,9 +8,9 @@ function PlanArt() {
     <div className="absolute inset-0 grid place-items-center bg-[repeating-linear-gradient(0deg,transparent,transparent_23px,rgba(15,46,36,0.06)_24px),repeating-linear-gradient(90deg,transparent,transparent_23px,rgba(15,46,36,0.06)_24px)]">
       <div className="flex flex-col items-center gap-3 text-forest-900/35">
         <LayoutGrid size={40} strokeWidth={1.25} />
-        <span className="font-sans text-[11px] sm:text-xs tracking-[0.25em] uppercase">
+        {/* <span className="font-sans text-[11px] sm:text-xs tracking-[0.25em] uppercase">
           Floor Plan To Be Added
-        </span>
+        </span> */}
       </div>
     </div>
   );

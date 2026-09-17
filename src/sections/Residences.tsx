@@ -1,330 +1,221 @@
-import { useLayoutEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Trees, Maximize2 } from "lucide-react";
+import { useLayoutEffect, useRef, useState, useEffect } from "react";
+import { Trees, Sparkles, ArrowRight, ChevronLeft, ChevronRight, Sun } from "lucide-react";
 import { gsap } from "../lib/gsap";
-import { PRICE, RESIDENCE_SIZES } from "../lib/content";
+import { PRICE } from "../lib/content";
 
-const IMAGES = [
-  "images/M3M-IMT-Manesar---Tree-Closeup.jpg",
-  "images/M3M-IMT-Manesar-Sports-Area.jpg",
-  "images/M3M-IMT-Manesar-Waterbody-Seating-Cam.jpg",
-  "images/M3M-IMT-Manesar-Waterfeature-Seating-Cam.jpg",
-  "images/M3M-IMT-Manesar---Landscape-Top.jpg",
-  "images/M3M-IMT-Manesar-Pool-Cam.jpg",
-  "images/M3M-IMT-Manesar-Jogging-Track-Cam.jpg",
-  "images/M3M-IMT-Manesar-Kids-Play-Area.jpg",
-  "images/M3M-IMT-Manesar-Landscape-Cam.jpg",
-  "images/M3M-IMT-Manesar-Overbridge-Cam.jpg"
+// Slides data for the interactive right-side carousel
+const carouselSlides = [
+  {
+    id: 1,
+    image: "images/M3M-IMT-Manesar-Sports-Area.jpg",
+    title: "Forest-Themed Sports & Greens",
+    tag: "Active Living",
+    subtitle: "150-acre sustainable luxury ecosystem",
+    icon: <Trees size={18} />
+  },
+  {
+    id: 2,
+    image: "/images/arrival-fountain.webp", // You can use any alternative secondary image here
+    title: "Eco Clubhouse & Wellness",
+    tag: "Rejuvenation",
+    subtitle: "State-of-the-art holistic health spaces",
+    icon: <Sparkles size={18} />
+  },
+  {
+    id: 3,
+    image: "images/M3M-IMT-Manesar-Sports-Area.jpg", // Replace with another image if available
+    title: "Stargazing Deck & Canopies",
+    tag: "Serenity",
+    subtitle: "Immersive nature trails and treehouse decks",
+    icon: <Sun size={18} />
+  }
 ];
 
-const SLIDES = RESIDENCE_SIZES.map((r, i) => ({
-  ...r,
-  image: IMAGES[i],
-}));
-
-// Preload all carousel images
-SLIDES.forEach((slide) => {
-  const img = new Image();
-  img.src = slide.image;
-});
-
-const AUTOPLAY_DELAY = 5000;
-const SLIDE_DURATION = 0.7;
-
-export default function Residences() {
-  const [active, setActive] = useState(0);
-
+export default function LuxuryEditorialResidences() {
   const root = useRef<HTMLDivElement>(null);
-  const gallery = useRef<HTMLDivElement>(null);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const previous = SLIDES[(active - 1 + SLIDES.length) % SLIDES.length];
-  const current = SLIDES[active];
-  const next = SLIDES[(active + 1) % SLIDES.length];
+  // Auto-slide effect every 4 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
 
-  const incomingRef = useRef<HTMLDivElement>(null);
+  const handleNextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
+  };
 
-  const isAnimating = useRef(false);
+  const handlePrevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length);
+  };
 
-  /*
-   * Section entrance & Highlights animation
-   */
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // Main section fade in
-      gsap.from(".res-fade-in", {
+      gsap.from(".editorial-fade", {
         opacity: 0,
         y: 40,
-        duration: 0.9,
-        stagger: 0.1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: root.current,
-          start: "top 70%",
-        },
-      });
-
-      // Highlights / 150-acre section animation
-      gsap.from(".hl-item", {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        ease: "power3.out",
-        scrollTrigger: { trigger: "#highlights", start: "top 75%" },
-      });
-
-      gsap.from(".hl-card, .hl-stat", {
-        opacity: 0,
-        y: 50,
-        duration: 0.8,
-        ease: "power3.out",
         stagger: 0.15,
-        scrollTrigger: { trigger: "#highlights", start: "top 65%" },
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: { 
+          trigger: root.current, 
+          start: "top 75%" 
+        },
       });
     }, root);
 
     return () => ctx.revert();
   }, []);
 
-  /*
-   * Smooth carousel transition
-   */
-  const changeSlide = (direction: 1 | -1) => {
-    if (isAnimating.current) return;
-
-    isAnimating.current = true;
-
-    if (timer.current) {
-      clearTimeout(timer.current);
-      timer.current = null;
-    }
-
-    const incomingIndex =
-      (active + direction + SLIDES.length) % SLIDES.length;
-
-    const incomingElement = incomingRef.current;
-
-    if (!incomingElement) {
-      isAnimating.current = false;
-      return;
-    }
-
-    gsap.set(incomingElement, {
-      xPercent: direction === 1 ? 100 : -100,
-      opacity: 1,
-      zIndex: 30,
-    });
-
-    gsap.to(incomingElement, {
-      xPercent: 0,
-      duration: SLIDE_DURATION,
-      ease: "power3.inOut",
-      onComplete: () => {
-        setActive(incomingIndex);
-
-        requestAnimationFrame(() => {
-          gsap.set(incomingElement, {
-            clearProps: "transform,zIndex,opacity",
-          });
-
-          isAnimating.current = false;
-        });
-      },
-    });
-  };
-
-  /*
-   * Autoplay
-   */
-  useLayoutEffect(() => {
-    if (timer.current) {
-      clearTimeout(timer.current);
-    }
-
-    timer.current = setTimeout(() => {
-      changeSlide(1);
-    }, AUTOPLAY_DELAY);
-
-    return () => {
-      if (timer.current) {
-        clearTimeout(timer.current);
-      }
-    };
-  }, [active]);
-
-  /*
-   * Manual navigation
-   */
-  const go = (direction: 1 | -1) => {
-    changeSlide(direction);
-  };
-
-  const incomingSlide =
-    SLIDES[(active + 1) % SLIDES.length];
+  const activeData = carouselSlides[currentSlide];
 
   return (
-    <section
-      id="residences"
-      ref={root}
-      className="relative py-10 sm:py-14 bg-white overflow-hidden"
+    <section 
+      id="editorial-residences" 
+      ref={root} 
+      className="relative py-20 lg:py-28 bg-white text-forest-950 overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="res-fade-in flex flex-wrap items-end justify-between gap-6 mb-14">
-          <div>
-            <p className="text-xs sm:text-sm tracking-[0.4em] text-forest-600 mb-5">
-              HOMES THAT OPEN TO NATURE
-            </p>
+      {/* Background ambient lighting accents */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-forest-100/40 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-forest-50/60 rounded-full blur-3xl pointer-events-none" />
 
-            <h2 className="font-display text-3xl sm:text-5xl text-forest-950 leading-tight">
-              Forest-Themed{" "}
-              <span className="italic text-forest-600">
-                3 BHK Residences
-              </span>
+      <div className="max-w-7xl mx-auto px-6 sm:px-10 relative z-10">
+        
+        {/* Top Header Section */}
+        <div className="editorial-fade grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-16">
+          <div className="lg:col-span-8 space-y-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-forest-100 border border-forest-200 text-forest-800 text-xs tracking-[0.25em] uppercase font-medium">
+              <Sparkles size={14} className="text-forest-600" />
+              <span>Architectural Sanctuary</span>
+            </div>
+            
+            <h2 className="font-display text-4xl sm:text-6xl text-forest-950 leading-[1.1]">
+              A Grand Welcome. <br />
+              <span className="text-forest-600 italic font-normal">Every single day.</span>
             </h2>
           </div>
 
-          <div className="text-right">
-            <p className="font-display text-3xl text-forest-700">
-              {PRICE.starting}
-            </p>
-
-            <p className="text-xs text-forest-900/60 mt-1">
-              {PRICE.reference}
-            </p>
+          <div className="lg:col-span-4 lg:text-right space-y-2">
+            <p className="text-forest-600 text-xs uppercase tracking-widest font-medium">{PRICE.reference}</p>
+            <p className="font-display text-3xl sm:text-4xl text-forest-900">{PRICE.starting}</p>
+            <p className="text-xs text-forest-900/60">Forest-Themed 3 BHK Residences (1,910 sq. ft.)</p>
           </div>
         </div>
-      </div>
 
-      <div
-        ref={gallery}
-        className="relative w-full"
-      >
-        <div className="relative flex items-center justify-center overflow-hidden h-[280px] sm:h-[390px] lg:h-[430px]">
-
-          {/* Previous */}
-          <div
-            className="res-gallery-image absolute left-0 top-1/2 -translate-y-1/2 hidden sm:block w-[16%] h-[82%] overflow-hidden"
-          >
+        {/* Editorial Asymmetric Image Grid with Interactive Carousel */}
+        <div className="editorial-fade grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16">
+          
+          {/* Main Large Image: Grand Arrival Fountain (Fixed Left Side) */}
+          <div className="lg:col-span-7 group relative rounded-[2rem] overflow-hidden shadow-2xl border border-forest-100 bg-forest-950">
             <img
-              src={previous.image}
-              alt={`${previous.label} · ${previous.size}`}
-              loading="eager"
-              className="w-full h-full object-cover"
+              src="/images/arrival-fountain.webp"
+              alt="M3M Forestia West grand entrance arrival fountain"
+              className="w-full h-[380px] sm:h-[480px] object-cover transition-transform duration-1000 group-hover:scale-105 filter brightness-95"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-forest-950/80 via-forest-950/20 to-transparent flex flex-col justify-end p-8 sm:p-10">
+              <span className="text-xs uppercase tracking-[0.3em] text-gold-300 font-medium mb-1">Arrival Plaza</span>
+              <h3 className="text-white font-display text-2xl sm:text-3xl">Cascading Water Courtyard</h3>
+            </div>
           </div>
 
-          {/* Current */}
-          <div
-            className="res-gallery-image relative z-10 w-[88%] sm:w-[68%] lg:w-[67%] h-full overflow-hidden"
-          >
-            <img
-              src={current.image}
-              alt={`${current.label} · ${current.size}`}
-              loading="eager"
-              fetchPriority="high"
-              className="absolute inset-0 w-full h-full object-cover"
-            />
+          {/* Secondary Editorial Card & Carousel (Right Side) */}
+          <div className="lg:col-span-5 space-y-6">
+            
+            {/* Sliding Image Card */}
+            <div className="group relative rounded-[2rem] overflow-hidden shadow-2xl border border-forest-100 bg-forest-950 transition-all duration-500">
+              <div className="absolute top-4 right-4 z-20 flex gap-2">
+                <button 
+                  onClick={handlePrevSlide}
+                  className="size-9 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-black/60 transition-colors"
+                  aria-label="Previous Slide"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                <button 
+                  onClick={handleNextSlide}
+                  className="size-9 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-black/60 transition-colors"
+                  aria-label="Next Slide"
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </div>
 
-            <div className="absolute inset-0 bg-gradient-to-t from-forest-950/75 via-transparent to-transparent" />
-
-            {/* Incoming Slide */}
-            <div
-              ref={incomingRef}
-              className="absolute inset-0 z-30 overflow-hidden"
-            >
               <img
-                src={incomingSlide.image}
-                alt={`${incomingSlide.label} · ${incomingSlide.size}`}
-                loading="eager"
-                className="absolute inset-0 w-full h-full object-cover"
+                key={activeData.id}
+                src={activeData.image}
+                alt={activeData.title}
+                className="w-full h-[260px] sm:h-[300px] object-cover transition-all duration-700 animate-fadeIn filter brightness-95"
               />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-forest-950/75 via-transparent to-transparent" />
-
-              {/* Incoming Content */}
-              <div className="absolute bottom-0 left-0 p-6 sm:p-10 flex flex-wrap items-end gap-x-10 gap-y-3">
-                <div className="flex items-center gap-2 text-gold-300">
-                  <Trees size={20} />
-
-                  <span className="font-display text-2xl sm:text-3xl text-cream-50">
-                    {incomingSlide.label}
-                  </span>
+              <div className="absolute inset-0 bg-gradient-to-t from-forest-950/85 via-forest-950/20 to-transparent flex flex-col justify-end p-6 sm:p-8">
+                <div className="flex items-center gap-2 text-gold-300 mb-1">
+                  {activeData.icon}
+                  <span className="text-xs uppercase tracking-widest font-medium">{activeData.tag}</span>
                 </div>
-
-                <div className="flex items-center gap-2 text-cream-100/85">
-                  <Maximize2 size={16} />
-
-                  <span className="text-sm sm:text-base">
-                    {incomingSlide.size}
-                  </span>
-                </div>
+                <h3 className="text-white font-display text-xl sm:text-2xl transition-all duration-300">{activeData.title}</h3>
               </div>
             </div>
 
-            {/* Current Content */}
-            <div className="absolute bottom-0 left-0 p-6 sm:p-10 flex flex-wrap items-end gap-x-10 gap-y-3 z-20">
-              <div className="flex items-center gap-2 text-gold-300">
-                <Trees size={20} />
-
-                <span className="font-display text-2xl sm:text-3xl text-cream-50">
-                  {current.label}
-                </span>
+            {/* Dynamic Content Switcher Bar with Clickable Button */}
+            <div className="p-6 sm:p-8 rounded-[2rem] bg-forest-50/80 border border-forest-200/60 backdrop-blur-md flex items-center justify-between shadow-sm">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="inline-block w-2 h-2 rounded-full bg-forest-600 animate-pulse" />
+                  <p className="text-xs uppercase tracking-widest text-forest-600 font-medium">Feature {currentSlide + 1} of {carouselSlides.length}</p>
+                </div>
+                <p className="text-sm text-forest-900 font-medium">{activeData.subtitle}</p>
               </div>
 
-              <div className="flex items-center gap-2 text-cream-100/85">
-                <Maximize2 size={16} />
-
-                <span className="text-sm sm:text-base">
-                  {current.size}
-                </span>
-              </div>
+              <button 
+                onClick={handleNextSlide}
+                className="size-12 rounded-full bg-forest-900 border border-forest-800 grid place-items-center text-white hover:bg-forest-800 transition-all duration-300 shadow-md group cursor-pointer"
+                aria-label="Next Feature"
+              >
+                <ArrowRight size={20} className="group-hover:translate-x-0.5 transition-transform" />
+              </button>
             </div>
 
-            {/* Previous Button */}
-            <button
-              type="button"
-              aria-label="Previous"
-              onClick={() => go(-1)}
-              className="absolute z-40 left-5 sm:left-8 top-1/2 -translate-y-1/2 grid place-items-center size-11 sm:size-12 rounded-full border border-white bg-transparent text-white hover:bg-white/15 transition-colors"
-            >
-              <ChevronLeft size={23} strokeWidth={1.5} />
-            </button>
-
-            {/* Next Button */}
-            <button
-              type="button"
-              aria-label="Next"
-              onClick={() => go(1)}
-              className="absolute z-40 right-5 sm:right-8 top-1/2 -translate-y-1/2 grid place-items-center size-11 sm:size-12 rounded-full border border-white bg-transparent text-white hover:bg-white/15 transition-colors"
-            >
-              <ChevronRight size={23} strokeWidth={1.5} />
-            </button>
           </div>
 
-          {/* Next Slide Preview */}
-          <div
-            className="res-gallery-image absolute right-0 top-1/2 -translate-y-1/2 hidden sm:block w-[16%] h-[82%] overflow-hidden"
-          >
-            <img
-              src={next.image}
-              alt={`${next.label} · ${next.size}`}
-              loading="eager"
-              className="w-full h-full object-cover"
-            />
-          </div>
         </div>
+
+        {/* Plan Pills Footer */}
+        <div className="editorial-fade pt-8 border-t border-forest-100 flex flex-wrap justify-center gap-3">
+          {PRICE.plans.map((p) => (
+            <span
+              key={p}
+              className="rounded-full border border-forest-200 bg-forest-50/50 px-6 py-2.5 text-xs sm:text-sm text-forest-900/80 font-medium tracking-wide shadow-sm"
+            >
+              {p}
+            </span>
+          ))}
+        </div>
+
       </div>
 
-      <div className="res-fade-in flex flex-wrap justify-center gap-4 mt-10">
-        {PRICE.plans.map((p) => (
-          <span
-            key={p}
-            className="rounded-full border border-forest-200 px-5 py-2 text-xs sm:text-sm text-forest-900/80"
-          >
-            {p}
-          </span>
-        ))}
+      {/* Floating Leaf Accent */}
+      <div className="hidden sm:block absolute right-[-4%] lg:right-[-60px] top-[25%] w-32 lg:w-40 pointer-events-none z-10 opacity-90">
+        <img src="/images/leaf-r.webp" alt="" className="grand-leaf w-full h-auto" />
       </div>
 
+      <style>{`
+        .grand-leaf {
+          animation: grandLeafFloat 4s ease-in-out infinite;
+        }
+        @keyframes grandLeafFloat {
+          0% { transform: translateY(0) rotate(0deg); }
+          50% { transform: translateY(-22px) rotate(7deg); }
+          100% { transform: translateY(0) rotate(0deg); }
+        }
+        @keyframes fadeIn {
+          from { opacity: 0.6; transform: scale(1.02); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.5s ease-out forwards;
+        }
+      `}</style>
     </section>
   );
 }

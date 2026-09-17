@@ -8,9 +8,6 @@ function PlanArt() {
     <div className="absolute inset-0 grid place-items-center bg-[repeating-linear-gradient(0deg,transparent,transparent_23px,rgba(15,46,36,0.06)_24px),repeating-linear-gradient(90deg,transparent,transparent_23px,rgba(15,46,36,0.06)_24px)]">
       <div className="flex flex-col items-center gap-3 text-forest-900/35">
         <LayoutGrid size={40} strokeWidth={1.25} />
-        {/* <span className="font-sans text-[11px] sm:text-xs tracking-[0.25em] uppercase">
-          Floor Plan To Be Added
-        </span> */}
       </div>
     </div>
   );
@@ -41,7 +38,6 @@ export default function FloorPlans() {
     return () => ctx.revert();
   }, []);
 
-  // Slide-swap animation: fresh entrance each time a different unit type is picked
   useLayoutEffect(() => {
     if (!cardRef.current) return;
     gsap.fromTo(
@@ -53,7 +49,7 @@ export default function FloorPlans() {
 
   return (
     <section id="floorplans" ref={root} className="relative py-10 sm:py-14 bg-white overflow-hidden">
-      {/* Floating leaf accents, consistent with the rest of the site */}
+      {/* Floating leaf accents */}
       <div className="hidden sm:block absolute left-[-6%] lg:left-[-70px] top-[12%] w-28 lg:w-36 pointer-events-none z-10">
         <img src="/images/leaf-l.webp" alt="" className="fp-leaf w-full h-auto opacity-90" />
       </div>
@@ -71,23 +67,6 @@ export default function FloorPlans() {
           </h2>
         </div>
 
-        {/* Type selector — one plan visible at a time, matching the reference site's slider */}
-        {/* <div className="fp-fade flex flex-wrap justify-center gap-3 mb-10">
-          {FLOOR_PLANS.map((plan, i) => (
-            <button
-              key={plan.type}
-              onClick={() => go(i)}
-              className={`rounded-full border px-5 py-2.5 text-sm transition-colors ${
-                i === activeIndex
-                  ? "border-forest-700 bg-forest-700 text-white"
-                  : "border-forest-200 text-forest-900/75 hover:border-forest-600/60"
-              }`}
-            >
-              {plan.type}
-            </button>
-          ))}
-        </div> */}
-
         {/* Active slide */}
         <div className="fp-fade flex items-center gap-3 sm:gap-5">
           <button
@@ -99,48 +78,28 @@ export default function FloorPlans() {
           </button>
 
           <div ref={cardRef} className="flex-1 min-w-0">
-            {/* <div className="flex flex-wrap items-baseline justify-between gap-3 mb-6">
-              <h3 className="font-display text-2xl sm:text-3xl text-forest-950">
-                {active.type} <span className="text-forest-900/50 text-lg sm:text-xl">— {active.label}</span>
-              </h3>
-              <span className="flex items-center gap-1.5 text-sm text-forest-700">
-                <Maximize2 size={14} />
-                {active.size}
-              </span>
-            </div> */}
-
             <button
               onClick={() => setLightboxOpen(true)}
-              className="relative block w-full h-64 sm:h-80 rounded-2xl overflow-hidden border border-forest-200 bg-cream-50 group"
+              className="relative flex items-center justify-center w-full h-64 sm:h-96 rounded-2xl overflow-hidden border border-forest-200 bg-cream-50 group"
             >
               {active.image ? (
                 <img
                   src={active.image}
                   alt={`${active.type} floor plan — ${active.label}, ${active.size}`}
-                  className="absolute inset-0 size-full object-contain p-6 transition-transform duration-700 ease-out group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-cover blur-sm transition-transform duration-700 ease-out group-hover:scale-105"
                 />
               ) : (
                 <PlanArt />
               )}
 
-              {/* Hover reveal: dark tint + centered CTA */}
-              <div className="absolute inset-0 bg-forest-950/0 group-hover:bg-forest-950/45 transition-colors duration-500" />
-              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cream-50/80 bg-forest-950/30 backdrop-blur-sm px-6 py-2.5 text-sm text-cream-50 opacity-0 scale-90 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:scale-100">
-                View Floor Plan
+              {/* Dark tint overlay for better readability of the button */}
+              <div className="absolute inset-0 bg-black/20 transition-colors duration-500" />
+              
+              {/* Centered Button matching reference style */}
+              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#a37e38] text-white tracking-widest px-6 py-3 text-xs sm:text-sm font-medium rounded shadow-md transition-all duration-300 ease-out group-hover:bg-[#8f6d30] group-hover:scale-105 z-10">
+                VIEW FLOOR PLAN
               </span>
             </button>
-
-            <div className="flex items-center justify-between mt-3">
-              <p className="text-[11px] sm:text-xs text-forest-900/45 italic">
-                *Artistic Impression
-              </p>
-              <button
-                onClick={() => setLightboxOpen(true)}
-                className="text-xs sm:text-sm text-forest-700 border-b border-forest-700/40 hover:border-forest-700 transition-colors"
-              >
-                View Floor Plan
-              </button>
-            </div>
           </div>
 
           <button
@@ -175,9 +134,9 @@ export default function FloorPlans() {
             href={whatsappLink("Hi, I'd like to receive the floor plans / E-brochure for M3M Forestia West.")}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full bg-forest-950 text-cream-50 px-8 py-3.5 text-sm tracking-wide hover:bg-forest-900 transition-colors"
+            className="rounded bg-[#a37e38] text-white px-8 py-3.5 text-sm tracking-widest font-medium hover:bg-[#8f6d30] transition-colors shadow-sm"
           >
-            Download Brochure
+            DOWNLOAD BROCHURE
           </a>
         </div>
       </div>
@@ -216,7 +175,7 @@ export default function FloorPlans() {
           </button>
 
           <figure
-            className="max-w-2xl w-full bg-cream-50 rounded-2xl overflow-hidden"
+            className="max-w-2xl w-full bg-cream-50 rounded-2xl overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative h-72 sm:h-96">
@@ -224,18 +183,12 @@ export default function FloorPlans() {
                 <img
                   src={active.image}
                   alt={`${active.type} floor plan`}
-                  className="absolute inset-0 size-full object-contain p-8"
+                  className="absolute inset-0 w-full h-full object-contain p-8"
                 />
               ) : (
                 <PlanArt />
               )}
             </div>
-            <figcaption className="p-5 text-center border-t border-forest-100">
-              <span className="font-display text-lg text-forest-950">
-                {active.type} · {active.label}
-              </span>
-              <span className="block text-sm text-forest-900/60 mt-1">{active.size} · Artistic Impression</span>
-            </figcaption>
           </figure>
         </div>
       )}

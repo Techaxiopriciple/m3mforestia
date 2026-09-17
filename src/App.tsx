@@ -5,7 +5,6 @@ import FloatingContact from "./components/FloatingContact";
 import Footer from "./components/Footer";
 import Hero from "./sections/Hero";
 import Ecosystem from "./sections/Ecosystem";
-import GrandWelcome from "./sections/GrandWelcome";
 import Clubhouse from "./sections/Clubhouse";
 import Residences from "./sections/Residences";
 import FloorPlans from "./sections/FloorPlans";
@@ -24,7 +23,6 @@ export default function App() {
       <main>
         <Hero ready={!loading} />
         <Ecosystem />
-        <GrandWelcome />
         <Residences />
         <Clubhouse />
         <ClubEden />

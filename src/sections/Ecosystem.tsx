@@ -72,7 +72,7 @@ export default function Ecosystem() {
     <section
       id="location"
       ref={root}
-      className="relative py-24 sm:py-32 lg:py-36 overflow-hidden"
+      className="relative pt-12 sm:pt-16 lg:pt-20 pb-24 sm:pb-32 lg:pb-36 overflow-hidden"
     >
       {/* Background Image — same responsive pair (mobile/desktop) and fade-to-green treatment as the reference */}
       <div className="absolute inset-0 -z-10">
@@ -121,7 +121,7 @@ export default function Ecosystem() {
           <img
             src="/images/logo/gic.webp"
             alt="Gurgaon International City"
-            className="h-14 sm:h-16 w-auto object-contain"
+            className="h-16 sm:h-20 w-auto object-contain"
           />
           <p className="mt-6 max-w-xl text-sm sm:text-base text-cream-100/75 leading-relaxed">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
@@ -133,7 +133,7 @@ export default function Ecosystem() {
         {/* GIC Video */}
         <div className="eco-item mt-10 sm:mt-12 max-w-3xl mx-auto rounded-3xl overflow-hidden">
           <video
-            className="w-full h-[200px] sm:h-[280px] lg:h-[360px] object-cover"
+            className="w-full h-[240px] sm:h-[336px] lg:h-[432px] object-cover"
             src="/images/gic-banner-video.mp4"
             autoPlay
             muted
@@ -184,7 +184,7 @@ export default function Ecosystem() {
         </div>
 
         {/* Connectivity Diagram */}
-        <div className="eco-item mt-14 sm:mt-16 grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
+        <div className="eco-item mt-14 sm:mt-16 max-w-5xl mx-auto grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
           <div className="grid grid-cols-2 gap-6">
             {CONNECTIVITY_NODES.map((item, i) => (
               <div
@@ -253,7 +253,7 @@ export default function Ecosystem() {
           <div key={locationTab} className="eco-tabpane rounded-3xl overflow-hidden">
             {locationTab === "av" ? (
               <video
-                className="w-full h-[200px] sm:h-[280px] lg:h-[360px] object-cover"
+                className="w-full h-[240px] sm:h-[336px] lg:h-[432px] object-cover"
                 src="/images/gic-banner-video.mp4"
                 autoPlay
                 muted

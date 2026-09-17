@@ -28,6 +28,16 @@ export const RESIDENCE_SIZES = [
   { label: "3 BHK + Study", size: "2,455 sq.ft." },
 ];
 
+// `image` is left blank until real floor plan diagrams (from the official
+// brochure) are available — the section renders a labelled placeholder
+// instead of a fabricated or third-party layout.
+export const FLOOR_PLANS = [
+  { type: "Type A", label: "3 BHK", size: "1,905 sq.ft.", image: "" },
+  { type: "Type B", label: "3 BHK", size: "1,910 sq.ft.", image: "" },
+  { type: "Type C", label: "3 BHK + Study", size: "2,440 sq.ft.", image: "" },
+  { type: "Type D", label: "3 BHK + Study", size: "2,455 sq.ft.", image: "" },
+];
+
 export const PRICE = {
   starting: "₹2.5 Cr onwards",
   reference: "Ref. unit: 1,905 sq.ft. @ ₹13,500/PSF",
@@ -120,6 +130,14 @@ export const CENTRAL_GROVE = [
     body: "Shaded, bamboo-lined trails winding through the property — designed to slow you down and let calm take over.",
     image: "/images/forest-trail.webp",
   },
+];
+
+export const CLUBHOUSE_IMAGES = [
+  { src: "/images/grand-welcome-entrance.jpg", caption: "Grand Clubhouse Entrance" },
+  { src: "/images/Forestia-Render-3.jpg", caption: "The Clubhouse Facade" },
+  { src: "/images/wellbeing.webp", caption: "Wellness & Spa Deck" },
+  { src: "/images/amphitheatre-card.webp", caption: "Amphitheatre & Events Lawn" },
+  { src: "/images/natural-lakes-card.webp", caption: "Waterfront Lounge" },
 ];
 
 export const AMENITY_CATEGORIES = [

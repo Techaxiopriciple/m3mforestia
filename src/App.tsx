@@ -6,7 +6,9 @@ import Footer from "./components/Footer";
 import Hero from "./sections/Hero";
 import Ecosystem from "./sections/Ecosystem";
 import GrandWelcome from "./sections/GrandWelcome";
+import Clubhouse from "./sections/Clubhouse";
 import Residences from "./sections/Residences";
+import FloorPlans from "./sections/FloorPlans";
 import CentralGrove from "./sections/CentralGrove";
 import ClubEden from "./sections/ClubEden";
 import Biodiversity from "./sections/Biodiversity";
@@ -26,6 +28,8 @@ export default function App() {
         <Ecosystem />
         <GrandWelcome />
         <Residences />
+        <Clubhouse />
+        <FloorPlans />
         <CentralGrove />
         <ClubEden />
         <Biodiversity />

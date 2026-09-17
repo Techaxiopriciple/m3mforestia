@@ -4,10 +4,16 @@ import { gsap } from "../lib/gsap";
 import { PRICE, RESIDENCE_SIZES } from "../lib/content";
 
 const IMAGES = [
-  "/images/M3M-IMT-Manesar-Arrival-Area.jpg",
-  "/images/M3M-IMT-Manesar-Waterbody-Seating-Cam.jpg",
-  "/images/M3M-IMT-Manesar-Landscape-Top.jpg",
+  "/images/M3M-IMT-Manesar-Tree-Closeup.jpg",
   "/images/M3M-IMT-Manesar-Sports-Area.jpg",
+  "/images/M3M-IMT-Manesar-Waterbody-Seating-Cam.jpg",
+  "/images/M3M-IMT-Manesar-Waterfeature-Seating-Cam.jpg",
+  "/images/M3M-IMT-Manesar-Landscape-Top.jpg",
+  "/images/M3M-IMT-Manesar-Pool-Cam.jpg",
+  "/images/M3M-IMT-Manesar-Jogging-Track-Cam.jpg",
+  "/images/M3M-IMT-Manesar-Kids-Play-Area.jpg",
+  "/images/M3M-IMT-Manesar-Landscape-Cam.jpg",
+  "/images/M3M-IMT-Manesar-Overbridge-Cam.jpg"
 ];
 
 const SLIDES = RESIDENCE_SIZES.map((r, i) => ({
@@ -15,10 +21,18 @@ const SLIDES = RESIDENCE_SIZES.map((r, i) => ({
   image: IMAGES[i],
 }));
 
+// Preload all carousel images
+SLIDES.forEach((slide) => {
+  const img = new Image();
+  img.src = slide.image;
+});
+
 const AUTOPLAY_DELAY = 5000;
+const SLIDE_DURATION = 0.7;
 
 export default function Residences() {
   const [active, setActive] = useState(0);
+
   const root = useRef<HTMLDivElement>(null);
   const gallery = useRef<HTMLDivElement>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -27,8 +41,16 @@ export default function Residences() {
   const current = SLIDES[active];
   const next = SLIDES[(active + 1) % SLIDES.length];
 
+  const incomingRef = useRef<HTMLDivElement>(null);
+
+  const isAnimating = useRef(false);
+
+  /*
+   * Section entrance & Highlights animation
+   */
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
+      // Main section fade in
       gsap.from(".res-fade-in", {
         opacity: 0,
         y: 40,
@@ -40,41 +62,104 @@ export default function Residences() {
           start: "top 70%",
         },
       });
+
+      // Highlights / 150-acre section animation
+      gsap.from(".hl-item", {
+        opacity: 0,
+        y: 30,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: { trigger: "#highlights", start: "top 75%" },
+      });
+
+      gsap.from(".hl-card, .hl-stat", {
+        opacity: 0,
+        y: 50,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.15,
+        scrollTrigger: { trigger: "#highlights", start: "top 65%" },
+      });
     }, root);
 
     return () => ctx.revert();
   }, []);
 
-  useLayoutEffect(() => {
-    if (!gallery.current) return;
+  /*
+   * Smooth carousel transition
+   */
+  const changeSlide = (direction: 1 | -1) => {
+    if (isAnimating.current) return;
 
-    gsap.fromTo(
-      gallery.current.querySelectorAll(".res-gallery-image"),
-      { opacity: 0.6 },
-      { opacity: 1, duration: 0.55, ease: "power3.out" },
-    );
-  }, [active]);
+    isAnimating.current = true;
 
+    if (timer.current) {
+      clearTimeout(timer.current);
+      timer.current = null;
+    }
+
+    const incomingIndex =
+      (active + direction + SLIDES.length) % SLIDES.length;
+
+    const incomingElement = incomingRef.current;
+
+    if (!incomingElement) {
+      isAnimating.current = false;
+      return;
+    }
+
+    gsap.set(incomingElement, {
+      xPercent: direction === 1 ? 100 : -100,
+      opacity: 1,
+      zIndex: 30,
+    });
+
+    gsap.to(incomingElement, {
+      xPercent: 0,
+      duration: SLIDE_DURATION,
+      ease: "power3.inOut",
+      onComplete: () => {
+        setActive(incomingIndex);
+
+        requestAnimationFrame(() => {
+          gsap.set(incomingElement, {
+            clearProps: "transform,zIndex,opacity",
+          });
+
+          isAnimating.current = false;
+        });
+      },
+    });
+  };
+
+  /*
+   * Autoplay
+   */
   useLayoutEffect(() => {
-    if (timer.current) clearTimeout(timer.current);
+    if (timer.current) {
+      clearTimeout(timer.current);
+    }
 
     timer.current = setTimeout(() => {
-      setActive((current) => (current + 1) % SLIDES.length);
+      changeSlide(1);
     }, AUTOPLAY_DELAY);
 
     return () => {
-      if (timer.current) clearTimeout(timer.current);
+      if (timer.current) {
+        clearTimeout(timer.current);
+      }
     };
   }, [active]);
 
-  const go = (dir: 1 | -1) => {
-    if (timer.current) clearTimeout(timer.current);
-
-    setActive(
-      (current) =>
-        (current + dir + SLIDES.length) % SLIDES.length,
-    );
+  /*
+   * Manual navigation
+   */
+  const go = (direction: 1 | -1) => {
+    changeSlide(direction);
   };
+
+  const incomingSlide =
+    SLIDES[(active + 1) % SLIDES.length];
 
   return (
     <section
@@ -111,34 +196,72 @@ export default function Residences() {
 
       <div
         ref={gallery}
-        className="res-fade-in relative w-full"
+        className="relative w-full"
       >
         <div className="relative flex items-center justify-center overflow-hidden h-[280px] sm:h-[390px] lg:h-[430px]">
 
           {/* Previous */}
-          <div className="res-gallery-image absolute left-0 top-1/2 -translate-y-1/2 hidden sm:block w-[16%] h-[82%] overflow-hidden">
+          <div
+            className="res-gallery-image absolute left-0 top-1/2 -translate-y-1/2 hidden sm:block w-[16%] h-[82%] overflow-hidden"
+          >
             <img
               src={previous.image}
               alt={`${previous.label} · ${previous.size}`}
-              loading="lazy"
+              loading="eager"
               className="w-full h-full object-cover"
             />
           </div>
 
           {/* Current */}
-          <div className="res-gallery-image relative z-10 w-[88%] sm:w-[68%] lg:w-[67%] h-full overflow-hidden">
+          <div
+            className="res-gallery-image relative z-10 w-[88%] sm:w-[68%] lg:w-[67%] h-full overflow-hidden"
+          >
             <img
-              key={current.image}
               src={current.image}
               alt={`${current.label} · ${current.size}`}
-              loading="lazy"
+              loading="eager"
+              fetchPriority="high"
               className="absolute inset-0 w-full h-full object-cover"
             />
 
             <div className="absolute inset-0 bg-gradient-to-t from-forest-950/75 via-transparent to-transparent" />
 
-            {/* Content */}
-            <div className="absolute bottom-0 left-0 p-6 sm:p-10 flex flex-wrap items-end gap-x-10 gap-y-3">
+            {/* Incoming Slide */}
+            <div
+              ref={incomingRef}
+              className="absolute inset-0 z-30 overflow-hidden"
+            >
+              <img
+                src={incomingSlide.image}
+                alt={`${incomingSlide.label} · ${incomingSlide.size}`}
+                loading="eager"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-forest-950/75 via-transparent to-transparent" />
+
+              {/* Incoming Content */}
+              <div className="absolute bottom-0 left-0 p-6 sm:p-10 flex flex-wrap items-end gap-x-10 gap-y-3">
+                <div className="flex items-center gap-2 text-gold-300">
+                  <Trees size={20} />
+
+                  <span className="font-display text-2xl sm:text-3xl text-cream-50">
+                    {incomingSlide.label}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2 text-cream-100/85">
+                  <Maximize2 size={16} />
+
+                  <span className="text-sm sm:text-base">
+                    {incomingSlide.size}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Current Content */}
+            <div className="absolute bottom-0 left-0 p-6 sm:p-10 flex flex-wrap items-end gap-x-10 gap-y-3 z-20">
               <div className="flex items-center gap-2 text-gold-300">
                 <Trees size={20} />
 
@@ -156,33 +279,35 @@ export default function Residences() {
               </div>
             </div>
 
-            {/* Previous */}
+            {/* Previous Button */}
             <button
               type="button"
               aria-label="Previous"
               onClick={() => go(-1)}
-              className="absolute left-5 sm:left-8 top-1/2 -translate-y-1/2 grid place-items-center size-11 sm:size-12 rounded-full border border-white bg-transparent text-white hover:bg-white/15 transition-colors"
+              className="absolute z-40 left-5 sm:left-8 top-1/2 -translate-y-1/2 grid place-items-center size-11 sm:size-12 rounded-full border border-white bg-transparent text-white hover:bg-white/15 transition-colors"
             >
               <ChevronLeft size={23} strokeWidth={1.5} />
             </button>
 
-            {/* Next */}
+            {/* Next Button */}
             <button
               type="button"
               aria-label="Next"
               onClick={() => go(1)}
-              className="absolute right-5 sm:right-8 top-1/2 -translate-y-1/2 grid place-items-center size-11 sm:size-12 rounded-full border border-white bg-transparent text-white hover:bg-white/15 transition-colors"
+              className="absolute z-40 right-5 sm:right-8 top-1/2 -translate-y-1/2 grid place-items-center size-11 sm:size-12 rounded-full border border-white bg-transparent text-white hover:bg-white/15 transition-colors"
             >
               <ChevronRight size={23} strokeWidth={1.5} />
             </button>
           </div>
 
-          {/* Next */}
-          <div className="res-gallery-image absolute right-0 top-1/2 -translate-y-1/2 hidden sm:block w-[16%] h-[82%] overflow-hidden">
+          {/* Next Slide Preview */}
+          <div
+            className="res-gallery-image absolute right-0 top-1/2 -translate-y-1/2 hidden sm:block w-[16%] h-[82%] overflow-hidden"
+          >
             <img
               src={next.image}
               alt={`${next.label} · ${next.size}`}
-              loading="lazy"
+              loading="eager"
               className="w-full h-full object-cover"
             />
           </div>
@@ -199,8 +324,7 @@ export default function Residences() {
           </span>
         ))}
       </div>
+
     </section>
   );
 }
-
-

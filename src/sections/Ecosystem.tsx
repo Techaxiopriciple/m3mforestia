@@ -43,6 +43,26 @@ export default function Ecosystem() {
         ease: "back.out(2)",
         scrollTrigger: { trigger: ".eco-diagram", start: "top 75%" },
       });
+
+      // Alternating fade-up / fade-down reveal for the icon cards and
+      // connectivity stats, matching the reference site's per-card AOS pattern.
+      gsap.from(".eco-card-up, .eco-stat-up", {
+        opacity: 0,
+        y: 40,
+        stagger: 0.12,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: { trigger: root.current, start: "top 65%" },
+      });
+
+      gsap.from(".eco-card-down, .eco-stat-down", {
+        opacity: 0,
+        y: -40,
+        stagger: 0.12,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: { trigger: root.current, start: "top 65%" },
+      });
     }, root);
 
     return () => ctx.revert();
@@ -85,6 +105,13 @@ export default function Ecosystem() {
           50% { transform: translateY(-25px) rotate(8deg); }
           100% { transform: translateY(0) rotate(0deg); }
         }
+        .eco-tabpane {
+          animation: ecoTabFade 0.4s ease;
+        }
+        @keyframes ecoTabFade {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
       `}</style>
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
@@ -124,7 +151,7 @@ export default function Ecosystem() {
             return (
               <div
                 key={item.title}
-                className="eco-item relative text-center px-6 py-8 lg:py-4 flex flex-col justify-between"
+                className={`${i % 2 === 0 ? "eco-card-up" : "eco-card-down"} relative text-center px-6 py-8 lg:py-4 flex flex-col justify-between`}
               >
                 {/* Vertical divider */}
                 {i < ECOSYSTEM.length - 1 && (
@@ -159,8 +186,11 @@ export default function Ecosystem() {
         {/* Connectivity Diagram */}
         <div className="eco-item mt-14 sm:mt-16 grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
           <div className="grid grid-cols-2 gap-6">
-            {CONNECTIVITY_NODES.map((item) => (
-              <div key={item.title} className="border-l-2 border-gold-400/60 pl-5">
+            {CONNECTIVITY_NODES.map((item, i) => (
+              <div
+                key={item.title}
+                className={`${i % 2 === 0 ? "eco-stat-down" : "eco-stat-up"} border-l-2 border-gold-400/60 pl-5`}
+              >
                 <div className="font-display text-2xl sm:text-3xl text-gold-400">{item.time}</div>
                 <p className="mt-2 text-sm text-cream-100/70 leading-snug">{item.title}</p>
               </div>
@@ -220,7 +250,7 @@ export default function Ecosystem() {
             </button>
           </div>
 
-          <div className="rounded-3xl overflow-hidden">
+          <div key={locationTab} className="eco-tabpane rounded-3xl overflow-hidden">
             {locationTab === "av" ? (
               <video
                 className="w-full h-[300px] sm:h-[420px] lg:h-[600px] object-cover"

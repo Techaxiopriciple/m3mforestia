@@ -8,7 +8,7 @@ import { useInView } from "../lib/useInView";
 const carouselSlides = [
   {
     id: 1,
-    image: "/images/M3M-IMT-Manesar-Sports-Area.jpg",
+    image: "/images/M3M-IMT-Manesar-Sports-Area.webp",
     title: "Forest-Themed Sports & Greens",
     tag: "Active Living",
     subtitle: "150-acre sustainable luxury ecosystem",
@@ -24,7 +24,7 @@ const carouselSlides = [
   },
   {
     id: 3,
-    image: "/images/M3M-IMT-Manesar-Jogging-Track-Cam.jpg",
+    image: "/images/M3M-IMT-Manesar-Jogging-Track-Cam.webp",
     title: "300m Jogging & Fitness Trail",
     tag: "Wellness Trail",
     subtitle: "Shaded, tree-lined tracks for everyday movement",
@@ -32,7 +32,7 @@ const carouselSlides = [
   },
   {
     id: 4,
-    image: "/images/M3M-IMT-Manesar-Waterbody-Seating-Cam.jpg",
+    image: "/images/M3M-IMT-Manesar-Waterbody-Seating-Cam.webp",
     title: "Cascading Waterfall Courtyard",
     tag: "Serenity",
     subtitle: "A tranquil water feature beneath the sky bridge",
@@ -40,7 +40,7 @@ const carouselSlides = [
   },
   {
     id: 5,
-    image: "/images/M3M-IMT-Manesar-Kids-Play-Area.jpg",
+    image: "/images/M3M-IMT-Manesar-Kids-Play-Area.webp",
     title: "Whimsical Kids' Play Zone",
     tag: "Family Living",
     subtitle: "Imaginative, colourful play spaces for little ones",
@@ -48,7 +48,7 @@ const carouselSlides = [
   },
   {
     id: 6,
-    image: "/images/M3M-IMT-Manesar-Forest-Garden.jpg",
+    image: "/images/M3M-IMT-Manesar-Forest-Garden.webp",
     title: "Lantern-Lit Forest Garden",
     tag: "Biodiversity",
     subtitle: "Native birdlife and lantern trees, just outside your door",

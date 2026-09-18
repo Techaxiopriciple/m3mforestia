@@ -134,7 +134,7 @@ export const CENTRAL_GROVE = [
 
 export const CLUBHOUSE_IMAGES = [
   { src: "/images/grand-welcome-entrance.jpg", caption: "Grand Clubhouse Entrance" },
-  { src: "/images/Forestia-Render-3.jpg", caption: "The Clubhouse Facade" },
+  { src: "/images/Forestia-Render-3.webp", caption: "The Clubhouse Facade" },
   { src: "/images/wellbeing.webp", caption: "Wellness & Spa Deck" },
   { src: "/images/amphitheatre-card.webp", caption: "Amphitheatre & Events Lawn" },
   { src: "/images/natural-lakes-card.webp", caption: "Waterfront Lounge" },

@@ -61,9 +61,15 @@ export default function Gallery() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { ref: carouselRef, inView: carouselInView } = useInView<HTMLDivElement>("0px");
 
-  // Auto-slide only while the carousel is actually visible and the tab is
-  // in the foreground — each tick decodes a full-resolution image, so this
-  // avoids doing that work indefinitely in the background.
+  // Preload all carousel images on mount to avoid black screen / loading gaps
+  useEffect(() => {
+    carouselSlides.forEach((slide) => {
+      const img = new Image();
+      img.src = slide.image;
+    });
+  }, []);
+
+  // Auto-slide only while the carousel is actually visible
   useEffect(() => {
     if (!carouselInView) return;
 
@@ -154,12 +160,12 @@ export default function Gallery() {
           {/* Secondary Editorial Card & Carousel (Right Side) */}
           <div className="lg:col-span-5 space-y-6">
             
-            {/* Sliding Image Card */}
+            {/* Sliding Image Card with Smooth Crossfade Stacking */}
             <div
               ref={carouselRef}
-              className="group relative rounded-[2rem] overflow-hidden shadow-2xl border border-forest-100 bg-forest-950 transition-all duration-500"
+              className="group relative rounded-[2rem] overflow-hidden shadow-2xl border border-forest-100 bg-forest-950 h-[260px] sm:h-[300px]"
             >
-              <div className="absolute top-4 right-4 z-20 flex gap-2">
+              <div className="absolute top-4 right-4 z-30 flex gap-2">
                 <button 
                   onClick={handlePrevSlide}
                   className="size-9 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-black/60 transition-colors cursor-pointer"
@@ -176,21 +182,31 @@ export default function Gallery() {
                 </button>
               </div>
 
-              <img
-                key={activeData.id}
-                src={activeData.image}
-                alt={activeData.title}
-                decoding="async"
-                loading="lazy"
-                className="w-full h-[260px] sm:h-[300px] object-cover transition-all duration-700 animate-fadeIn filter brightness-95"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-forest-950/85 via-forest-950/20 to-transparent flex flex-col justify-end p-6 sm:p-8">
-                <div className="flex items-center gap-2 text-gold-300 mb-1">
-                  {activeData.icon}
-                  <span className="text-xs uppercase tracking-widest font-medium">{activeData.tag}</span>
-                </div>
-                <h3 className="text-white font-display text-xl sm:text-2xl transition-all duration-300">{activeData.title}</h3>
-              </div>
+              {/* Stack all slides absolutely to allow smooth crossfade transitions */}
+              {carouselSlides.map((slide, index) => {
+                const isActive = index === currentSlide;
+                return (
+                  <div
+                    key={slide.id}
+                    className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${
+                      isActive ? "opacity-150 z-10 pointer-events-auto" : "opacity-0 z-0 pointer-events-none"
+                    }`}
+                  >
+                    <img
+                      src={slide.image}
+                      alt={slide.title}
+                      className="w-full h-full object-cover filter brightness-95"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-forest-950/85 via-forest-950/20 to-transparent flex flex-col justify-end p-6 sm:p-8">
+                      <div className="flex items-center gap-2 text-gold-300 mb-1">
+                        {slide.icon}
+                        <span className="text-xs uppercase tracking-widest font-medium">{slide.tag}</span>
+                      </div>
+                      <h3 className="text-white font-display text-xl sm:text-2xl">{slide.title}</h3>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
             {/* Dynamic Content Switcher Bar with Clickable Button */}
@@ -243,13 +259,6 @@ export default function Gallery() {
           0% { transform: translateY(0) rotate(0deg); }
           50% { transform: translateY(-22px) rotate(7deg); }
           100% { transform: translateY(0) rotate(0deg); }
-        }
-        @keyframes fadeIn {
-          from { opacity: 0.6; transform: scale(1.02); }
-          to { opacity: 1; transform: scale(1); }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 0.5s ease-out forwards;
         }
       `}</style>
     </section>

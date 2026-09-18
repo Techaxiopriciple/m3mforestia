@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef, useState, useEffect } from "react";
 import { Trees, Sparkles, ArrowRight, ChevronLeft, ChevronRight, Footprints, Waves, Baby, Bird } from "lucide-react";
 import { gsap } from "../lib/gsap";
 import { PRICE } from "../lib/content";
+import { useInView } from "../lib/useInView";
 
 // Slides data for the interactive right-side carousel
 const carouselSlides = [
@@ -58,14 +59,20 @@ const carouselSlides = [
 export default function Gallery() {
   const root = useRef<HTMLDivElement>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { ref: carouselRef, inView: carouselInView } = useInView<HTMLDivElement>("0px");
 
-  // Auto-slide effect fixed with functional update to prevent closure issues
+  // Auto-slide only while the carousel is actually visible and the tab is
+  // in the foreground — each tick decodes a full-resolution image, so this
+  // avoids doing that work indefinitely in the background.
   useEffect(() => {
+    if (!carouselInView) return;
+
     const timer = setInterval(() => {
+      if (document.hidden) return;
       setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, []);
+  }, [carouselInView]);
 
   const handleNextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
@@ -148,7 +155,10 @@ export default function Gallery() {
           <div className="lg:col-span-5 space-y-6">
             
             {/* Sliding Image Card */}
-            <div className="group relative rounded-[2rem] overflow-hidden shadow-2xl border border-forest-100 bg-forest-950 transition-all duration-500">
+            <div
+              ref={carouselRef}
+              className="group relative rounded-[2rem] overflow-hidden shadow-2xl border border-forest-100 bg-forest-950 transition-all duration-500"
+            >
               <div className="absolute top-4 right-4 z-20 flex gap-2">
                 <button 
                   onClick={handlePrevSlide}
@@ -170,6 +180,8 @@ export default function Gallery() {
                 key={activeData.id}
                 src={activeData.image}
                 alt={activeData.title}
+                decoding="async"
+                loading="lazy"
                 className="w-full h-[260px] sm:h-[300px] object-cover transition-all duration-700 animate-fadeIn filter brightness-95"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-forest-950/85 via-forest-950/20 to-transparent flex flex-col justify-end p-6 sm:p-8">

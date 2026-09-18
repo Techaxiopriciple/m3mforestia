@@ -38,7 +38,7 @@ export default function Hero({ ready }: { ready: boolean }) {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
       />
       {/* Client Logos — sized by height so the wide Forestia wordmark and the compact GIC mark read as the same size */}
       {/* Wrapped in the same max-w-7xl/px container as Nav so the logos line up with the nav logo's left edge */}

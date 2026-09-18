@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { MapPin, ChevronDown } from "lucide-react";
 import { gsap } from "../lib/gsap";
 import { ECOSYSTEM, CONNECTIVITY, CENTRAL_CONNECTIVITY, ECO_ICON } from "../lib/content";
+import { useInView } from "../lib/useInView";
 
 const CONNECTIVITY_NODES = [...CONNECTIVITY, ...CENTRAL_CONNECTIVITY].map((item, i, arr) => ({
   ...item,
@@ -20,6 +21,8 @@ function nodePos(angle: number, radius: number) {
 export default function Ecosystem() {
   const root = useRef<HTMLDivElement>(null);
   const [locationTab, setLocationTab] = useState<"av" | "map">("av");
+  const { ref: videoWrapRef, inView: videoInView } = useInView<HTMLDivElement>();
+  const { ref: tabWrapRef, inView: tabInView } = useInView<HTMLDivElement>();
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -130,17 +133,22 @@ export default function Ecosystem() {
           </p>
         </div>
 
-        {/* GIC Video */}
-        <div className="eco-item mt-10 sm:mt-12 max-w-[59rem] mx-auto rounded-3xl overflow-hidden">
-          <video
-            className="w-full h-[296px] sm:h-[415px] lg:h-[534px] object-cover"
-            src="/images/gic-banner-video.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-          />
+        {/* GIC Video — only fetched once it's about to scroll into view */}
+        <div
+          ref={videoWrapRef}
+          className="eco-item mt-10 sm:mt-12 max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-forest-900 h-[296px] sm:h-[415px] lg:h-[534px]"
+        >
+          {videoInView && (
+            <video
+              className="w-full h-full object-cover"
+              src="/images/gic-banner-video.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="none"
+            />
+          )}
         </div>
 
         {/* Top 4 Sections */}
@@ -250,17 +258,23 @@ export default function Ecosystem() {
             </button>
           </div>
 
-          <div key={locationTab} className="eco-tabpane rounded-3xl overflow-hidden">
+          <div
+            ref={tabWrapRef}
+            key={locationTab}
+            className="eco-tabpane rounded-3xl overflow-hidden bg-forest-900 h-[240px] sm:h-[336px] lg:h-[432px]"
+          >
             {locationTab === "av" ? (
-              <video
-                className="w-full h-[240px] sm:h-[336px] lg:h-[432px] object-cover"
-                src="/images/gic-banner-video.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-              />
+              tabInView && (
+                <video
+                  className="w-full h-full object-cover"
+                  src="/images/gic-banner-video.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                />
+              )
             ) : (
               <img
                 src="/images/forestia-map.webp"

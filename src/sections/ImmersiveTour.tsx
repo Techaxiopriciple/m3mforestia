@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Play } from "lucide-react";
 import { gsap } from "../lib/gsap";
 
@@ -11,6 +11,7 @@ export default function ImmersiveTour() {
   const root = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -26,7 +27,25 @@ export default function ImmersiveTour() {
     return () => ctx.revert();
   }, []);
 
+  // The clip is a heavy file, so the <video> gets no `src` (and no download)
+  // until the visitor actually asks to play it.
+  useEffect(() => {
+    if (!videoLoaded) return;
+    videoRef.current
+      ?.play()
+      .then(() => setPlaying(true))
+      .catch((err) => {
+        console.error("Video playback failed:", err);
+        setPlaying(false);
+      });
+  }, [videoLoaded]);
+
   const togglePlay = async () => {
+    if (!videoLoaded) {
+      setVideoLoaded(true);
+      return;
+    }
+
     const el = videoRef.current;
     if (!el) return;
 
@@ -59,10 +78,10 @@ export default function ImmersiveTour() {
         <div className="tour-fade relative rounded-xl overflow-hidden bg-forest-950 shadow-2xl w-full h-64 sm:h-96 group">
           <video
             ref={videoRef}
-            src={VIDEO_DATA.video}
+            src={videoLoaded ? VIDEO_DATA.video : undefined}
             className="absolute inset-0 w-full h-full object-cover"
             playsInline
-            preload="auto"
+            preload="none"
             controls={false}
             onPlay={() => setPlaying(true)}
             onPause={() => setPlaying(false)}

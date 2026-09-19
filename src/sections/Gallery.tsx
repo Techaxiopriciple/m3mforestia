@@ -1,10 +1,9 @@
 import { useLayoutEffect, useRef, useState, useEffect } from "react";
-import { Trees, Sparkles, ArrowRight, ChevronLeft, ChevronRight, Footprints, Waves, Baby, Bird } from "lucide-react";
+import { Trees, Sparkles, ChevronLeft, ChevronRight, Footprints, Waves, Baby, Bird } from "lucide-react";
 import { gsap } from "../lib/gsap";
 import { PRICE } from "../lib/content";
 import { useInView } from "../lib/useInView";
 
-// Slides data for the interactive right-side carousel
 const carouselSlides = [
   {
     id: 1,
@@ -61,7 +60,6 @@ export default function Gallery() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { ref: carouselRef, inView: carouselInView } = useInView<HTMLDivElement>("0px");
 
-  // Preload all carousel images on mount to avoid black screen / loading gaps
   useEffect(() => {
     carouselSlides.forEach((slide) => {
       const img = new Image();
@@ -69,14 +67,13 @@ export default function Gallery() {
     });
   }, []);
 
-  // Auto-slide only while the carousel is actually visible
   useEffect(() => {
     if (!carouselInView) return;
 
     const timer = setInterval(() => {
       if (document.hidden) return;
       setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
-    }, 4000);
+    }, 4500);
     return () => clearInterval(timer);
   }, [carouselInView]);
 
@@ -106,138 +103,113 @@ export default function Gallery() {
     return () => ctx.revert();
   }, []);
 
-  const activeData = carouselSlides[currentSlide];
-
   return (
     <section 
       id="gallery"
       ref={root} 
       className="relative py-20 lg:py-28 bg-white text-forest-950 overflow-hidden"
     >
-      {/* Background ambient lighting accents */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-forest-100/40 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-forest-50/60 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 relative z-10">
+      <div className="w-full px-0 mx-auto relative z-10">
         
         {/* Top Header Section */}
-        <div className="editorial-fade grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-16">
-          <div className="lg:col-span-8 space-y-4">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-forest-100 border border-forest-200 text-forest-800 text-xs tracking-[0.25em] uppercase font-medium">
-              <Sparkles size={14} className="text-forest-600" />
-              <span>Architectural Sanctuary</span>
-            </div>
-            
-            <h2 className="font-display text-4xl sm:text-6xl text-forest-950 leading-[1.1]">
-              A Grand Welcome. <br />
-              <span className="text-forest-600 italic font-normal">Every single day.</span>
-            </h2>
-          </div>
-
-          <div className="lg:col-span-4 lg:text-right space-y-2">
-            <p className="text-forest-600 text-xs uppercase tracking-widest font-medium">{PRICE.reference}</p>
-            <p className="font-display text-3xl sm:text-4xl text-forest-900">{PRICE.starting}</p>
-            <p className="text-xs text-forest-900/60">Forest-Themed 3 BHK Residences (1,910 sq. ft.)</p>
-          </div>
+        <div className="editorial-fade text-center max-w-3xl mx-auto mb-12 px-4 space-y-3">
+          <h2 className="font-display text-3xl sm:text-5xl text-forest-950 leading-[1.15]">
+            Homes that add to your life
+          </h2>
+          <p className="text-forest-700 text-xs sm:text-sm font-normal max-w-xl mx-auto leading-relaxed">
+            Sports & wellness themed 2.5 BHK residences that bring together comfort, elegance, and functionality.
+          </p>
         </div>
 
-        {/* Editorial Asymmetric Image Grid with Interactive Carousel */}
-        <div className="editorial-fade grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-16">
-          
-          {/* Main Large Image: Grand Arrival Fountain (Fixed Left Side) */}
-          <div className="lg:col-span-7 group relative rounded-[2rem] overflow-hidden shadow-2xl border border-forest-100 bg-forest-950">
-            <img
-              src="/images/arrival-fountain.webp"
-              alt="M3M Forestia West grand entrance arrival fountain"
-              className="w-full h-[380px] sm:h-[480px] object-cover transition-transform duration-1000 group-hover:scale-105 filter brightness-95"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-forest-950/80 via-forest-950/20 to-transparent flex flex-col justify-end p-8 sm:p-10">
-              <span className="text-xs uppercase tracking-[0.3em] text-gold-300 font-medium mb-1">Arrival Plaza</span>
-              <h3 className="text-white font-display text-2xl sm:text-3xl">Cascading Water Courtyard</h3>
-            </div>
-          </div>
-
-          {/* Secondary Editorial Card & Carousel (Right Side) */}
-          <div className="lg:col-span-5 space-y-6">
+        {/* Carousel Showcase Container */}
+        <div 
+          ref={carouselRef}
+          className="editorial-fade relative w-screen left-1/2 -translate-x-1/2 overflow-hidden py-2 mb-10 px-0 m-0"
+        >
+          <div className="relative w-full flex items-center justify-between gap-3 lg:gap-5 px-0 m-0">
             
-            {/* Sliding Image Card with Smooth Crossfade Stacking */}
-            <div
-              ref={carouselRef}
-              className="group relative rounded-[2rem] overflow-hidden shadow-2xl border border-forest-100 bg-forest-950 h-[260px] sm:h-[300px]"
+            {/* Left Preview Slide */}
+            <div 
+              onClick={handlePrevSlide}
+              className="hidden lg:block w-[14%] xl:w-[16%] h-[280px] sm:h-[360px] overflow-hidden opacity-50 cursor-pointer relative flex-shrink-0 transition-all duration-700 ease-out hover:opacity-85 pl-0 ml-0"
             >
-              <div className="absolute top-4 right-4 z-30 flex gap-2">
+              <div className="w-full h-full relative overflow-hidden">
+                <img 
+                  src={carouselSlides[(currentSlide - 1 + carouselSlides.length) % carouselSlides.length].image} 
+                  alt="Previous preview" 
+                  className="w-full h-full object-cover filter brightness-90 scale-105 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-black/40" />
+              </div>
+            </div>
+
+            {/* Center Main Active Slide */}
+            <div className="w-full lg:w-[68%] xl:w-[64%] h-[360px] sm:h-[450px] overflow-hidden shadow-2xl relative bg-forest-950 flex-shrink-0 mx-auto">
+              
+              {/* Navigation Arrows */}
+              <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 z-40 flex justify-between pointer-events-none">
                 <button 
                   onClick={handlePrevSlide}
-                  className="size-9 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-black/60 transition-colors cursor-pointer"
+                  className="size-12 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-black/80 transition-all cursor-pointer shadow-xl pointer-events-auto"
                   aria-label="Previous Slide"
                 >
-                  <ChevronLeft size={16} />
+                  <ChevronLeft size={24} />
                 </button>
+
                 <button 
                   onClick={handleNextSlide}
-                  className="size-9 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-black/60 transition-colors cursor-pointer"
+                  className="size-12 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-black/80 transition-all cursor-pointer shadow-xl pointer-events-auto"
                   aria-label="Next Slide"
                 >
-                  <ChevronRight size={16} />
+                  <ChevronRight size={24} />
                 </button>
               </div>
 
-              {/* Stack all slides absolutely to allow smooth crossfade transitions */}
-              {carouselSlides.map((slide, index) => {
-                const isActive = index === currentSlide;
-                return (
-                  <div
-                    key={slide.id}
-                    className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${
-                      isActive ? "opacity-150 z-10 pointer-events-auto" : "opacity-0 z-0 pointer-events-none"
-                    }`}
-                  >
+              {/* Smooth Track Container */}
+              <div 
+                className="flex h-full transition-transform duration-700 ease-in-out"
+                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+              >
+                {carouselSlides.map((slide) => (
+                  <div key={slide.id} className="w-full h-full flex-shrink-0 relative">
                     <img
                       src={slide.image}
                       alt={slide.title}
                       className="w-full h-full object-cover filter brightness-95"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-forest-950/85 via-forest-950/20 to-transparent flex flex-col justify-end p-6 sm:p-8">
-                      <div className="flex items-center gap-2 text-gold-300 mb-1">
-                        {slide.icon}
-                        <span className="text-xs uppercase tracking-widest font-medium">{slide.tag}</span>
-                      </div>
-                      <h3 className="text-white font-display text-xl sm:text-2xl">{slide.title}</h3>
+                    <div className="absolute inset-0 bg-gradient-to-t from-forest-950/80 via-forest-950/20 to-transparent pointer-events-none z-20 flex flex-col justify-end p-6 sm:p-10">
+                      <span className="text-white/80 text-xs uppercase tracking-widest font-medium mb-1">{slide.tag}</span>
+                      <h3 className="text-white font-display text-xl sm:text-3xl">{slide.title}</h3>
                     </div>
                   </div>
-                );
-              })}
+                ))}
+              </div>
             </div>
 
-            {/* Dynamic Content Switcher Bar with Clickable Button */}
-            <div className="p-6 sm:p-8 rounded-[2rem] bg-forest-50/80 border border-forest-200/60 backdrop-blur-md flex items-center justify-between shadow-sm">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <span className="inline-block w-2 h-2 rounded-full bg-forest-600 animate-pulse" />
-                  <p className="text-xs uppercase tracking-widest text-forest-600 font-medium">Feature {currentSlide + 1} of {carouselSlides.length}</p>
-                </div>
-                <p className="text-sm text-forest-900 font-medium">{activeData.subtitle}</p>
+            {/* Right Preview Slide */}
+            <div 
+              onClick={handleNextSlide}
+              className="hidden lg:block w-[14%] xl:w-[16%] h-[280px] sm:h-[360px] overflow-hidden opacity-50 cursor-pointer relative flex-shrink-0 transition-all duration-700 ease-out hover:opacity-85 pr-0 mr-0"
+            >
+              <div className="w-full h-full relative overflow-hidden">
+                <img 
+                  src={carouselSlides[(currentSlide + 1) % carouselSlides.length].image} 
+                  alt="Next preview" 
+                  className="w-full h-full object-cover filter brightness-90 scale-105 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-black/40" />
               </div>
-
-              <button 
-                onClick={handleNextSlide}
-                className="size-12 rounded-full bg-forest-900 border border-forest-800 grid place-items-center text-white hover:bg-forest-800 transition-all duration-300 shadow-md group cursor-pointer"
-                aria-label="Next Feature"
-              >
-                <ArrowRight size={20} className="group-hover:translate-x-0.5 transition-transform" />
-              </button>
             </div>
 
           </div>
-
         </div>
 
         {/* Plan Pills Footer */}
-        <div className="editorial-fade pt-8 border-t border-forest-800 flex flex-wrap justify-center gap-3">
-          {PRICE.plans.map((p) => (
+        <div className="editorial-fade pt-6 border-t border-forest-100 flex flex-wrap justify-center gap-3 max-w-7xl mx-auto px-4">
+          {PRICE?.plans?.map((p) => (
             <span
               key={p}
-              className="rounded-full border border-gold-500/40 bg-forest-900/90 px-6 py-2.5 text-xs sm:text-sm text-cream-50 font-semibold tracking-wide shadow-md"
+              className="rounded-full border border-emerald-800/50 bg-[#11221a] px-6 py-2.5 text-xs sm:text-sm text-emerald-100 font-semibold tracking-wide shadow-sm"
             >
               {p}
             </span>
@@ -245,22 +217,6 @@ export default function Gallery() {
         </div>
 
       </div>
-
-      {/* Floating Leaf Accent */}
-      <div className="hidden sm:block absolute right-[-4%] lg:right-[-60px] top-[25%] w-32 lg:w-40 pointer-events-none z-10 opacity-90">
-        <img src="/images/leaf-r.webp" alt="" className="grand-leaf w-full h-auto" />
-      </div>
-
-      <style>{`
-        .grand-leaf {
-          animation: grandLeafFloat 4s ease-in-out infinite;
-        }
-        @keyframes grandLeafFloat {
-          0% { transform: translateY(0) rotate(0deg); }
-          50% { transform: translateY(-22px) rotate(7deg); }
-          100% { transform: translateY(0) rotate(0deg); }
-        }
-      `}</style>
     </section>
   );
 }

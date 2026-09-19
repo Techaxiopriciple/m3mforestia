@@ -3,6 +3,7 @@ import { MapPin, ChevronDown } from "lucide-react";
 import { gsap } from "../lib/gsap";
 import { ECOSYSTEM, CONNECTIVITY, CENTRAL_CONNECTIVITY, ECO_ICON } from "../lib/content";
 import { useInView } from "../lib/useInView";
+import { useAutoPauseVideo } from "../lib/useAutoPauseVideo";
 
 const CONNECTIVITY_NODES = [...CONNECTIVITY, ...CENTRAL_CONNECTIVITY].map((item, i, arr) => ({
   ...item,
@@ -23,6 +24,8 @@ export default function Ecosystem() {
   const [locationTab, setLocationTab] = useState<"av" | "map">("av");
   const { ref: videoWrapRef, inView: videoInView } = useInView<HTMLDivElement>();
   const { ref: tabWrapRef, inView: tabInView } = useInView<HTMLDivElement>();
+  const mainVideoRef = useAutoPauseVideo<HTMLVideoElement>();
+  const tabVideoRef = useAutoPauseVideo<HTMLVideoElement>();
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -90,8 +93,8 @@ export default function Ecosystem() {
           className="hidden sm:block w-full h-full object-cover object-top"
         />
 
-        {/* Safety overlay for text legibility over the lighter, blurred top of the image */}
-        <div className="absolute inset-0 bg-forest-950/25" />
+        {/* Safety overlay for text legibility over the lighter, blurred top of the image — increased opacity for better contrast */}
+        <div className="absolute inset-0 bg-forest-950/60" />
       </div>
 
       {/* Floating leaf accent — same graphic + drift animation as the reference's GIC section */}
@@ -126,7 +129,7 @@ export default function Ecosystem() {
             alt="Gurgaon International City"
             className="h-16 sm:h-20 w-auto object-contain"
           />
-          <p className="mt-6 max-w-xl text-sm sm:text-base text-cream-100/75 leading-relaxed">
+          <p className="mt-6 max-w-xl text-sm sm:text-base text-cream-100/90 leading-relaxed font-medium">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
             <br className="hidden sm:block" />
             Tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.
@@ -140,6 +143,7 @@ export default function Ecosystem() {
         >
           {videoInView && (
             <video
+              ref={mainVideoRef}
               className="w-full h-full object-cover"
               src="/images/gic-banner-video.mp4"
               autoPlay
@@ -183,7 +187,7 @@ export default function Ecosystem() {
                   </h3>
                 </div>
 
-                <p className="mt-5 text-sm font-medium text-cream-100/80 leading-relaxed max-w-[230px] mx-auto">
+                <p className="mt-5 text-sm font-medium text-cream-100/90 leading-relaxed max-w-[230px] mx-auto">
                   {item.body}
                 </p>
               </div>
@@ -200,27 +204,27 @@ export default function Ecosystem() {
                 className={`${i % 2 === 0 ? "eco-stat-down" : "eco-stat-up"} border-l-2 border-gold-400/60 pl-5`}
               >
                 <div className="font-display text-2xl sm:text-3xl text-gold-400">{item.time}</div>
-                <p className="mt-2 text-sm text-cream-100/70 leading-snug">{item.title}</p>
+                <p className="mt-2 text-sm text-cream-100/85 leading-snug font-medium">{item.title}</p>
               </div>
             ))}
           </div>
 
           <div className="eco-diagram relative aspect-square max-w-md mx-auto w-full">
-            <div className="absolute inset-[15%] rounded-full border border-dashed border-cream-100/25" />
+            <div className="absolute inset-[15%] rounded-full border border-dashed border-cream-100/50" />
             <div className="absolute inset-0 grid place-items-center">
               <div className="eco-node z-10 flex flex-col items-center gap-1.5 rounded-full bg-gold-500 text-forest-950 px-4 py-3 shadow-lg shadow-forest-950/40">
                 <MapPin size={18} />
-                <span className="text-[10px] font-medium tracking-wide text-center leading-tight">
+                <span className="text-[10px] font-bold tracking-wide text-center leading-tight uppercase">
                   M3M FORESTIA
                   <br />
-                  WEST
+                  West
                 </span>
               </div>
             </div>
             {CONNECTIVITY_NODES.map((n) => (
               <div
                 key={n.title}
-                className="eco-node absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-cream-100/20 bg-forest-900/70 px-3 py-1.5 text-[11px] text-cream-100/85 whitespace-nowrap"
+                className="eco-node absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-cream-100/30 bg-forest-900/90 px-3 py-1.5 text-[11px] text-cream-100/95 whitespace-nowrap font-medium"
                 style={nodePos(n.angle, n.radius)}
               >
                 {n.title}
@@ -234,26 +238,26 @@ export default function Ecosystem() {
           <div className="flex items-center justify-center mb-8">
             <button
               onClick={() => setLocationTab("av")}
-              className={`relative flex items-center gap-2 px-8 py-3 text-sm sm:text-base tracking-wide transition-colors after:content-[''] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-5 after:w-px after:bg-cream-100/30 ${
-                locationTab === "av" ? "text-gold-400" : "text-cream-100/70 hover:text-gold-400"
+              className={`relative flex items-center gap-2 px-8 py-3 text-sm sm:text-base tracking-wide transition-colors font-medium after:content-[''] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-5 after:w-px after:bg-cream-100/30 ${
+                locationTab === "av" ? "text-gold-400" : "text-cream-100/90 hover:text-gold-400"
               }`}
             >
               Location AV
               <ChevronDown
                 size={14}
-                className={`transition-transform ${locationTab === "av" ? "rotate-180 text-gold-400" : "text-cream-100/50"}`}
+                className={`transition-transform ${locationTab === "av" ? "rotate-180 text-gold-400" : "text-cream-100/70"}`}
               />
             </button>
             <button
               onClick={() => setLocationTab("map")}
-              className={`flex items-center gap-2 px-8 py-3 text-sm sm:text-base tracking-wide transition-colors ${
-                locationTab === "map" ? "text-gold-400" : "text-cream-100/70 hover:text-gold-400"
+              className={`flex items-center gap-2 px-8 py-3 text-sm sm:text-base tracking-wide transition-colors font-medium ${
+                locationTab === "map" ? "text-gold-400" : "text-cream-100/90 hover:text-gold-400"
               }`}
             >
               Location Map
               <ChevronDown
                 size={14}
-                className={`transition-transform ${locationTab === "map" ? "rotate-180 text-gold-400" : "text-cream-100/50"}`}
+                className={`transition-transform ${locationTab === "map" ? "rotate-180 text-gold-400" : "text-cream-100/70"}`}
               />
             </button>
           </div>
@@ -266,6 +270,7 @@ export default function Ecosystem() {
             {locationTab === "av" ? (
               tabInView && (
                 <video
+                  ref={tabVideoRef}
                   className="w-full h-full object-cover"
                   src="/images/gic-banner-video.mp4"
                   autoPlay

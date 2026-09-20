@@ -72,9 +72,6 @@ export default function EnquirePopup({ isOpen: externalIsOpen, onClose: external
           <>
             {/* Header */}
             <div className="mb-6 space-y-1.5 text-center sm:text-left">
-              <div className="inline-flex items-center gap-1.5 text-forest-900 text-xs uppercase tracking-widest font-semibold bg-forest-50 px-3 py-1 rounded-full border border-forest-200 mb-1">
-                <Sparkles size={12} /> Exclusive Invitation
-              </div>
               <h3 className="font-display text-2xl sm:text-3xl text-forest-950">
                 Enquire Now
               </h3>

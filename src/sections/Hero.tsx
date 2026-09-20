@@ -7,6 +7,7 @@ export default function Hero({ ready }: { ready: boolean }) {
   const root = useRef<HTMLDivElement>(null);
   const videoRef = useAutoPauseVideo<HTMLVideoElement>();
 
+  // GSAP timeline animation on component mount
   useLayoutEffect(() => {
     if (!ready) return;
 
@@ -34,6 +35,7 @@ export default function Hero({ ready }: { ready: boolean }) {
         ready ? "" : "invisible"
       }`}
     >
+      {/* Background Video */}
       <video
         ref={videoRef}
         className="hero-bg absolute inset-0 w-full h-full object-cover"
@@ -45,17 +47,15 @@ export default function Hero({ ready }: { ready: boolean }) {
         preload="metadata"
       />
 
-      {/* Top Right Corner RERA Info (Pushed down so it doesn't hide behind the navbar) */}
-      <div className="hero-rera absolute top-20 sm:top-24 right-5 sm:right-8 z-30 max-w-xs sm:max-w-sm pointer-events-auto">
-        <div className="bg-forest-950/85 backdrop-blur-md border border-gold-400/30 rounded-xl px-4 py-3 shadow-2xl text-right">
-          <p className="text-[10px] sm:text-[11px] font-semibold text-cream-50 leading-relaxed tracking-wide">
-            RERA REG. NO. RC/REP/HARERA/GGM/1030/762/2026/02 <span className="text-gold-400 font-normal">| Dated: 02.01.2026</span>
-          </p>
-          <div className="w-full h-px bg-gold-400/20 my-1.5" />
-          <p className="text-[10px] sm:text-[11px] font-semibold text-cream-50 leading-relaxed tracking-wide">
-            RERA REG. NO. RC/REP/HARERA/GGM/991/723/2025/94 <span className="text-gold-400 font-normal">| Dated: 16.10.2025</span>
-          </p>
-        </div>
+      {/* Top Right Corner RERA Info (Without background styling for a subtle look) */}
+      <div className="hero-rera absolute top-20 sm:top-24 right-5 sm:right-8 z-30 max-w-xs sm:max-w-sm pointer-events-auto text-right">
+        <p className="text-[10px] sm:text-[11px] font-medium text-cream-50/90 leading-relaxed tracking-wide drop-shadow-md">
+          RERA REG. NO. RC/REP/HARERA/GGM/1030/762/2026/02 <span className="text-gold-400 font-normal">| Dated: 02.01.2026</span>
+        </p>
+        <div className="w-full h-px bg-gold-400/30 my-1 ml-auto w-3/4" />
+        <p className="text-[10px] sm:text-[11px] font-medium text-cream-50/90 leading-relaxed tracking-wide drop-shadow-md">
+          RERA REG. NO. RC/REP/HARERA/GGM/991/723/2025/94 <span className="text-gold-400 font-normal">| Dated: 16.10.2025</span>
+        </p>
       </div>
 
       {/* Client Logos */}

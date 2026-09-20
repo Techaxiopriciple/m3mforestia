@@ -11,6 +11,14 @@ const CONNECTIVITY_NODES = [...CONNECTIVITY, ...CENTRAL_CONNECTIVITY].map((item,
   radius: 42,
 }));
 
+// Custom tab labels provided by you
+const SECTION_TABS = [
+  "Location",
+  "Vicinity",
+  "Future Development",
+  "Density of area",
+];
+
 function nodePos(angle: number, radius: number) {
   const rad = (angle * Math.PI) / 180;
   return {
@@ -22,6 +30,10 @@ function nodePos(angle: number, radius: number) {
 export default function Ecosystem() {
   const root = useRef<HTMLDivElement>(null);
   const [locationTab, setLocationTab] = useState<"av" | "map">("av");
+  
+  // State for the new custom tabs placed below the cards
+  const [activeTab, setActiveTab] = useState(0);
+
   const { ref: videoWrapRef, inView: videoInView } = useInView<HTMLDivElement>();
   const { ref: tabWrapRef, inView: tabInView } = useInView<HTMLDivElement>();
   const mainVideoRef = useAutoPauseVideo<HTMLVideoElement>();
@@ -50,8 +62,6 @@ export default function Ecosystem() {
         scrollTrigger: { trigger: ".eco-diagram", start: "top 75%" },
       });
 
-      // Alternating fade-up / fade-down reveal for the icon cards and
-      // connectivity stats, matching the reference site's per-card AOS pattern.
       gsap.from(".eco-card-up, .eco-stat-up", {
         opacity: 0,
         y: 40,
@@ -80,7 +90,6 @@ export default function Ecosystem() {
       ref={root}
       className="relative pt-12 sm:pt-16 lg:pt-20 pb-24 sm:pb-32 lg:pb-36 overflow-hidden"
     >
-      {/* Background Image — same responsive pair (mobile/desktop) and fade-to-green treatment as the reference */}
       <div className="absolute inset-0 -z-10">
         <img
           src="/images/gic-bg-mob.jpg"
@@ -92,12 +101,9 @@ export default function Ecosystem() {
           alt=""
           className="hidden sm:block w-full h-full object-cover object-top"
         />
-
-        {/* Safety overlay for text legibility over the lighter, blurred top of the image — increased opacity for better contrast */}
         <div className="absolute inset-0 bg-forest-950/60" />
       </div>
 
-      {/* Floating leaf accent — same graphic + drift animation as the reference's GIC section */}
       <div className="absolute -right-8 sm:right-[-27%] lg:right-[-85px] top-[10%] sm:top-[20%] lg:top-[12%] w-28 sm:w-36 lg:w-40 pointer-events-none z-10">
         <img src="/images/leaf-r.webp" alt="" className="eco-leaf w-full h-auto opacity-70 sm:opacity-85" />
       </div>
@@ -115,14 +121,12 @@ export default function Ecosystem() {
           animation: ecoTabFade 0.4s ease;
         }
         @keyframes ecoTabFade {
-          from { opacity: 0; }
-          to { opacity: 1; }
+          from { opacity: 0; transform: translateY(6px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
-
-        {/* GIC Logo + Intro */}
         <div className="eco-item flex flex-col items-center text-center">
           <img
             src="/images/logo/gic.webp"
@@ -136,7 +140,7 @@ export default function Ecosystem() {
           </p>
         </div>
 
-        {/* GIC Video — only fetched once it's about to scroll into view */}
+        {/* First Video */}
         <div
           ref={videoWrapRef}
           className="eco-item mt-10 sm:mt-12 max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-forest-900 h-[296px] sm:h-[415px] lg:h-[534px]"
@@ -155,7 +159,9 @@ export default function Ecosystem() {
           )}
         </div>
 
-        {/* Top 4 Sections */}
+        {/* ========================================== */}
+        {/* Original 4 Cards Grid Layout (At Top) */}
+        {/* ========================================== */}
         <div className="mt-12 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {ECOSYSTEM.map((item, i) => {
             const Icon = ECO_ICON[i];
@@ -165,7 +171,6 @@ export default function Ecosystem() {
                 key={item.title}
                 className={`${i % 2 === 0 ? "eco-card-up" : "eco-card-down"} relative text-center px-6 py-8 lg:py-4 flex flex-col justify-between`}
               >
-                {/* Vertical divider */}
                 {i < ECOSYSTEM.length - 1 && (
                   <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 h-24 w-px bg-gold-400/50" />
                 )}
@@ -181,7 +186,6 @@ export default function Ecosystem() {
                     />
                   </div>
 
-                  {/* Title */}
                   <h3 className="font-display text-lg sm:text-xl font-medium text-cream-50 hover:text-gold-400 transition-colors tracking-[0.16em] leading-snug uppercase whitespace-pre-line min-h-[3.5rem] flex items-center justify-center">
                     {item.title}
                   </h3>
@@ -195,43 +199,66 @@ export default function Ecosystem() {
           })}
         </div>
 
-        {/* Connectivity Diagram */}
-        <div className="eco-item mt-14 sm:mt-16 max-w-5xl mx-auto grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
-          <div className="grid grid-cols-2 gap-6">
-            {CONNECTIVITY_NODES.map((item, i) => (
-              <div
-                key={item.title}
-                className={`${i % 2 === 0 ? "eco-stat-down" : "eco-stat-up"} border-l-2 border-gold-400/60 pl-5`}
+        {/* ========================================== */}
+        {/* Custom Named Tabs Section (Below Cards) */}
+        {/* ========================================== */}
+        <div className="eco-item mt-16 sm:mt-20 max-w-5xl mx-auto">
+          {/* Tab Buttons Header */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 bg-forest-900/60 p-2 rounded-2xl border border-gold-400/20 backdrop-blur-md mb-12">
+            {SECTION_TABS.map((tabName, i) => (
+              <button
+                key={tabName}
+                onClick={() => setActiveTab(i)}
+                className={`flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 tracking-wider uppercase text-center cursor-pointer ${
+                  activeTab === i
+                    ? "bg-gold-500 text-forest-950 font-bold shadow-lg shadow-gold-500/20"
+                    : "text-cream-100/80 hover:text-white hover:bg-forest-800/50"
+                }`}
               >
-                <div className="font-display text-2xl sm:text-3xl text-gold-400">{item.time}</div>
-                <p className="mt-2 text-sm text-cream-100/85 leading-snug font-medium">{item.title}</p>
-              </div>
+                {tabName}
+              </button>
             ))}
           </div>
 
-          <div className="eco-diagram relative aspect-square max-w-md mx-auto w-full">
-            <div className="absolute inset-[15%] rounded-full border border-dashed border-cream-100/50" />
-            <div className="absolute inset-0 grid place-items-center">
-              <div className="eco-node z-10 flex flex-col items-center gap-1.5 rounded-full bg-gold-500 text-forest-950 px-4 py-3 shadow-lg shadow-forest-950/40">
-                <MapPin size={18} />
-                <span className="text-[10px] font-bold tracking-wide text-center leading-tight uppercase">
-                  M3M FORESTIA
-                  <br />
-                  West
-                </span>
-              </div>
+          {/* Dynamic Content Pane for Active Tab */}
+          <div key={activeTab} className="eco-tabpane grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
+            <div className="grid grid-cols-2 gap-6">
+              {CONNECTIVITY_NODES.map((item, index) => (
+                <div
+                  key={item.title}
+                  className={`${index % 2 === 0 ? "eco-stat-down" : "eco-stat-up"} border-l-2 border-gold-400/60 pl-5`}
+                >
+                  <div className="font-display text-2xl sm:text-3xl text-gold-400">{item.time}</div>
+                  <p className="mt-2 text-sm text-cream-100/85 leading-snug font-medium">{item.title}</p>
+                </div>
+              ))}
             </div>
-            {CONNECTIVITY_NODES.map((n) => (
-              <div
-                key={n.title}
-                className="eco-node absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-cream-100/30 bg-forest-900/90 px-3 py-1.5 text-[11px] text-cream-100/95 whitespace-nowrap font-medium"
-                style={nodePos(n.angle, n.radius)}
-              >
-                {n.title}
+
+            <div className="eco-diagram relative aspect-square max-w-md mx-auto w-full">
+              <div className="absolute inset-[15%] rounded-full border border-dashed border-cream-100/50" />
+              <div className="absolute inset-0 grid place-items-center">
+                <div className="eco-node z-10 flex flex-col items-center gap-1.5 rounded-full bg-gold-500 text-forest-950 px-4 py-3 shadow-lg shadow-forest-950/40">
+                  <MapPin size={18} />
+                  <span className="text-[10px] font-bold tracking-wide text-center leading-tight uppercase">
+                    M3M FORESTIA
+                    <br />
+                    West
+                  </span>
+                </div>
               </div>
-            ))}
+              {CONNECTIVITY_NODES.map((n) => (
+                <div
+                  key={n.title}
+                  className="eco-node absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-cream-100/30 bg-forest-900/90 px-3 py-1.5 text-[11px] text-cream-100/95 whitespace-nowrap font-medium"
+                  style={nodePos(n.angle, n.radius)}
+                >
+                  {n.title}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+        {/* ========================================== */}
 
         {/* Location AV / Location Map Tabs */}
         <div className="eco-item mt-14 sm:mt-16">
@@ -265,7 +292,7 @@ export default function Ecosystem() {
           <div
             ref={tabWrapRef}
             key={locationTab}
-            className="eco-tabpane rounded-3xl overflow-hidden bg-forest-900 h-[240px] sm:h-[336px] lg:h-[432px]"
+            className="eco-tabpane max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-forest-900 h-[296px] sm:h-[415px] lg:h-[534px]"
           >
             {locationTab === "av" ? (
               tabInView && (
@@ -284,7 +311,7 @@ export default function Ecosystem() {
               <img
                 src="/images/forestia-map.webp"
                 alt="M3M Forestia West location map"
-                className="w-full h-auto"
+                className="w-full h-full object-cover"
               />
             )}
           </div>

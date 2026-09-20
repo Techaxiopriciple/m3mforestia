@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Menu, X, Sparkles, Send, CheckCircle2 } from "lucide-react";
+import { Menu, X, Send, CheckCircle2 } from "lucide-react";
 
 const LINKS = [
   { href: "#location", label: "Location" },

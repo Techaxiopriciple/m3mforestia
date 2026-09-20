@@ -13,6 +13,7 @@ import ClubEden from "./sections/ClubEden";
 import Biodiversity from "./sections/Biodiversity";
 import InnovationPark from "./sections/InnovationPark";
 import ImmersiveTour from "./sections/ImmersiveTour";
+import FloatingForm from "./components/FloatingForm";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -33,6 +34,7 @@ export default function App() {
         <InnovationPark />
         <FloorPlans />
         <ImmersiveTour />
+        <FloatingForm />
       </main>
       <Footer />
     </>

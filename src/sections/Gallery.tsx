@@ -1,89 +1,230 @@
-import { useLayoutEffect, useRef, useState, useEffect } from "react";
-import { Trees, Sparkles, ChevronLeft, ChevronRight, Footprints, Waves, Baby, Bird } from "lucide-react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { gsap } from "../lib/gsap";
 import { PRICE } from "../lib/content";
 import { useInView } from "../lib/useInView";
+
+const AUTO_SLIDE_DELAY = 4500;
+const DESKTOP_SLIDE_WIDTH = 920;
+const DESKTOP_SLIDE_HEIGHT = 354;
+const SWIPE_THRESHOLD = 50;
+const SLIDE_TRANSITION =
+  "transform 700ms cubic-bezier(0.22, 1, 0.36, 1)";
 
 const carouselSlides = [
   {
     id: 1,
     image: "/images/M3M-IMT-Manesar-Sports-Area.webp",
     title: "Forest-Themed Sports & Greens",
-    tag: "Active Living",
-    subtitle: "150-acre sustainable luxury ecosystem",
-    icon: <Trees size={18} />
   },
   {
     id: 2,
     image: "/images/arrival-fountain.webp",
     title: "Eco Clubhouse & Wellness",
-    tag: "Rejuvenation",
-    subtitle: "State-of-the-art holistic health spaces",
-    icon: <Sparkles size={18} />
   },
   {
     id: 3,
     image: "/images/M3M-IMT-Manesar-Jogging-Track-Cam.webp",
     title: "300m Jogging & Fitness Trail",
-    tag: "Wellness Trail",
-    subtitle: "Shaded, tree-lined tracks for everyday movement",
-    icon: <Footprints size={18} />
   },
   {
     id: 4,
     image: "/images/M3M-IMT-Manesar-Waterbody-Seating-Cam.webp",
     title: "Cascading Waterfall Courtyard",
-    tag: "Serenity",
-    subtitle: "A tranquil water feature beneath the sky bridge",
-    icon: <Waves size={18} />
   },
   {
     id: 5,
     image: "/images/M3M-IMT-Manesar-Kids-Play-Area.webp",
     title: "Whimsical Kids' Play Zone",
-    tag: "Family Living",
-    subtitle: "Imaginative, colourful play spaces for little ones",
-    icon: <Baby size={18} />
   },
   {
     id: 6,
     image: "/images/M3M-IMT-Manesar-Forest-Garden.webp",
     title: "Lantern-Lit Forest Garden",
-    tag: "Biodiversity",
-    subtitle: "Native birdlife and lantern trees, just outside your door",
-    icon: <Bird size={18} />
-  }
+  },
 ];
+
+const slidesWithClones = [
+  carouselSlides[carouselSlides.length - 1],
+  ...carouselSlides,
+  carouselSlides[0],
+];
+
+function ArrowButton({
+  direction,
+  onClick,
+  mobile = false,
+}: {
+  direction: "prev" | "next";
+  onClick: () => void;
+  mobile?: boolean;
+}) {
+  const Icon = direction === "prev" ? ChevronLeft : ChevronRight;
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={`${direction === "prev" ? "Previous" : "Next"} slide`}
+      className={
+        mobile
+          ? `absolute ${
+              direction === "prev" ? "left-5" : "right-5"
+            } top-1/2 z-40 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white bg-transparent text-white`
+          : `absolute ${
+              direction === "prev"
+                ? "left-[calc(50%-390px)]"
+                : "right-[calc(50%-390px)]"
+            } top-1/2 z-50 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white bg-transparent text-white transition duration-300 hover:bg-white/10`
+      }
+    >
+      <Icon
+        size={mobile ? 23 : 25}
+        strokeWidth={1.2}
+      />
+    </button>
+  );
+}
+
+function SlideImage({
+  slide,
+  isCenter = false,
+}: {
+  slide: (typeof carouselSlides)[number];
+  isCenter?: boolean;
+}) {
+  return (
+    <img
+      src={slide.image}
+      alt={slide.title}
+      draggable={false}
+      className={`
+        h-full
+        w-full
+        select-none
+        object-cover
+        ${isCenter ? "scale-100" : "scale-[0.86]"}
+        transition-transform
+        duration-700
+      `}
+    />
+  );
+}
 
 export default function Gallery() {
   const root = useRef<HTMLDivElement>(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const { ref: carouselRef, inView: carouselInView } = useInView<HTMLDivElement>("0px");
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const touchStartX = useRef<number | null>(null);
+
+  const [slideIndex, setSlideIndex] = useState(1);
+  const [animate, setAnimate] = useState(true);
+
+  const {
+    ref: carouselRef,
+    inView: carouselInView,
+  } = useInView<HTMLDivElement>("0px");
+
+  const clearAutoSlide = () => {
+    if (!timerRef.current) return;
+
+    clearTimeout(timerRef.current);
+    timerRef.current = null;
+  };
+
+  const scheduleAutoSlide = () => {
+    clearAutoSlide();
+
+    if (!carouselInView) return;
+
+    timerRef.current = setTimeout(() => {
+      if (document.hidden) {
+        scheduleAutoSlide();
+        return;
+      }
+
+      setAnimate(true);
+      setSlideIndex((prev) => prev + 1);
+    }, AUTO_SLIDE_DELAY);
+  };
+
+  const handleNext = () => {
+    clearAutoSlide();
+    setAnimate(true);
+    setSlideIndex((prev) => prev + 1);
+  };
+
+  const handlePrev = () => {
+    clearAutoSlide();
+    setAnimate(true);
+    setSlideIndex((prev) => prev - 1);
+  };
+
+  const handleTransitionEnd = () => {
+    const lastCloneIndex = carouselSlides.length + 1;
+
+    if (slideIndex === lastCloneIndex) {
+      setAnimate(false);
+      setSlideIndex(1);
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setAnimate(true);
+        });
+      });
+
+      return;
+    }
+
+    if (slideIndex === 0) {
+      setAnimate(false);
+      setSlideIndex(carouselSlides.length);
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setAnimate(true);
+        });
+      });
+    }
+  };
+
+  const handleTouchStart = (
+    event: React.TouchEvent<HTMLDivElement>
+  ) => {
+    touchStartX.current = event.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (
+    event: React.TouchEvent<HTMLDivElement>
+  ) => {
+    if (touchStartX.current === null) return;
+
+    const distance =
+      touchStartX.current - event.changedTouches[0].clientX;
+
+    if (Math.abs(distance) > SWIPE_THRESHOLD) {
+      distance > 0 ? handleNext() : handlePrev();
+    }
+
+    touchStartX.current = null;
+  };
 
   useEffect(() => {
-    carouselSlides.forEach((slide) => {
+    carouselSlides.forEach(({ image }) => {
       const img = new Image();
-      img.src = slide.image;
+      img.src = image;
     });
   }, []);
 
   useEffect(() => {
-    if (!carouselInView) return;
+    if (!carouselInView) {
+      clearAutoSlide();
+      return;
+    }
 
-    const timer = setInterval(() => {
-      if (document.hidden) return;
-      setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
-    }, 4500);
-    return () => clearInterval(timer);
-  }, [carouselInView]);
+    scheduleAutoSlide();
 
-  const handleNextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
-  };
-
-  const handlePrevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length);
-  };
+    return clearAutoSlide;
+  }, [carouselInView, slideIndex]);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -93,9 +234,9 @@ export default function Gallery() {
         stagger: 0.15,
         duration: 1,
         ease: "power3.out",
-        scrollTrigger: { 
-          trigger: root.current, 
-          start: "top 75%" 
+        scrollTrigger: {
+          trigger: root.current,
+          start: "top 75%",
         },
       });
     }, root);
@@ -104,114 +245,139 @@ export default function Gallery() {
   }, []);
 
   return (
-    <section 
+    <section
       id="gallery"
-      ref={root} 
-      className="relative py-20 lg:py-28 bg-white text-forest-950 overflow-hidden"
+      ref={root}
+      className="relative overflow-hidden bg-white py-20 text-forest-950 lg:py-28"
     >
-      <div className="w-full px-0 mx-auto relative z-10">
-        
-        {/* Top Header Section */}
-        <div className="editorial-fade text-center max-w-3xl mx-auto mb-12 px-4 space-y-3">
-          <h2 className="font-display text-3xl sm:text-5xl text-forest-950 leading-[1.15]">
+      <div className="relative z-10 w-full">
+
+        {/* Heading */}
+        <div className="editorial-fade mx-auto mb-12 max-w-3xl space-y-3 px-4 text-center">
+          <h2 className="font-display text-3xl leading-[1.15] text-forest-950 sm:text-5xl">
             Homes that add to your life
           </h2>
-          <p className="text-forest-700 text-xs sm:text-sm font-normal max-w-xl mx-auto leading-relaxed">
-            Sports & wellness themed 2.5 BHK residences that bring together comfort, elegance, and functionality.
+
+          <p className="mx-auto max-w-xl text-xs font-normal leading-relaxed text-forest-700 sm:text-sm">
+            Sports & wellness themed 2.5 BHK residences that bring together
+            comfort, elegance, and functionality.
           </p>
         </div>
 
-        {/* Carousel Showcase Container */}
-        <div 
+        {/* Gallery */}
+        <div
           ref={carouselRef}
-          className="editorial-fade relative w-screen left-1/2 -translate-x-1/2 overflow-hidden py-2 mb-10 px-0 m-0"
+          className="editorial-fade relative w-full overflow-hidden"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
-          <div className="relative w-full flex items-center justify-between gap-3 lg:gap-5 px-0 m-0">
-            
-            {/* Left Preview Slide */}
-            <div 
-              onClick={handlePrevSlide}
-              className="hidden lg:block w-[14%] xl:w-[16%] h-[280px] sm:h-[360px] overflow-hidden opacity-50 cursor-pointer relative flex-shrink-0 transition-all duration-700 ease-out hover:opacity-85 pl-0 ml-0"
+
+          {/* Desktop */}
+          <div className="relative hidden lg:block">
+            <div
+              className={`relative h-[${DESKTOP_SLIDE_HEIGHT}px] w-full overflow-hidden`}
             >
-              <div className="w-full h-full relative overflow-hidden">
-                <img 
-                  src={carouselSlides[(currentSlide - 1 + carouselSlides.length) % carouselSlides.length].image} 
-                  alt="Previous preview" 
-                  className="w-full h-full object-cover filter brightness-90 scale-105 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-black/40" />
-              </div>
-            </div>
-
-            {/* Center Main Active Slide */}
-            <div className="w-full lg:w-[68%] xl:w-[64%] h-[360px] sm:h-[450px] overflow-hidden shadow-2xl relative bg-forest-950 flex-shrink-0 mx-auto">
-              
-              {/* Navigation Arrows */}
-              <div className="absolute inset-x-6 top-1/2 -translate-y-1/2 z-40 flex justify-between pointer-events-none">
-                <button 
-                  onClick={handlePrevSlide}
-                  className="size-12 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-black/80 transition-all cursor-pointer shadow-xl pointer-events-auto"
-                  aria-label="Previous Slide"
-                >
-                  <ChevronLeft size={24} />
-                </button>
-
-                <button 
-                  onClick={handleNextSlide}
-                  className="size-12 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white flex items-center justify-center hover:bg-black/80 transition-all cursor-pointer shadow-xl pointer-events-auto"
-                  aria-label="Next Slide"
-                >
-                  <ChevronRight size={24} />
-                </button>
-              </div>
-
-              {/* Smooth Track Container */}
-              <div 
-                className="flex h-full transition-transform duration-700 ease-in-out"
-                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+              <div
+                onTransitionEnd={handleTransitionEnd}
+                className="absolute left-1/2 top-0 flex h-full"
+                style={{
+                  transform: `translate3d(calc(-460px - ${
+                    slideIndex * DESKTOP_SLIDE_WIDTH
+                  }px), 0, 0)`,
+                  transition: animate
+                    ? SLIDE_TRANSITION
+                    : "none",
+                }}
               >
-                {carouselSlides.map((slide) => (
-                  <div key={slide.id} className="w-full h-full flex-shrink-0 relative">
-                    <img
-                      src={slide.image}
-                      alt={slide.title}
-                      className="w-full h-full object-cover filter brightness-95"
+                {slidesWithClones.map((slide, index) => (
+                  <div
+                    key={`${slide.id}-${index}`}
+                    className="
+                      relative
+                      h-[354px]
+                      w-[920px]
+                      shrink-0
+                      overflow-hidden
+                    "
+                  >
+                    <SlideImage
+                      slide={slide}
+                      isCenter={index === slideIndex}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-forest-950/80 via-forest-950/20 to-transparent pointer-events-none z-20 flex flex-col justify-end p-6 sm:p-10">
-                      <span className="text-white/80 text-xs uppercase tracking-widest font-medium mb-1">{slide.tag}</span>
-                      <h3 className="text-white font-display text-xl sm:text-3xl">{slide.title}</h3>
-                    </div>
                   </div>
                 ))}
               </div>
-            </div>
 
-            {/* Right Preview Slide */}
-            <div 
-              onClick={handleNextSlide}
-              className="hidden lg:block w-[14%] xl:w-[16%] h-[280px] sm:h-[360px] overflow-hidden opacity-50 cursor-pointer relative flex-shrink-0 transition-all duration-700 ease-out hover:opacity-85 pr-0 mr-0"
-            >
-              <div className="w-full h-full relative overflow-hidden">
-                <img 
-                  src={carouselSlides[(currentSlide + 1) % carouselSlides.length].image} 
-                  alt="Next preview" 
-                  className="w-full h-full object-cover filter brightness-90 scale-105 transition-transform duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-black/40" />
+              <ArrowButton
+                direction="prev"
+                onClick={handlePrev}
+              />
+
+              <ArrowButton
+                direction="next"
+                onClick={handleNext}
+              />
+            </div>
+          </div>
+
+          {/* Mobile */}
+          <div className="relative block w-full lg:hidden">
+            <div className="relative h-[320px] w-full overflow-hidden">
+              <div
+                onTransitionEnd={handleTransitionEnd}
+                className="flex h-full"
+                style={{
+                  transform: `translate3d(-${
+                    slideIndex * 100
+                  }%, 0, 0)`,
+                  transition: animate
+                    ? SLIDE_TRANSITION
+                    : "none",
+                }}
+              >
+                {slidesWithClones.map((slide, index) => (
+                  <div
+                    key={`${slide.id}-mobile-${index}`}
+                    className="relative h-full w-full shrink-0"
+                  >
+                    <SlideImage slide={slide} isCenter />
+                  </div>
+                ))}
               </div>
-            </div>
 
+              <ArrowButton
+                direction="prev"
+                onClick={handlePrev}
+                mobile
+              />
+
+              <ArrowButton
+                direction="next"
+                onClick={handleNext}
+                mobile
+              />
+            </div>
           </div>
         </div>
 
-        {/* Plan Pills Footer */}
-        <div className="editorial-fade pt-6 border-t border-forest-100 flex flex-wrap justify-center gap-3 max-w-7xl mx-auto px-4">
-          {PRICE?.plans?.map((p) => (
+        {/* Plan Pills */}
+        <div className="editorial-fade mx-auto mt-10 flex max-w-7xl flex-wrap justify-center gap-3 border-t border-forest-100 px-4 pt-10">
+          {PRICE?.plans?.map((plan) => (
             <span
-              key={p}
-              className="rounded-full border border-emerald-800/50 bg-[#11221a] px-6 py-2.5 text-xs sm:text-sm text-emerald-100 font-semibold tracking-wide shadow-sm"
+              key={plan}
+              className="
+                rounded-full
+                border border-emerald-800/50
+                bg-[#11221a]
+                px-6 py-2.5
+                text-xs font-semibold
+                tracking-wide
+                text-emerald-100
+                shadow-sm
+                sm:text-sm
+              "
             >
-              {p}
+              {plan}
             </span>
           ))}
         </div>
@@ -220,3 +386,4 @@ export default function Gallery() {
     </section>
   );
 }
+

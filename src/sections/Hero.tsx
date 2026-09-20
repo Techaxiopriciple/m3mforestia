@@ -19,6 +19,7 @@ export default function Hero({ ready }: { ready: boolean }) {
         .from(".hero-sub", { opacity: 0, y: 20, duration: 0.8 }, 0.9)
         .from(".hero-cta", { opacity: 0, y: 20, duration: 0.8, stagger: 0.1 }, 1.05)
         .from(".hero-logos", { opacity: 0, y: 20, duration: 0.8 }, 1.2)
+        .from(".hero-rera", { opacity: 0, y: -20, duration: 0.8 }, 1.25)
         .from(".hero-scroll", { opacity: 0, duration: 0.6 }, 1.4);
     }, root);
 
@@ -43,6 +44,19 @@ export default function Hero({ ready }: { ready: boolean }) {
         playsInline
         preload="metadata"
       />
+
+      {/* Top Right Corner RERA Info (Pushed down so it doesn't hide behind the navbar) */}
+      <div className="hero-rera absolute top-20 sm:top-24 right-5 sm:right-8 z-30 max-w-xs sm:max-w-sm pointer-events-auto">
+        <div className="bg-forest-950/85 backdrop-blur-md border border-gold-400/30 rounded-xl px-4 py-3 shadow-2xl text-right">
+          <p className="text-[10px] sm:text-[11px] font-semibold text-cream-50 leading-relaxed tracking-wide">
+            RERA REG. NO. RC/REP/HARERA/GGM/1030/762/2026/02 <span className="text-gold-400 font-normal">| Dated: 02.01.2026</span>
+          </p>
+          <div className="w-full h-px bg-gold-400/20 my-1.5" />
+          <p className="text-[10px] sm:text-[11px] font-semibold text-cream-50 leading-relaxed tracking-wide">
+            RERA REG. NO. RC/REP/HARERA/GGM/991/723/2025/94 <span className="text-gold-400 font-normal">| Dated: 16.10.2025</span>
+          </p>
+        </div>
+      </div>
 
       {/* Client Logos */}
       <div className="hero-logos absolute inset-0 z-20 flex items-center pt-80 sm:pt-96 pointer-events-none">

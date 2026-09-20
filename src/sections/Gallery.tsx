@@ -6,59 +6,21 @@ import { useInView } from "../lib/useInView";
 
 const AUTO_SLIDE_DELAY = 4500;
 const DESKTOP_SLIDE_WIDTH = 920;
-const DESKTOP_SLIDE_HEIGHT = 354;
 const SWIPE_THRESHOLD = 50;
-const SLIDE_TRANSITION =
-  "transform 700ms cubic-bezier(0.22, 1, 0.36, 1)";
+const SLIDE_TRANSITION = "transform 700ms cubic-bezier(0.22, 1, 0.36, 1)";
 
 const carouselSlides = [
-  {
-    id: 1,
-    image: "/images/M3M-IMT-Manesar-Sports-Area.webp",
-    title: "Forest-Themed Sports & Greens",
-  },
-  {
-    id: 2,
-    image: "/images/arrival-fountain.webp",
-    title: "Eco Clubhouse & Wellness",
-  },
-  {
-    id: 3,
-    image: "/images/M3M-IMT-Manesar-Jogging-Track-Cam.webp",
-    title: "300m Jogging & Fitness Trail",
-  },
-  {
-    id: 4,
-    image: "/images/M3M-IMT-Manesar-Waterbody-Seating-Cam.webp",
-    title: "Cascading Waterfall Courtyard",
-  },
-  {
-    id: 5,
-    image: "/images/M3M-IMT-Manesar-Kids-Play-Area.webp",
-    title: "Whimsical Kids' Play Zone",
-  },
-  {
-    id: 6,
-    image: "/images/M3M-IMT-Manesar-Forest-Garden.webp",
-    title: "Lantern-Lit Forest Garden",
-  },
+  { id: 1, image: "/images/M3M-IMT-Manesar-Sports-Area.webp", title: "Forest-Themed Sports & Greens" },
+  { id: 2, image: "/images/arrival-fountain.webp", title: "Eco Clubhouse & Wellness" },
+  { id: 3, image: "/images/M3M-IMT-Manesar-Jogging-Track-Cam.webp", title: "300m Jogging & Fitness Trail" },
+  { id: 4, image: "/images/M3M-IMT-Manesar-Waterbody-Seating-Cam.webp", title: "Cascading Waterfall Courtyard" },
+  { id: 5, image: "/images/M3M-IMT-Manesar-Kids-Play-Area.webp", title: "Whimsical Kids' Play Zone" },
+  { id: 6, image: "/images/M3M-IMT-Manesar-Forest-Garden.webp", title: "Lantern-Lit Forest Garden" },
 ];
 
-const slidesWithClones = [
-  carouselSlides[carouselSlides.length - 1],
-  ...carouselSlides,
-  carouselSlides[0],
-];
+const slidesWithClones = [carouselSlides.at(-1)!, ...carouselSlides, carouselSlides[0]];
 
-function ArrowButton({
-  direction,
-  onClick,
-  mobile = false,
-}: {
-  direction: "prev" | "next";
-  onClick: () => void;
-  mobile?: boolean;
-}) {
+function ArrowButton({ direction, onClick, mobile = false }: { direction: "prev" | "next"; onClick: () => void; mobile?: boolean }) {
   const Icon = direction === "prev" ? ChevronLeft : ChevronRight;
 
   return (
@@ -68,45 +30,22 @@ function ArrowButton({
       aria-label={`${direction === "prev" ? "Previous" : "Next"} slide`}
       className={
         mobile
-          ? `absolute ${
-              direction === "prev" ? "left-5" : "right-5"
-            } top-1/2 z-40 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white bg-transparent text-white`
-          : `absolute ${
-              direction === "prev"
-                ? "left-[calc(50%-390px)]"
-                : "right-[calc(50%-390px)]"
-            } top-1/2 z-50 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white bg-transparent text-white transition duration-300 hover:bg-white/10`
+          ? `absolute ${direction === "prev" ? "left-5" : "right-5"} top-1/2 z-40 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white bg-transparent text-white`
+          : `absolute ${direction === "prev" ? "left-[calc(50%-390px)]" : "right-[calc(50%-390px)]"} top-1/2 z-50 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white bg-transparent text-white transition duration-300 hover:bg-white/10`
       }
     >
-      <Icon
-        size={mobile ? 23 : 25}
-        strokeWidth={1.2}
-      />
+      <Icon size={mobile ? 23 : 25} strokeWidth={1.2} />
     </button>
   );
 }
 
-function SlideImage({
-  slide,
-  isCenter = false,
-}: {
-  slide: (typeof carouselSlides)[number];
-  isCenter?: boolean;
-}) {
+function SlideImage({ slide, isCenter = false }: { slide: (typeof carouselSlides)[number]; isCenter?: boolean }) {
   return (
     <img
       src={slide.image}
       alt={slide.title}
       draggable={false}
-      className={`
-        h-full
-        w-full
-        select-none
-        object-cover
-        ${isCenter ? "scale-100" : "scale-[0.86]"}
-        transition-transform
-        duration-700
-      `}
+      className={`h-full w-full select-none object-cover ${isCenter ? "scale-100" : "scale-[0.86]"} transition-transform duration-700`}
     />
   );
 }
@@ -119,21 +58,16 @@ export default function Gallery() {
   const [slideIndex, setSlideIndex] = useState(1);
   const [animate, setAnimate] = useState(true);
 
-  const {
-    ref: carouselRef,
-    inView: carouselInView,
-  } = useInView<HTMLDivElement>("0px");
+  const { ref: carouselRef, inView: carouselInView } = useInView<HTMLDivElement>("0px");
 
   const clearAutoSlide = () => {
     if (!timerRef.current) return;
-
     clearTimeout(timerRef.current);
     timerRef.current = null;
   };
 
   const scheduleAutoSlide = () => {
     clearAutoSlide();
-
     if (!carouselInView) return;
 
     timerRef.current = setTimeout(() => {
@@ -167,9 +101,7 @@ export default function Gallery() {
       setSlideIndex(1);
 
       requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setAnimate(true);
-        });
+        requestAnimationFrame(() => setAnimate(true));
       });
 
       return;
@@ -180,26 +112,19 @@ export default function Gallery() {
       setSlideIndex(carouselSlides.length);
 
       requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          setAnimate(true);
-        });
+        requestAnimationFrame(() => setAnimate(true));
       });
     }
   };
 
-  const handleTouchStart = (
-    event: React.TouchEvent<HTMLDivElement>
-  ) => {
+  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
     touchStartX.current = event.touches[0].clientX;
   };
 
-  const handleTouchEnd = (
-    event: React.TouchEvent<HTMLDivElement>
-  ) => {
+  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
     if (touchStartX.current === null) return;
 
-    const distance =
-      touchStartX.current - event.changedTouches[0].clientX;
+    const distance = touchStartX.current - event.changedTouches[0].clientX;
 
     if (Math.abs(distance) > SWIPE_THRESHOLD) {
       distance > 0 ? handleNext() : handlePrev();
@@ -222,7 +147,6 @@ export default function Gallery() {
     }
 
     scheduleAutoSlide();
-
     return clearAutoSlide;
   }, [carouselInView, slideIndex]);
 
@@ -234,10 +158,7 @@ export default function Gallery() {
         stagger: 0.15,
         duration: 1,
         ease: "power3.out",
-        scrollTrigger: {
-          trigger: root.current,
-          start: "top 75%",
-        },
+        scrollTrigger: { trigger: root.current, start: "top 75%" },
       });
     }, root);
 
@@ -245,117 +166,59 @@ export default function Gallery() {
   }, []);
 
   return (
-    <section
-      id="gallery"
-      ref={root}
-      className="relative overflow-hidden bg-white py-20 text-forest-950 lg:py-28"
-    >
+    <section id="gallery" ref={root} className="relative overflow-hidden bg-white py-20 text-forest-950 lg:py-28">
       <div className="relative z-10 w-full">
-
-        {/* Heading */}
         <div className="editorial-fade mx-auto mb-12 max-w-3xl space-y-3 px-4 text-center">
-          <h2 className="font-display text-3xl leading-[1.15] text-forest-950 sm:text-5xl">
-            Homes that add to your life
-          </h2>
-
+          <h2 className="font-display text-3xl leading-[1.15] text-forest-950 sm:text-5xl">Homes that add to your life</h2>
           <p className="mx-auto max-w-xl text-xs font-normal leading-relaxed text-forest-700 sm:text-sm">
-            Sports & wellness themed 2.5 BHK residences that bring together
-            comfort, elegance, and functionality.
+            Sports & wellness themed 2.5 BHK residences that bring together comfort, elegance, and functionality.
           </p>
         </div>
 
-        {/* Gallery */}
-        <div
-          ref={carouselRef}
-          className="editorial-fade relative w-full overflow-hidden"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
-
+        <div ref={carouselRef} className="editorial-fade relative w-full overflow-hidden" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
           {/* Desktop */}
           <div className="relative hidden lg:block">
-            <div
-              className={`relative h-[${DESKTOP_SLIDE_HEIGHT}px] w-full overflow-hidden`}
-            >
+            <div className="relative h-[354px] w-full overflow-hidden">
               <div
                 onTransitionEnd={handleTransitionEnd}
                 className="absolute left-1/2 top-0 flex h-full"
                 style={{
-                  transform: `translate3d(calc(-460px - ${
-                    slideIndex * DESKTOP_SLIDE_WIDTH
-                  }px), 0, 0)`,
-                  transition: animate
-                    ? SLIDE_TRANSITION
-                    : "none",
+                  transform: `translate3d(calc(-460px - ${slideIndex * DESKTOP_SLIDE_WIDTH}px), 0, 0)`,
+                  transition: animate ? SLIDE_TRANSITION : "none",
                 }}
               >
                 {slidesWithClones.map((slide, index) => (
-                  <div
-                    key={`${slide.id}-${index}`}
-                    className="
-                      relative
-                      h-[354px]
-                      w-[920px]
-                      shrink-0
-                      overflow-hidden
-                    "
-                  >
-                    <SlideImage
-                      slide={slide}
-                      isCenter={index === slideIndex}
-                    />
+                  <div key={`${slide.id}-${index}`} className="relative h-[354px] w-[920px] shrink-0 overflow-hidden">
+                    <SlideImage slide={slide} isCenter={index === slideIndex} />
                   </div>
                 ))}
               </div>
 
-              <ArrowButton
-                direction="prev"
-                onClick={handlePrev}
-              />
-
-              <ArrowButton
-                direction="next"
-                onClick={handleNext}
-              />
+              <ArrowButton direction="prev" onClick={handlePrev} />
+              <ArrowButton direction="next" onClick={handleNext} />
             </div>
           </div>
 
           {/* Mobile */}
           <div className="relative block w-full lg:hidden">
-            <div className="relative h-[320px] w-full overflow-hidden">
+            <div className="relative aspect-[380/254] w-full overflow-hidden">
               <div
                 onTransitionEnd={handleTransitionEnd}
                 className="flex h-full"
                 style={{
-                  transform: `translate3d(-${
-                    slideIndex * 100
-                  }%, 0, 0)`,
-                  transition: animate
-                    ? SLIDE_TRANSITION
-                    : "none",
+                  transform: `translate3d(-${slideIndex * 100}%, 0, 0)`,
+                  transition: animate ? SLIDE_TRANSITION : "none",
                 }}
               >
                 {slidesWithClones.map((slide, index) => (
-                  <div
-                    key={`${slide.id}-mobile-${index}`}
-                    className="relative h-full w-full shrink-0"
-                  >
+                  <div key={`${slide.id}-mobile-${index}`} className="relative h-full w-full shrink-0">
                     <SlideImage slide={slide} isCenter />
                   </div>
                 ))}
               </div>
 
-              <ArrowButton
-                direction="prev"
-                onClick={handlePrev}
-                mobile
-              />
-
-              <ArrowButton
-                direction="next"
-                onClick={handleNext}
-                mobile
-              />
+              <ArrowButton direction="prev" onClick={handlePrev} mobile />
+              <ArrowButton direction="next" onClick={handleNext} mobile />
             </div>
           </div>
         </div>
@@ -363,27 +226,12 @@ export default function Gallery() {
         {/* Plan Pills */}
         <div className="editorial-fade mx-auto mt-10 flex max-w-7xl flex-wrap justify-center gap-3 border-t border-forest-100 px-4 pt-10">
           {PRICE?.plans?.map((plan) => (
-            <span
-              key={plan}
-              className="
-                rounded-full
-                border border-emerald-800/50
-                bg-[#11221a]
-                px-6 py-2.5
-                text-xs font-semibold
-                tracking-wide
-                text-emerald-100
-                shadow-sm
-                sm:text-sm
-              "
-            >
+            <span key={plan} className="rounded-full border border-emerald-800/50 bg-[#11221a] px-6 py-2.5 text-xs font-semibold tracking-wide text-emerald-100 shadow-sm sm:text-sm">
               {plan}
             </span>
           ))}
         </div>
-
       </div>
     </section>
   );
 }
-

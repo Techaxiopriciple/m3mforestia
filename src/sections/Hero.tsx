@@ -44,8 +44,8 @@ export default function Hero({ ready }: { ready: boolean }) {
         preload="metadata"
       />
 
-      {/* Client Logos — Width wahi purani, height me center se thoda aur niche */}
-      <div className="hero-logos absolute inset-0 z-20 flex items-center pt-44 sm:pt-52 pointer-events-none">
+      {/* Client Logos */}
+      <div className="hero-logos absolute inset-0 z-20 flex items-center pt-80 sm:pt-96 pointer-events-none">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 w-full flex items-end gap-4 pointer-events-auto">
           <a href="#top" aria-label="M3M Forestia" className="flex items-center justify-center p-2">
             <img
@@ -67,10 +67,14 @@ export default function Hero({ ready }: { ready: boolean }) {
 
       <div className="absolute inset-0 bg-gradient-to-r from-forest-950/30 via-transparent to-forest-950/10" />
 
-      <div className="hero-scroll absolute bottom-8 inset-x-0 hidden lg:flex flex-col items-center gap-2 text-cream-100/70 text-xs tracking-[0.3em]">
+      {/* Clickable Scroll Button */}
+      <a
+        href="#location"
+        className="hero-scroll absolute bottom-8 inset-x-0 hidden lg:flex flex-col items-center gap-2 text-cream-100/70 hover:text-white text-xs tracking-[0.3em] transition-colors cursor-pointer w-fit mx-auto z-20"
+      >
         <span>SCROLL</span>
         <ChevronDown className="animate-bounce" size={18} />
-      </div>
+      </a>
     </section>
   );
 }

@@ -33,7 +33,7 @@ export default function GrandWelcome() {
 
         <div className="grand-fade mt-8 sm:mt-10 rounded-3xl overflow-hidden">
           <img
-            src="/images/arrival-fountain.webp"
+            src="/images/FORESTIA-MASTER.jpeg"
             alt="M3M Forestia West grand entrance arrival"
             className="w-full h-[280px] sm:h-[420px] lg:h-[560px] object-cover"
           />

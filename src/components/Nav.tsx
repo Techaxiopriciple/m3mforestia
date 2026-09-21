@@ -44,7 +44,7 @@ export default function Nav() {
       <header
         className={`fixed top-0 inset-x-0 z-50 transition-colors duration-500 ${
           scrolled
-            ? "bg-white/95 backdrop-blur-sm shadow-lg shadow-forest-950/10"
+            ? "bg-white/95 shadow-lg shadow-forest-950/10"
             : "bg-forest-950/35 backdrop-blur-[2px]"
         }`}
       >

@@ -35,7 +35,7 @@ export default function Biodiversity() {
           {loop.map((item, i) => (
             <span
               key={i}
-              className="flex items-center gap-3 text-cream-100/80 text-sm sm:text-base font-medium tracking-wide whitespace-nowrap bg-forest-900/40 px-5 py-2 rounded-full border border-cream-50/10 backdrop-blur-sm"
+              className="flex items-center gap-3 text-cream-100/80 text-sm sm:text-base font-medium tracking-wide whitespace-nowrap bg-forest-900/40 px-5 py-2 rounded-full border border-cream-50/10"
             >
               {i % 2 === 0 ? (
                 <Bird size={16} className="text-gold-400 shrink-0" />

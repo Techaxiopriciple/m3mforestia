@@ -32,10 +32,10 @@ export const RESIDENCE_SIZES = [
 // brochure) are available — the section renders a labelled placeholder
 // instead of a fabricated or third-party layout.
 export const FLOOR_PLANS = [
-  { type: "Type A", label: "3 BHK", size: "1,905 sq.ft.", image: "/images/floorplans/type-a-1905sqft.png" },
-  { type: "Type B", label: "3 BHK", size: "1,910 sq.ft.", image: "/images/floorplans/type-b-1910sqft.png" },
-  { type: "Type C", label: "3 BHK + Study", size: "2,440 sq.ft.", image: "/images/floorplans/type-c-2440sqft.png" },
-  { type: "Type D", label: "3 BHK + Study", size: "2,455 sq.ft.", image: "/images/floorplans/type-d-2455sqft.png" },
+  { type: "Type A", label: "3 BHK", size: "1,905 sq.ft.", image: "/images/floorplans/type-a-1905sqft.webp" },
+  { type: "Type B", label: "3 BHK", size: "1,910 sq.ft.", image: "/images/floorplans/type-b-1910sqft.webp" },
+  { type: "Type C", label: "3 BHK + Study", size: "2,440 sq.ft.", image: "/images/floorplans/type-c-2440sqft.webp" },
+  { type: "Type D", label: "3 BHK + Study", size: "2,455 sq.ft.", image: "/images/floorplans/type-d-2455sqft.webp" },
 ];
 
 export const PRICE = {
@@ -133,7 +133,7 @@ export const CENTRAL_GROVE = [
 ];
 
 export const CLUBHOUSE_IMAGES = [
-  { src: "/images/grand-welcome-entrance.jpg", caption: "Grand Clubhouse Entrance" },
+  { src: "/images/grand-welcome-entrance.webp", caption: "Grand Clubhouse Entrance" },
   { src: "/images/Forestia-Render-3.webp", caption: "The Clubhouse Facade" },
   { src: "/images/wellbeing.webp", caption: "Wellness & Spa Deck" },
   { src: "/images/amphitheatre-card.webp", caption: "Amphitheatre & Events Lawn" },

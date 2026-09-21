@@ -8,8 +8,11 @@
     <title>M3M Forestia West | A Life Curated by Nature</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="preload" as="image" href="/images/hero-main.webp" fetchpriority="high" />
+    <!-- Fonts load without blocking first paint (the preloader covers the page while they arrive); display=swap keeps text visible -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" /></noscript>
+    <!-- Background of the preloader: referenced only from CSS, so it would otherwise be discovered after the JS/CSS have loaded -->
+    <link rel="preload" as="image" href="/images/logo-hero.webp" />
   </head>
   <body>
     <div id="root"></div>

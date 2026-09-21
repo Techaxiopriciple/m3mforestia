@@ -51,10 +51,10 @@ export default function FloorPlans() {
     <section id="floorplans" ref={root} className="relative py-10 sm:py-14 bg-white overflow-hidden">
       {/* Floating leaf accents */}
       <div className="hidden sm:block absolute left-[-6%] lg:left-[-70px] top-[12%] w-28 lg:w-36 pointer-events-none z-10">
-        <img src="/images/leaf-l.webp" alt="" className="fp-leaf w-full h-auto opacity-90" />
+        <img src="/images/leaf-l.webp" alt="" width={129} height={128} loading="lazy" className="fp-leaf w-full h-auto opacity-90" />
       </div>
       <div className="hidden sm:block absolute right-[-6%] lg:right-[-70px] bottom-[8%] w-28 lg:w-36 pointer-events-none z-10">
-        <img src="/images/leaf-r.webp" alt="" className="fp-leaf-r w-full h-auto opacity-90" />
+        <img src="/images/leaf-r.webp" alt="" width={129} height={128} loading="lazy" className="fp-leaf-r w-full h-auto opacity-90" />
       </div>
 
       <div className="max-w-4xl mx-auto px-6">
@@ -86,6 +86,8 @@ export default function FloorPlans() {
                 <img
                   src={active.image}
                   alt={`${active.type} floor plan — ${active.label}, ${active.size}`}
+                  loading="lazy"
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-cover blur-sm transition-transform duration-700 ease-out group-hover:scale-105"
                 />
               ) : (

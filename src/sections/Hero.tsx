@@ -47,15 +47,19 @@ export default function Hero({ ready }: { ready: boolean }) {
         preload="metadata"
       />
 
-      {/* Top Right Corner RERA Info (Without background styling for a subtle look) */}
-      <div className="hero-rera absolute top-20 sm:top-24 right-5 sm:right-8 z-30 max-w-xs sm:max-w-sm pointer-events-auto text-right">
-        <p className="text-[10px] sm:text-[11px] font-medium text-cream-50/90 leading-relaxed tracking-wide drop-shadow-md">
-          RERA REG. NO. RC/REP/HARERA/GGM/1030/762/2026/02 <span className="text-gold-400 font-normal">| Dated: 02.01.2026</span>
-        </p>
-        <div className="w-full h-px bg-gold-400/30 my-1 ml-auto w-3/4" />
-        <p className="text-[10px] sm:text-[11px] font-medium text-cream-50/90 leading-relaxed tracking-wide drop-shadow-md">
-          RERA REG. NO. RC/REP/HARERA/GGM/991/723/2025/94 <span className="text-gold-400 font-normal">| Dated: 16.10.2025</span>
-        </p>
+      {/* Top Left Corner RERA Info - Perfectly aligned with logos container */}
+      <div className="hero-rera absolute top-20 sm:top-24 inset-x-0 z-30 pointer-events-none">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 w-full flex justify-start">
+          <div className="max-w-xs sm:max-w-sm pointer-events-auto text-left">
+            <p className="text-[10px] sm:text-[11px] font-medium text-cream-50/90 leading-relaxed tracking-wide drop-shadow-md">
+              RERA REG. NO. RC/REP/HARERA/GGM/1030/762/2026/02 <span className="text-gold-400 font-normal">| Dated: 02.01.2026</span>
+            </p>
+            <div className="w-full h-px bg-gold-400/30 my-1 mr-auto w-3/4" />
+            <p className="text-[10px] sm:text-[11px] font-medium text-cream-50/90 leading-relaxed tracking-wide drop-shadow-md">
+              RERA REG. NO. RC/REP/HARERA/GGM/991/723/2025/94 <span className="text-gold-400 font-normal">| Dated: 16.10.2025</span>
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Client Logos */}
@@ -65,6 +69,8 @@ export default function Hero({ ready }: { ready: boolean }) {
             <img
               src="/images/logo/forestia-logo_new_1.png"
               alt="M3M Forestia"
+              width={1200}
+              height={373}
               className="h-[52px] sm:h-[62px] w-auto object-contain"
             />
           </a>
@@ -73,6 +79,8 @@ export default function Hero({ ready }: { ready: boolean }) {
             <img
               src="/images/logo/gic.webp"
               alt="GIC Logo"
+              width={300}
+              height={223}
               className="h-[52px] sm:h-[62px] w-auto object-contain brightness-0 invert"
             />
           </a>

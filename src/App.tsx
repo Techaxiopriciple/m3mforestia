@@ -3,7 +3,6 @@ import Preloader from "./components/Preloader";
 import Nav from "./components/Nav";
 import FloatingContact from "./components/FloatingContact";
 import Footer from "./components/Footer";
-import EnquirePopup from "./sections/EnquirePopup"; // <-- Sahi import path yahan set karein agar path alag ho
 import Hero from "./sections/Hero";
 import Ecosystem from "./sections/Ecosystem";
 import Clubhouse from "./sections/Clubhouse";
@@ -23,7 +22,6 @@ export default function App() {
       {loading && <Preloader onDone={() => setLoading(false)} />}
       <Nav />
       <FloatingContact />
-      <EnquirePopup />
       <main>
         <Hero ready={!loading} />
         <Ecosystem />

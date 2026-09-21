@@ -92,20 +92,31 @@ export default function Ecosystem() {
     >
       <div className="absolute inset-0 -z-10">
         <img
-          src="/images/gic-bg-mob.jpg"
+          src="/images/gic-bg-mob.webp"
           alt=""
+          loading="lazy"
+          decoding="async"
           className="block sm:hidden w-full h-full object-cover object-top"
         />
         <img
-          src="/images/gic-bg-desktop.jpg"
+          src="/images/gic-bg-desktop.webp"
           alt=""
+          loading="lazy"
+          decoding="async"
           className="hidden sm:block w-full h-full object-cover object-top"
         />
         <div className="absolute inset-0 bg-forest-950/60" />
       </div>
 
       <div className="absolute -right-8 sm:right-[-27%] lg:right-[-85px] top-[10%] sm:top-[20%] lg:top-[12%] w-28 sm:w-36 lg:w-40 pointer-events-none z-10">
-        <img src="/images/leaf-r.webp" alt="" className="eco-leaf w-full h-auto opacity-70 sm:opacity-85" />
+        <img
+          src="/images/leaf-r.webp"
+          alt=""
+          width={129}
+          height={128}
+          loading="lazy"
+          className="eco-leaf w-full h-auto opacity-70 sm:opacity-85"
+        />
       </div>
 
       <style>{`
@@ -131,6 +142,9 @@ export default function Ecosystem() {
           <img
             src="/images/logo/gic.webp"
             alt="Gurgaon International City"
+            width={300}
+            height={223}
+            loading="lazy"
             className="h-16 sm:h-20 w-auto object-contain"
           />
           <p className="mt-6 max-w-xl text-sm sm:text-base text-cream-100/90 leading-relaxed font-medium">
@@ -182,6 +196,7 @@ export default function Ecosystem() {
                       alt={item.title}
                       width={52}
                       height={52}
+                      loading="lazy"
                       className="object-contain brightness-0 invert"
                     />
                   </div>

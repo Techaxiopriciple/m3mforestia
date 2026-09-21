@@ -58,7 +58,11 @@ export default function Gallery() {
   const [slideIndex, setSlideIndex] = useState(1);
   const [animate, setAnimate] = useState(true);
 
-  const { ref: carouselRef, inView: carouselInView } = useInView<HTMLDivElement>("0px");
+  const { ref: carouselRef, inView: carouselInView } = useInView<HTMLDivElement>("0px", false);
+  // The slides are large, so their <img>s aren't mounted (and fetched) until the
+  // carousel is close to the viewport. Native lazy loading can't be used here:
+  // slides clipped by the track's overflow never count as visible and would pop in.
+  const { ref: preloadRef, inView: nearViewport } = useInView<HTMLDivElement>("1250px");
 
   const clearAutoSlide = () => {
     if (!timerRef.current) return;
@@ -134,13 +138,6 @@ export default function Gallery() {
   };
 
   useEffect(() => {
-    carouselSlides.forEach(({ image }) => {
-      const img = new Image();
-      img.src = image;
-    });
-  }, []);
-
-  useEffect(() => {
     if (!carouselInView) {
       clearAutoSlide();
       return;
@@ -167,7 +164,7 @@ export default function Gallery() {
 
   return (
     <section id="gallery" ref={root} className="relative overflow-hidden bg-white py-20 text-forest-950 lg:py-28">
-      <div className="relative z-10 w-full">
+      <div ref={preloadRef} className="relative z-10 w-full">
         <div className="editorial-fade mx-auto mb-12 max-w-3xl space-y-3 px-4 text-center">
           <h2 className="font-display text-3xl leading-[1.15] text-forest-950 sm:text-5xl">Homes that add to your life</h2>
           <p className="mx-auto max-w-xl text-xs font-normal leading-relaxed text-forest-700 sm:text-sm">
@@ -189,7 +186,7 @@ export default function Gallery() {
               >
                 {slidesWithClones.map((slide, index) => (
                   <div key={`${slide.id}-${index}`} className="relative h-[354px] w-[920px] shrink-0 overflow-hidden">
-                    <SlideImage slide={slide} isCenter={index === slideIndex} />
+                    {nearViewport && <SlideImage slide={slide} isCenter={index === slideIndex} />}
                   </div>
                 ))}
               </div>
@@ -212,7 +209,7 @@ export default function Gallery() {
               >
                 {slidesWithClones.map((slide, index) => (
                   <div key={`${slide.id}-mobile-${index}`} className="relative h-full w-full shrink-0">
-                    <SlideImage slide={slide} isCenter />
+                    {nearViewport && <SlideImage slide={slide} isCenter />}
                   </div>
                 ))}
               </div>

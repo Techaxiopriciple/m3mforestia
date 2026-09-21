@@ -121,7 +121,7 @@ export default function Clubhouse() {
                   <img
                     src={img.src}
                     alt={img.caption}
-                    loading={i === 0 ? "eager" : "lazy"}
+                    loading="lazy"
                     className="size-full object-cover"
                   />
                   {/* Artistic Impression Watermark */}
@@ -138,10 +138,10 @@ export default function Clubhouse() {
 
       {/* Floating leaf accents */}
       <div className="hidden sm:block absolute left-[-6%] lg:left-[-85px] bottom-[10%] w-32 lg:w-40 pointer-events-none z-10">
-        <img src="/images/leaf-l.webp" alt="" className="club-leaf w-full h-auto opacity-90" />
+        <img src="/images/leaf-l.webp" alt="" width={129} height={128} loading="lazy" className="club-leaf w-full h-auto opacity-90" />
       </div>
       <div className="hidden sm:block absolute right-[-6%] lg:right-[-85px] top-[8%] w-28 lg:w-36 pointer-events-none z-10">
-        <img src="/images/leaf-r.webp" alt="" className="club-leaf-r w-full h-auto opacity-90" />
+        <img src="/images/leaf-r.webp" alt="" width={129} height={128} loading="lazy" className="club-leaf-r w-full h-auto opacity-90" />
       </div>
 
       <style>{`

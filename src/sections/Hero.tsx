@@ -52,17 +52,29 @@ export default function Hero({ ready }: { ready: boolean }) {
         preload="metadata"
       />
 
-      {/* Top Left Corner RERA Info - Perfectly aligned with logos container */}
+      {/* Top Left Corner RERA Info - Date shifted to the bottom line */}
       <div className="hero-rera absolute top-20 sm:top-24 inset-x-0 z-30 pointer-events-none">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 w-full flex justify-start">
-          <div className="max-w-xs sm:max-w-sm pointer-events-auto text-left">
-            <p className="text-[10px] sm:text-[11px] font-medium text-cream-50/90 leading-relaxed tracking-wide drop-shadow-md">
-              RERA REG. NO. RC/REP/HARERA/GGM/1030/762/2026/02 <span className="text-gold-400 font-normal">| Dated: 02.01.2026</span>
-            </p>
+          <div className="max-w-xs sm:max-w-sm pointer-events-auto text-left space-y-1.5">
+            <div>
+              <p className="text-[10px] sm:text-[11px] font-medium text-cream-50/90 leading-tight tracking-wide drop-shadow-md">
+                RERA REG. NO. RC/REP/HARERA/GGM/1030/762/2026/02
+              </p>
+              <p className="text-[10px] sm:text-[11px] font-normal text-gold-400 tracking-wide drop-shadow-md mt-0.5">
+                Dated: 02.01.2026
+              </p>
+            </div>
+
             <div className="w-full h-px bg-gold-400/30 my-1 mr-auto w-3/4" />
-            <p className="text-[10px] sm:text-[11px] font-medium text-cream-50/90 leading-relaxed tracking-wide drop-shadow-md">
-              RERA REG. NO. RC/REP/HARERA/GGM/991/723/2025/94 <span className="text-gold-400 font-normal">| Dated: 16.10.2025</span>
-            </p>
+
+            <div>
+              <p className="text-[10px] sm:text-[11px] font-medium text-cream-50/90 leading-tight tracking-wide drop-shadow-md">
+                RERA REG. NO. RC/REP/HARERA/GGM/991/723/2025/94
+              </p>
+              <p className="text-[10px] sm:text-[11px] font-normal text-gold-400 tracking-wide drop-shadow-md mt-0.5">
+                Dated: 16.10.2025
+              </p>
+            </div>
           </div>
         </div>
       </div>

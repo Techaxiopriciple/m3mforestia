@@ -8,15 +8,42 @@ export default function FloatingForm() {
   const [formData, setFormData] = useState({ name: "", phone: "" });
 
   const formRef = useRef<HTMLDivElement>(null);
+  const inactivityTimerRef = useRef<number | null>(null);
 
-  // Automatically expand the callback form after 6 seconds of page load
+  // Automatically expand the callback form after 4 seconds of site inactivity.
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsOpen(true);
-    }, 6000);
+    const clearInactivityTimer = () => {
+      if (inactivityTimerRef.current !== null) {
+        window.clearTimeout(inactivityTimerRef.current);
+        inactivityTimerRef.current = null;
+      }
+    };
 
-    return () => clearTimeout(timer);
-  }, []);
+    const resetInactivityTimer = () => {
+      clearInactivityTimer();
+
+      if (isOpen || submitted) return;
+
+      inactivityTimerRef.current = window.setTimeout(() => {
+        setIsOpen(true);
+      }, 4000);
+    };
+
+    const activityEvents = ["mousemove", "mousedown", "keydown", "scroll", "touchstart"];
+
+    activityEvents.forEach((eventName) => {
+      window.addEventListener(eventName, resetInactivityTimer, { passive: true });
+    });
+
+    resetInactivityTimer();
+
+    return () => {
+      clearInactivityTimer();
+      activityEvents.forEach((eventName) => {
+        window.removeEventListener(eventName, resetInactivityTimer);
+      });
+    };
+  }, [isOpen, submitted]);
 
   // GSAP animation when the form opens or closes
   useEffect(() => {

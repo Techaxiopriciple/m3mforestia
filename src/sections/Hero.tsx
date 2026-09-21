@@ -27,6 +27,11 @@ export default function Hero({ ready }: { ready: boolean }) {
     return () => ctx.revert();
   }, [ready]);
 
+  // Handler to close floating form on scroll click
+  const handleScrollClick = () => {
+    window.dispatchEvent(new CustomEvent("close-floating-form"));
+  };
+
   return (
     <section
       id="top"
@@ -92,6 +97,7 @@ export default function Hero({ ready }: { ready: boolean }) {
       {/* Clickable Scroll Button */}
       <a
         href="#location"
+        onClick={handleScrollClick}
         className="hero-scroll absolute bottom-8 inset-x-0 hidden lg:flex flex-col items-center gap-2 text-cream-100/70 hover:text-white text-xs tracking-[0.3em] transition-colors cursor-pointer w-fit mx-auto z-20"
       >
         <span>SCROLL</span>

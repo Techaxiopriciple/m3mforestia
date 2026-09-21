@@ -6,6 +6,7 @@ import { useInView } from "../lib/useInView";
 
 const AUTO_SLIDE_DELAY = 4500;
 const DESKTOP_SLIDE_WIDTH = 920;
+const DESKTOP_SLIDE_HEIGHT = 354;
 const SWIPE_THRESHOLD = 50;
 const SLIDE_TRANSITION = "transform 700ms cubic-bezier(0.22, 1, 0.36, 1)";
 
@@ -28,14 +29,26 @@ function ArrowButton({ direction, onClick, mobile = false }: { direction: "prev"
       type="button"
       onClick={onClick}
       aria-label={`${direction === "prev" ? "Previous" : "Next"} slide`}
-      className={
-        mobile
-          ? `absolute ${direction === "prev" ? "left-5" : "right-5"} top-1/2 z-40 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white bg-transparent text-white`
-          : `absolute ${direction === "prev" ? "left-[calc(50%-390px)]" : "right-[calc(50%-390px)]"} top-1/2 z-50 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white bg-transparent text-white transition duration-300 hover:bg-white/10`
-      }
+      className={`pointer-events-auto flex shrink-0 items-center justify-center rounded-full border border-white/80 bg-black/25 text-white backdrop-blur-sm transition duration-300 hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
+        mobile ? "h-9 w-9" : "h-12 w-12"
+      }`}
     >
-      <Icon size={mobile ? 23 : 25} strokeWidth={1.2} />
+      <Icon size={mobile ? 20 : 24} strokeWidth={1.4} />
     </button>
+  );
+}
+
+// Overlay that spans exactly the visible (centre) slide, so the arrows always sit inside its edges.
+function ArrowControls({ onPrev, onNext, mobile = false }: { onPrev: () => void; onNext: () => void; mobile?: boolean }) {
+  return (
+    <div
+      className={`pointer-events-none absolute inset-y-0 z-30 flex items-center justify-between ${
+        mobile ? "inset-x-0 px-3" : "left-1/2 w-[var(--slide-w)] -translate-x-1/2 px-6"
+      }`}
+    >
+      <ArrowButton direction="prev" onClick={onPrev} mobile={mobile} />
+      <ArrowButton direction="next" onClick={onNext} mobile={mobile} />
+    </div>
   );
 }
 
@@ -58,10 +71,7 @@ export default function Gallery() {
   const [slideIndex, setSlideIndex] = useState(1);
   const [animate, setAnimate] = useState(true);
 
-  const { ref: carouselRef, inView: carouselInView } = useInView<HTMLDivElement>("0px", false);
-  // The slides are large, so their <img>s aren't mounted (and fetched) until the
-  // carousel is close to the viewport. Native lazy loading can't be used here:
-  // slides clipped by the track's overflow never count as visible and would pop in.
+  const { ref: carouselRef, inView: carouselInView } = useInView<HTMLDivElement>("0px");
   const { ref: preloadRef, inView: nearViewport } = useInView<HTMLDivElement>("1250px");
 
   const clearAutoSlide = () => {
@@ -175,30 +185,37 @@ export default function Gallery() {
         <div ref={carouselRef} className="editorial-fade relative w-full overflow-hidden" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
           {/* Desktop */}
           <div className="relative hidden lg:block">
-            <div className="relative h-[354px] w-full overflow-hidden">
+            <div
+              className="relative w-full overflow-hidden"
+              style={
+                {
+                  "--slide-w": `min(${DESKTOP_SLIDE_WIDTH}px, calc(100vw - 4rem))`,
+                  height: `calc(var(--slide-w) * ${DESKTOP_SLIDE_HEIGHT / DESKTOP_SLIDE_WIDTH})`,
+                } as React.CSSProperties
+              }
+            >
               <div
                 onTransitionEnd={handleTransitionEnd}
                 className="absolute left-1/2 top-0 flex h-full"
                 style={{
-                  transform: `translate3d(calc(-460px - ${slideIndex * DESKTOP_SLIDE_WIDTH}px), 0, 0)`,
+                  transform: `translate3d(calc(var(--slide-w) * ${-(slideIndex + 0.5)}), 0, 0)`,
                   transition: animate ? SLIDE_TRANSITION : "none",
                 }}
               >
                 {slidesWithClones.map((slide, index) => (
-                  <div key={`${slide.id}-${index}`} className="relative h-[354px] w-[920px] shrink-0 overflow-hidden">
+                  <div key={`${slide.id}-${index}`} className="relative h-full w-[var(--slide-w)] shrink-0 overflow-hidden">
                     {nearViewport && <SlideImage slide={slide} isCenter={index === slideIndex} />}
                   </div>
                 ))}
               </div>
 
-              <ArrowButton direction="prev" onClick={handlePrev} />
-              <ArrowButton direction="next" onClick={handleNext} />
+              <ArrowControls onPrev={handlePrev} onNext={handleNext} />
             </div>
           </div>
 
           {/* Mobile */}
           <div className="relative block w-full lg:hidden">
-            <div className="relative aspect-[380/254] w-full overflow-hidden">
+            <div className="relative mx-auto aspect-[380/254] w-full max-w-2xl overflow-hidden">
               <div
                 onTransitionEnd={handleTransitionEnd}
                 className="flex h-full"
@@ -214,8 +231,7 @@ export default function Gallery() {
                 ))}
               </div>
 
-              <ArrowButton direction="prev" onClick={handlePrev} mobile />
-              <ArrowButton direction="next" onClick={handleNext} mobile />
+              <ArrowControls onPrev={handlePrev} onNext={handleNext} mobile />
             </div>
           </div>
         </div>

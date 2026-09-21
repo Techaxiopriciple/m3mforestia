@@ -314,7 +314,7 @@ export default function Ecosystem() {
                 <video
                   ref={tabVideoRef}
                   className="w-full h-full object-cover"
-                  src="/images/gic-banner-video.mp4"
+                  src="/images/gic-location-av.mp4"
                   autoPlay
                   muted
                   loop

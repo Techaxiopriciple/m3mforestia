@@ -29,6 +29,18 @@ export default function FloatingForm() {
     }
   }, [isOpen]);
 
+  // Automatically close form when user scrolls or clicks scroll button
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 30 && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isOpen]);
+
   // Handle form submission logic
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,41 +56,38 @@ export default function FloatingForm() {
   };
 
   return (
-    <div className="fixed bottom-6 left-0 right-0 z-50 pointer-events-none flex justify-center">
-      {/* Website ke standard container ke sath exact align karne ke liye wrapper */}
-      <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 pointer-events-none flex justify-start">
-        <div className="pointer-events-auto flex items-center gap-3 flex-row-reverse">
-          {/* Expanded Form Box positioned to the right of the button */}
+    <div className="fixed bottom-4 left-0 right-0 z-50 pointer-events-none flex justify-center">
+      {/* Hero section ke exact max-w-7xl aur px-3 sm:px-6 padding ke sath perfectly match kiya gaya wrapper */}
+      <div className="w-full max-w-7xl px-3 sm:px-6 pointer-events-none flex justify-start">
+        <div className="pointer-events-auto flex items-end sm:items-center gap-3 flex-row-reverse w-full sm:w-auto">
+          {/* Expanded Form Box */}
           {isOpen && (
             <div
               ref={formRef}
-              className="bg-forest-950/95 backdrop-blur-xl border border-gold-400/30 rounded-2xl p-4 shadow-2xl text-cream-50 w-auto max-w-xl"
+              className="relative bg-forest-950/95 backdrop-blur-xl border border-gold-400/30 rounded-2xl p-3 sm:p-3.5 shadow-2xl text-cream-50 w-full sm:w-auto max-w-xl pr-7 sm:pr-8"
             >
-              <div className="flex items-center justify-between mb-3 pb-2 border-b border-gold-400/20 gap-6">
-                <h4 className="font-display text-xs font-semibold tracking-wider uppercase text-gold-400">
-                  Request a Callback
-                </h4>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  aria-label="Close Form"
-                  className="text-cream-100/70 hover:text-white transition-colors p-1 cursor-pointer"
-                >
-                  <X size={16} />
-                </button>
-              </div>
+              {/* Perfectly sized & aligned close button inside bounds */}
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                aria-label="Close Form"
+                className="absolute top-2 right-2 h-4 w-4 rounded-md bg-forest-900/60 border border-gold-400/20 text-cream-100/60 hover:text-white hover:border-gold-400/40 transition-all flex items-center justify-center cursor-pointer shrink-0 z-10"
+              >
+                <X size={10} />
+              </button>
 
               {submitted ? (
-                <div className="py-2 px-4 text-center flex items-center justify-center gap-3">
-                  <CheckCircle2 className="text-gold-400 shrink-0" size={24} />
+                <div className="py-1 text-center flex items-center gap-2">
+                  <CheckCircle2 className="text-gold-400 shrink-0" size={20} />
                   <div className="text-left">
                     <p className="text-xs font-medium text-cream-50">Thank you!</p>
-                    <p className="text-[11px] text-cream-100/70">We will get in touch shortly.</p>
+                    <p className="text-[10px] text-cream-100/70">We will get in touch shortly.</p>
                   </div>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex items-end gap-2.5">
+                <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row items-stretch sm:items-end gap-2 pt-0.5">
                   {/* Name Input */}
-                  <div className="w-36 sm:w-44">
+                  <div className="w-full sm:w-36 md:w-44">
                     <label className="block text-[10px] font-medium text-cream-100/80 mb-1 uppercase tracking-wider">
                       Your Name
                     </label>
@@ -88,12 +97,12 @@ export default function FloatingForm() {
                       placeholder="Enter name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-3 py-2 rounded-xl bg-forest-900/80 border border-gold-400/20 text-xs text-cream-50 placeholder:text-cream-100/40 focus:outline-none focus:border-gold-400"
+                      className="w-full px-3 py-1.5 rounded-xl bg-forest-900/80 border border-gold-400/20 text-xs text-cream-50 placeholder:text-cream-100/40 focus:outline-none focus:border-gold-400"
                     />
                   </div>
 
                   {/* Phone Input */}
-                  <div className="w-36 sm:w-44">
+                  <div className="w-full sm:w-36 md:w-44">
                     <label className="block text-[10px] font-medium text-cream-100/80 mb-1 uppercase tracking-wider">
                       Phone Number
                     </label>
@@ -103,7 +112,7 @@ export default function FloatingForm() {
                       placeholder="Enter phone"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-3 py-2 rounded-xl bg-forest-900/80 border border-gold-400/20 text-xs text-cream-50 placeholder:text-cream-100/40 focus:outline-none focus:border-gold-400"
+                      className="w-full px-3 py-1.5 rounded-xl bg-forest-900/80 border border-gold-400/20 text-xs text-cream-50 placeholder:text-cream-100/40 focus:outline-none focus:border-gold-400"
                     />
                   </div>
 
@@ -111,10 +120,10 @@ export default function FloatingForm() {
                   <button
                     type="submit"
                     aria-label="Submit Form"
-                    className="py-2 px-3.5 h-[34px] rounded-xl bg-gold-500 hover:bg-gold-400 text-forest-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-gold-500/20 flex items-center justify-center gap-1.5 cursor-pointer shrink-0 self-end"
+                    className="w-full sm:w-auto py-2 sm:py-1.5 px-4 h-[34px] sm:h-[30px] rounded-xl bg-gold-500 hover:bg-gold-400 text-forest-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-gold-500/20 flex items-center justify-center gap-1.5 cursor-pointer shrink-0 mt-1 sm:mt-0"
                   >
                     <span>Submit</span>
-                    <Send size={13} />
+                    <Send size={12} />
                   </button>
                 </form>
               )}

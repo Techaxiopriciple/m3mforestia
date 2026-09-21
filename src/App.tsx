@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Hero from "./sections/Hero";
 import Ecosystem from "./sections/Ecosystem";
 import Clubhouse from "./sections/Clubhouse";
+import GrandWelcome from "./sections/GrandWelcome";
 import Gallery from "./sections/Gallery";
 import FloorPlans from "./sections/FloorPlans";
 import ClubEden from "./sections/ClubEden";
@@ -25,6 +26,7 @@ export default function App() {
       <main>
         <Hero ready={!loading} />
         <Ecosystem />
+        <GrandWelcome />
         <Gallery />
         <Clubhouse />
         <ClubEden />

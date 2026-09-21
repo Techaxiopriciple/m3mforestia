@@ -5,8 +5,8 @@ import { PRICE } from "../lib/content";
 import { useInView } from "../lib/useInView";
 
 const AUTO_SLIDE_DELAY = 4500;
-const DESKTOP_SLIDE_WIDTH = 920;
-const DESKTOP_SLIDE_HEIGHT = 354;
+const DESKTOP_SLIDE_WIDTH = 1024;
+const DESKTOP_SLIDE_HEIGHT = 420;
 const SWIPE_THRESHOLD = 50;
 const SLIDE_TRANSITION = "transform 700ms cubic-bezier(0.22, 1, 0.36, 1)";
 

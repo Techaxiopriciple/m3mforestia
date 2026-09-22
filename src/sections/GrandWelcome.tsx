@@ -28,34 +28,15 @@ export default function GrandWelcome() {
       ref={root}
       className="relative w-full bg-white flex flex-col items-center overflow-hidden p-0 m-0"
     >
-      {/* Top padding with an even deeper downward curve */}
-      <div className="absolute top-16 sm:top-24 lg:top-32 inset-x-0 z-10 w-full px-2 text-center pointer-events-none">
-        <div className="grand-fade max-w-5xl mx-auto">
-          <svg viewBox="0 0 900 240" className="w-full h-auto overflow-visible">
-            {/* Aur zyada deep curve paths */}
-            <path
-              id="curvePath1"
-              d="M 40,10 Q 450,160 860,10"
-              fill="transparent"
-            />
-            <path
-              id="curvePath2"
-              d="M 80,60 Q 450,210 820,60"
-              fill="transparent"
-            />
-            
-            <text className="font-display font-bold text-3xl sm:text-5xl lg:text-6xl fill-neutral-900 drop-shadow-sm">
-              <textPath href="#curvePath1" startOffset="50%" textAnchor="middle">
-                A Grand Welcome.
-              </textPath>
-            </text>
-
-            <text className="font-display font-bold text-2xl sm:text-4xl lg:text-5xl fill-amber-600 drop-shadow-sm">
-              <textPath href="#curvePath2" startOffset="50%" textAnchor="middle">
-                Every single day.
-              </textPath>
-            </text>
-          </svg>
+      {/* Straight text positioned at the top */}
+      <div className="absolute top-12 sm:top-16 lg:top-20 inset-x-0 z-10 w-full px-4 text-center pointer-events-none">
+        <div className="grand-fade max-w-4xl mx-auto flex flex-col items-center gap-1 sm:gap-2">
+          <h2 className="font-display font-bold text-3xl sm:text-5xl lg:text-6xl text-neutral-900 drop-shadow-sm">
+            A Grand Welcome.
+          </h2>
+          <p className="font-display font-bold text-2xl sm:text-4xl lg:text-5xl text-amber-600 drop-shadow-sm">
+            Every single day.
+          </p>
         </div>
       </div>
 

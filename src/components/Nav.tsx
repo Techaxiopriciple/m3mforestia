@@ -10,6 +10,8 @@ const LINKS = [
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const [open, setOpen] = useState(false);
 
   // Enquiry Drawer States
@@ -18,10 +20,28 @@ export default function Nav() {
   const [formData, setFormData] = useState({ name: "", phone: "", email: "" });
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Background color / shadow change ke liye
+      setScrolled(currentScrollY > 40);
+
+      // Scroll up / down detection
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        // Agar user neeche scroll kar raha hai aur 80px se zyada scroll kiya hai -> Hide navbar
+        setShowNavbar(false);
+        setOpen(false); // Agar mobile menu khula ho toh use bhi band kar do
+      } else {
+        // Agar user upar scroll kar raha hai -> Show navbar
+        setShowNavbar(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,16 +55,18 @@ export default function Nav() {
 
   const handleOpenEnquiry = (e: React.MouseEvent) => {
     e.preventDefault();
-    setOpen(false); // Mobile menu close kar dega agar khula ho
-    setIsEnquiryOpen(true); // Slide-over drawer open karega
+    setOpen(false);
+    setIsEnquiryOpen(true);
   };
 
   return (
     <>
       <header
-        className={`fixed top-0 inset-x-0 z-50 transition-colors duration-500 ${
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+          showNavbar ? "translate-y-0" : "-translate-y-full"
+        } ${
           scrolled
-            ? "bg-white/95 shadow-lg shadow-forest-950/10"
+            ? "bg-white/95 shadow-lg shadow-forest-950/10 backdrop-blur-md"
             : "bg-forest-950/35 backdrop-blur-[2px]"
         }`}
       >
@@ -52,7 +74,7 @@ export default function Nav() {
           <img
             src={scrolled ? "/images/logo/m3m-logo.png" : "/images/logo/logo.webp"}
             alt="M3M Forestia"
-            className="h-12 sm:h-14 w-auto object-contain"
+            className="h-12 sm:h-14 w-auto object-contain transition-all"
           />
 
           <div className="hidden lg:flex items-center gap-9">
@@ -69,7 +91,6 @@ export default function Nav() {
                 {l.label}
               </a>
             ))}
-            {/* Yellow Button without hover background change */}
             <a
               href="#enquiry"
               onClick={handleOpenEnquiry}
@@ -125,7 +146,6 @@ export default function Nav() {
           isEnquiryOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Drawer Header */}
         <div className="flex items-center justify-between p-6 border-b border-forest-100 bg-forest-50/50">
           <button
             onClick={() => setIsEnquiryOpen(false)}
@@ -136,7 +156,6 @@ export default function Nav() {
           </button>
         </div>
 
-        {/* Drawer Body / Form */}
         <div className="flex-1 overflow-y-auto p-6 sm:p-8">
           {submitted ? (
             <div className="h-full flex flex-col items-center justify-center text-center space-y-4 py-12">

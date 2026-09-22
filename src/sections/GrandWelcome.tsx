@@ -67,35 +67,6 @@ export default function GrandWelcome() {
           className="w-full h-auto object-contain block m-0 p-0"
         />
       </div>
-
-      {/* Floating Leaf */}
-      <div className="pointer-events-none absolute right-0 top-[30%] z-20 hidden w-28 sm:block sm:w-36 lg:w-40">
-        <img
-          src="/images/leaf-r.webp"
-          alt=""
-          className="grand-leaf h-auto w-full opacity-90"
-        />
-      </div>
-
-      <style>{`
-        .grand-leaf {
-          animation: grandLeafFloat 4s ease-in-out infinite;
-        }
-
-        @keyframes grandLeafFloat {
-          0% {
-            transform: translateY(0) rotate(0deg);
-          }
-
-          50% {
-            transform: translateY(-22px) rotate(7deg);
-          }
-
-          100% {
-            transform: translateY(0) rotate(0deg);
-          }
-        }
-      `}</style>
     </section>
   );
 }

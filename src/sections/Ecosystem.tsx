@@ -100,7 +100,7 @@ export default function Ecosystem() {
           className="block sm:hidden w-full h-full object-cover object-top"
         />
         <img
-          src="/images/gic-bg-desktop.webp"
+          src="/images/eco-bg.png"
           alt=""
           loading="lazy"
           decoding="async"

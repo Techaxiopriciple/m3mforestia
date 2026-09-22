@@ -173,7 +173,7 @@ export default function Gallery() {
   }, []);
 
   return (
-    <section id="gallery" ref={root} className="relative overflow-hidden bg-white py-20 text-forest-950 lg:py-28">
+    <section id="gallery" ref={root} className="relative overflow-hidden bg-white py-12 text-forest-950 lg:py-16">
       <div ref={preloadRef} className="relative z-10 w-full">
         <div className="editorial-fade mx-auto mb-12 max-w-3xl space-y-3 px-4 text-center">
           <h2 className="font-display text-3xl leading-[1.15] text-forest-950 sm:text-5xl">Homes that add to your life</h2>

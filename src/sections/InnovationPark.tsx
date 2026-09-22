@@ -27,7 +27,7 @@ export default function InnovationPark() {
   }, []);
 
   return (
-    <section id="innovation-park" ref={root} className="relative py-12 sm:py-20 bg-white overflow-hidden w-full">
+    <section id="innovation-park" ref={root} className="relative py-8 sm:py-12 bg-white overflow-hidden w-full">
       {/* Heading */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
         <h2 className="ip-fade text-center font-display text-2xl sm:text-4xl text-forest-950 tracking-tight">

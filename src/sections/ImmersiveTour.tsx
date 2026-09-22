@@ -64,7 +64,7 @@ export default function ImmersiveTour() {
   };
 
   return (
-    <section id="immersive-tour" ref={root} className="relative py-12 sm:py-20 bg-white">
+    <section id="immersive-tour" ref={root} className="relative py-8 sm:py-12 bg-white">
       <div className="max-w-4xl mx-auto px-6">
         
         {/* Section Heading */}

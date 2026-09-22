@@ -26,7 +26,7 @@ export default function GrandWelcome() {
     <section
       id="arrival"
       ref={root}
-      className="relative flex min-h-[420px] items-center overflow-hidden py-16 sm:min-h-[580px] sm:py-20 lg:min-h-[680px]"
+      className="relative flex min-h-[420px] items-center overflow-hidden py-10 sm:min-h-[580px] sm:py-14 lg:min-h-[680px]"
     >
       {/* Background Image Container without gradient overlay */}
       <div className="absolute inset-0 z-0 pointer-events-none">

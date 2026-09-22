@@ -88,7 +88,7 @@ export default function Ecosystem() {
     <section
       id="location"
       ref={root}
-      className="relative pt-12 sm:pt-16 lg:pt-20 pb-24 sm:pb-32 lg:pb-36 overflow-hidden"
+      className="relative pt-8 sm:pt-10 lg:pt-14 pb-14 sm:pb-20 lg:pb-24 overflow-hidden"
     >
       {/* Background with a greenish overlay instead of blackish */}
       <div className="absolute inset-0 -z-10">

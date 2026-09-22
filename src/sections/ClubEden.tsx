@@ -42,7 +42,7 @@ export default function ClubEden() {
   const current = AMENITY_CATEGORIES.find((c) => c.key === active)!;
 
   return (
-    <section id="amenities" ref={root} className="relative py-10 sm:py-14 bg-white">
+    <section id="amenities" ref={root} className="relative py-8 sm:py-10 bg-white">
       <div className="max-w-6xl mx-auto px-6">
         <div className="eden-fade flex flex-wrap justify-center gap-3 mb-10">
           {AMENITY_CATEGORIES.map((cat) => {

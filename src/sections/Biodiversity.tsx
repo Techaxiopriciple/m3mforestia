@@ -17,7 +17,7 @@ export default function Biodiversity() {
   const loop = [...ITEMS, ...ITEMS];
 
   return (
-    <section className="relative py-12 sm:py-16 bg-gradient-to-b from-forest-950 via-[#0a261c] to-forest-950 border-y border-gold-500/20 overflow-hidden shadow-2xl">
+    <section className="relative py-8 sm:py-10 bg-gradient-to-b from-forest-950 via-[#0a261c] to-forest-950 border-y border-gold-500/20 overflow-hidden shadow-2xl">
       {/* Subtle top/bottom inner glow for richness */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold-500/5 via-transparent to-transparent pointer-events-none" />
 

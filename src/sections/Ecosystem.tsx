@@ -90,6 +90,7 @@ export default function Ecosystem() {
       ref={root}
       className="relative pt-12 sm:pt-16 lg:pt-20 pb-24 sm:pb-32 lg:pb-36 overflow-hidden"
     >
+      {/* Background with a greenish overlay instead of blackish */}
       <div className="absolute inset-0 -z-10">
         <img
           src="/images/gic-bg-mob.webp"
@@ -105,7 +106,9 @@ export default function Ecosystem() {
           decoding="async"
           className="hidden sm:block w-full h-full object-cover object-top"
         />
-        <div className="absolute inset-0 bg-forest-950/60" />
+        {/* Changed from bg-forest-950/60 to a rich emerald/forest green tint */}
+        <div className="absolute inset-0 bg-gradient-to-b from-forest-900/50 via-emerald-950/40 to-forest-950/60 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-emerald-900/20 backdrop-brightness-110" />
       </div>
 
       <div className="absolute -right-8 sm:right-[-27%] lg:right-[-85px] top-[10%] sm:top-[20%] lg:top-[12%] w-28 sm:w-36 lg:w-40 pointer-events-none z-10">
@@ -115,7 +118,7 @@ export default function Ecosystem() {
           width={129}
           height={128}
           loading="lazy"
-          className="eco-leaf w-full h-auto opacity-70 sm:opacity-85"
+          className="eco-leaf w-full h-auto opacity-75 sm:opacity-90"
         />
       </div>
 
@@ -145,7 +148,7 @@ export default function Ecosystem() {
             width={300}
             height={223}
             loading="lazy"
-            className="h-16 sm:h-20 w-auto object-contain"
+            className="h-16 sm:h-20 w-auto object-contain drop-shadow-[0_4px_12px_rgba(16,185,129,0.2)]"
           />
           <p className="mt-6 max-w-xl text-sm sm:text-base text-cream-100/90 leading-relaxed font-medium">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
@@ -157,7 +160,7 @@ export default function Ecosystem() {
         {/* First Video */}
         <div
           ref={videoWrapRef}
-          className="eco-item mt-10 sm:mt-12 max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-forest-900 h-[296px] sm:h-[415px] lg:h-[534px]"
+          className="eco-item mt-10 sm:mt-12 max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-emerald-950/80 border border-emerald-500/20 shadow-2xl h-[296px] sm:h-[415px] lg:h-[534px]"
         >
           {videoInView && (
             <video
@@ -173,9 +176,7 @@ export default function Ecosystem() {
           )}
         </div>
 
-        {/* ========================================== */}
-        {/* Original 4 Cards Grid Layout (At Top) */}
-        {/* ========================================== */}
+        {/* Original 4 Cards Grid Layout */}
         <div className="mt-12 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {ECOSYSTEM.map((item, i) => {
             const Icon = ECO_ICON[i];
@@ -186,19 +187,21 @@ export default function Ecosystem() {
                 className={`${i % 2 === 0 ? "eco-card-up" : "eco-card-down"} relative text-center px-6 py-8 lg:py-4 flex flex-col justify-between`}
               >
                 {i < ECOSYSTEM.length - 1 && (
-                  <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 h-24 w-px bg-gold-400/50" />
+                  <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 h-24 w-px bg-gradient-to-b from-transparent via-gold-400/50 to-transparent" />
                 )}
 
                 <div>
                   <div className="flex justify-center mb-6">
-                    <img
-                      src={Icon.image}
-                      alt={item.title}
-                      width={52}
-                      height={52}
-                      loading="lazy"
-                      className="object-contain brightness-0 invert"
-                    />
+                    <div className="p-3 rounded-2xl bg-emerald-900/40 border border-emerald-500/30 shadow-inner">
+                      <img
+                        src={Icon.image}
+                        alt={item.title}
+                        width={40}
+                        height={40}
+                        loading="lazy"
+                        className="object-contain brightness-0 invert"
+                      />
+                    </div>
                   </div>
 
                   <h3 className="font-display text-lg sm:text-xl font-medium text-cream-50 hover:text-gold-400 transition-colors tracking-[0.16em] leading-snug uppercase whitespace-pre-line min-h-[3.5rem] flex items-center justify-center">
@@ -214,12 +217,10 @@ export default function Ecosystem() {
           })}
         </div>
 
-        {/* ========================================== */}
-        {/* Custom Named Tabs Section (Below Cards) */}
-        {/* ========================================== */}
+        {/* Custom Named Tabs Section */}
         <div className="eco-item mt-16 sm:mt-20 max-w-5xl mx-auto">
-          {/* Tab Buttons Header */}
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 bg-forest-900/60 p-2 rounded-2xl border border-gold-400/20 backdrop-blur-md mb-12">
+          {/* Tab Buttons Header with Greenish Tint */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 bg-emerald-950/70 p-2 rounded-2xl border border-emerald-500/30 backdrop-blur-md mb-12 shadow-lg">
             {SECTION_TABS.map((tabName, i) => (
               <button
                 key={tabName}
@@ -227,7 +228,7 @@ export default function Ecosystem() {
                 className={`flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 tracking-wider uppercase text-center cursor-pointer ${
                   activeTab === i
                     ? "bg-gold-500 text-forest-950 font-bold shadow-lg shadow-gold-500/20"
-                    : "text-cream-100/80 hover:text-white hover:bg-forest-800/50"
+                    : "text-cream-100/80 hover:text-white hover:bg-emerald-900/50"
                 }`}
               >
                 {tabName}
@@ -250,9 +251,9 @@ export default function Ecosystem() {
             </div>
 
             <div className="eco-diagram relative aspect-square max-w-md mx-auto w-full">
-              <div className="absolute inset-[15%] rounded-full border border-dashed border-cream-100/50" />
+              <div className="absolute inset-[15%] rounded-full border border-dashed border-emerald-400/40" />
               <div className="absolute inset-0 grid place-items-center">
-                <div className="eco-node z-10 flex flex-col items-center gap-1.5 rounded-full bg-gold-500 text-forest-950 px-4 py-3 shadow-lg shadow-forest-950/40">
+                <div className="eco-node z-10 flex flex-col items-center gap-1.5 rounded-full bg-gold-500 text-forest-950 px-4 py-3 shadow-lg shadow-emerald-950/60">
                   <MapPin size={18} />
                   <span className="text-[10px] font-bold tracking-wide text-center leading-tight uppercase">
                     M3M FORESTIA
@@ -264,7 +265,7 @@ export default function Ecosystem() {
               {CONNECTIVITY_NODES.map((n) => (
                 <div
                   key={n.title}
-                  className="eco-node absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-cream-100/30 bg-forest-900/90 px-3 py-1.5 text-[11px] text-cream-100/95 whitespace-nowrap font-medium"
+                  className="eco-node absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-emerald-500/30 bg-emerald-950/90 px-3 py-1.5 text-[11px] text-cream-100/95 whitespace-nowrap font-medium shadow-md"
                   style={nodePos(n.angle, n.radius)}
                 >
                   {n.title}
@@ -273,7 +274,6 @@ export default function Ecosystem() {
             </div>
           </div>
         </div>
-        {/* ========================================== */}
 
         {/* Location AV / Location Map Tabs */}
         <div className="eco-item mt-14 sm:mt-16">
@@ -307,7 +307,7 @@ export default function Ecosystem() {
           <div
             ref={tabWrapRef}
             key={locationTab}
-            className="eco-tabpane max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-forest-900 h-[296px] sm:h-[415px] lg:h-[534px]"
+            className="eco-tabpane max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-emerald-950/80 border border-emerald-500/20 shadow-2xl h-[296px] sm:h-[415px] lg:h-[534px]"
           >
             {locationTab === "av" ? (
               tabInView && (

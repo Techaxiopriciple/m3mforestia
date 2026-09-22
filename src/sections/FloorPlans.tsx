@@ -1,7 +1,8 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, LayoutGrid, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, LayoutGrid } from "lucide-react";
 import { gsap } from "../lib/gsap";
 import { FLOOR_PLANS, whatsappLink } from "../lib/content";
+import EnquirePopup from "./EnquirePopup"; // Aapke EnquirePopup component ka path apne project ke hisaab se check kar lein
 
 function PlanArt() {
   return (
@@ -17,7 +18,7 @@ export default function FloorPlans() {
   const root = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [enquireOpen, setEnquireOpen] = useState(false); // Popup state
   const total = FLOOR_PLANS.length;
 
   const active = FLOOR_PLANS[activeIndex];
@@ -79,8 +80,8 @@ export default function FloorPlans() {
 
           <div ref={cardRef} className="flex-1 min-w-0">
             <button
-              onClick={() => setLightboxOpen(true)}
-              className="relative flex items-center justify-center w-full h-64 sm:h-96 rounded-2xl overflow-hidden border border-forest-200 bg-cream-50 group"
+              onClick={() => setEnquireOpen(true)} // Click karne par EnquirePopup khulega
+              className="relative flex items-center justify-center w-full h-64 sm:h-96 rounded-2xl overflow-hidden border border-forest-200 bg-cream-50 group cursor-pointer"
             >
               {active.image ? (
                 <img
@@ -94,10 +95,10 @@ export default function FloorPlans() {
                 <PlanArt />
               )}
 
-              {/* Dark tint overlay for better readability of the button */}
-              <div className="absolute inset-0 bg-black/20 transition-colors duration-500" />
+              {/* Dark tint overlay for better readability */}
+              <div className="absolute inset-0 bg-black/25 transition-colors duration-500 group-hover:bg-black/35" />
               
-              {/* Centered Button matching reference style */}
+              {/* Centered Button */}
               <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#a37e38] text-white tracking-widest px-6 py-3 text-xs sm:text-sm font-medium rounded shadow-md transition-all duration-300 ease-out group-hover:bg-[#8f6d30] group-hover:scale-105 z-10">
                 VIEW FLOOR PLAN
               </span>
@@ -143,57 +144,8 @@ export default function FloorPlans() {
         </div>
       </div>
 
-      {lightboxOpen && (
-        <div
-          className="fixed inset-0 z-100 bg-forest-950/95 backdrop-blur-sm grid place-items-center px-4"
-          onClick={() => setLightboxOpen(false)}
-        >
-          <button
-            aria-label="Close"
-            className="absolute top-6 right-6 text-cream-50 hover:text-gold-400"
-            onClick={() => setLightboxOpen(false)}
-          >
-            <X size={28} />
-          </button>
-          <button
-            aria-label="Previous"
-            onClick={(e) => {
-              e.stopPropagation();
-              go(activeIndex - 1);
-            }}
-            className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 text-cream-50 hover:text-gold-400"
-          >
-            <ChevronLeft size={32} />
-          </button>
-          <button
-            aria-label="Next"
-            onClick={(e) => {
-              e.stopPropagation();
-              go(activeIndex + 1);
-            }}
-            className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 text-cream-50 hover:text-gold-400"
-          >
-            <ChevronRight size={32} />
-          </button>
-
-          <figure
-            className="max-w-2xl w-full bg-cream-50 rounded-2xl overflow-hidden shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="relative h-72 sm:h-96">
-              {active.image ? (
-                <img
-                  src={active.image}
-                  alt={`${active.type} floor plan`}
-                  className="absolute inset-0 w-full h-full object-contain p-8"
-                />
-              ) : (
-                <PlanArt />
-              )}
-            </div>
-          </figure>
-        </div>
-      )}
+      {/* Render Enquire Popup */}
+      <EnquirePopup isOpen={enquireOpen} onClose={() => setEnquireOpen(false)} />
 
       <style>{`
         .fp-leaf {

@@ -26,39 +26,50 @@ export default function GrandWelcome() {
     <section
       id="arrival"
       ref={root}
-      className="relative flex min-h-[420px] items-center overflow-hidden py-10 sm:min-h-[580px] sm:py-14 lg:min-h-[680px]"
+      className="relative w-full bg-white flex flex-col items-center overflow-hidden p-0 m-0"
     >
-      {/* Background Image Container without gradient overlay */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <img
-          src="/images/V1-FORESTIA-MASTER.png"
-          alt=""
-          loading="lazy"
-          decoding="async"
-          className="block h-full w-full object-cover object-bottom"
-        />
-        <img
-          src="/images/V1-FORESTIA-MASTER.png"
-          alt="M3M Forestia West grand entrance arrival"
-          loading="lazy"
-          decoding="async"
-          className="hidden h-full w-full object-cover object-bottom"
-        />
-      </div>
+      {/* Top padding with an even deeper downward curve */}
+      <div className="absolute top-16 sm:top-24 lg:top-32 inset-x-0 z-10 w-full px-2 text-center pointer-events-none">
+        <div className="grand-fade max-w-5xl mx-auto">
+          <svg viewBox="0 0 900 240" className="w-full h-auto overflow-visible">
+            {/* Aur zyada deep curve paths */}
+            <path
+              id="curvePath1"
+              d="M 40,10 Q 450,160 860,10"
+              fill="transparent"
+            />
+            <path
+              id="curvePath2"
+              d="M 80,60 Q 450,210 820,60"
+              fill="transparent"
+            />
+            
+            <text className="font-display font-bold text-3xl sm:text-5xl lg:text-6xl fill-neutral-900 drop-shadow-sm">
+              <textPath href="#curvePath1" startOffset="50%" textAnchor="middle">
+                A Grand Welcome.
+              </textPath>
+            </text>
 
-      <div className="relative z-10 mx-auto max-w-6xl px-5 sm:px-8 w-full text-center">
-        <div className="grand-fade">
-          <h2 className="font-display text-3xl font-bold leading-tight text-cream-50 sm:text-5xl drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
-            A Grand Welcome.
-          </h2>
-
-          <h2 className="mt-2 font-display text-3xl font-bold leading-tight text-gold-400 sm:text-5xl drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]">
-            Every single day.
-          </h2>
+            <text className="font-display font-bold text-2xl sm:text-4xl lg:text-5xl fill-amber-600 drop-shadow-sm">
+              <textPath href="#curvePath2" startOffset="50%" textAnchor="middle">
+                Every single day.
+              </textPath>
+            </text>
+          </svg>
         </div>
       </div>
 
-      <div className="pointer-events-none absolute right-[-6%] top-[30%] z-20 hidden w-32 sm:block lg:right-[-85px] lg:w-40">
+      {/* Edge-to-edge Full Width Image Container */}
+      <div className="relative z-0 w-full p-0 m-0 pointer-events-none">
+        <img
+          src="/images/V1-FORESTIA-MASTER.png"
+          alt="M3M Forestia West grand entrance arrival"
+          className="w-full h-auto object-contain block m-0 p-0"
+        />
+      </div>
+
+      {/* Floating Leaf */}
+      <div className="pointer-events-none absolute right-0 top-[30%] z-20 hidden w-28 sm:block sm:w-36 lg:w-40">
         <img
           src="/images/leaf-r.webp"
           alt=""

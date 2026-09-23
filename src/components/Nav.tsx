@@ -20,12 +20,17 @@ export default function Nav() {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: "", phone: "", email: "" });
 
-  // Track scroll for navbar hide/show and background style
+  // Track scroll for navbar hide/show, background style, and Hero section reset
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
       setScrolled(currentScrollY > 40);
+
+      // Agar user hero section par hai (top ke paas), toh active section ko clear kar do
+      if (currentScrollY < 150) {
+        setActiveSection("");
+      }
 
       if (currentScrollY > lastScrollY && currentScrollY > 80) {
         setShowNavbar(false);
@@ -53,12 +58,13 @@ export default function Nav() {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
+            // Agar page top par nahi hai tabhi intersection trigger ho
+            if (entry.isIntersecting && window.scrollY >= 150) {
               setActiveSection(`#${id}`);
             }
           });
         },
-        { threshold: 0.3 }
+        { threshold: 0.4 } // Increased threshold so it triggers only when well into the section
       );
 
       observer.observe(el);

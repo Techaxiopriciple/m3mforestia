@@ -46,7 +46,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
       <div className="absolute inset-0 bg-[url(/images/logo-hero.webp)] bg-cover bg-center opacity-10" />
 
       <div className="relative overflow-hidden">
-        {/* Dark theme ke liye logo ko cream/white kar diya hai */}
+        {/* Logo is cream/white for the dark theme */}
         <div
           className="preloader-word w-64 sm:w-80 lg:w-96 aspect-[2511/780] bg-cream-50"
           style={{

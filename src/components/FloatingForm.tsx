@@ -86,15 +86,15 @@ export default function FloatingForm() {
             {isOpen && (
               <div
                 ref={formRef}
-                className="relative bg-forest-950/98 backdrop-blur-xl border border-gold-400/40 rounded-xl p-5 shadow-2xl text-cream-50 w-full sm:w-[350px]"
+                className="relative max-h-[calc(100dvh-2rem)] overflow-y-auto bg-forest-950/98 backdrop-blur-xl border border-gold-400/40 rounded-xl p-5 shadow-2xl text-cream-50 w-full sm:w-[350px]"
               >
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
                   aria-label="Close Form"
-                  className="absolute top-3.5 right-3.5 h-6 w-6 rounded-md bg-forest-900/80 border border-gold-400/20 text-cream-100/70 hover:text-white hover:border-gold-400/40 transition-all flex items-center justify-center cursor-pointer z-10"
+                  className="absolute top-3.5 right-3.5 h-10 w-10 rounded-md bg-forest-900/80 border border-gold-400/20 text-cream-100/70 hover:text-white hover:border-gold-400/40 transition-all flex items-center justify-center cursor-pointer z-10"
                 >
-                  <X size={14} />
+                  <X size={16} />
                 </button>
 
                 {submitted ? (

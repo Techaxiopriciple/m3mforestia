@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { X, Sparkles, Send, CheckCircle2 } from "lucide-react";
-import { gsap } from "../lib/gsap"; // Aapke project ka gsap import
+import { gsap } from "../lib/gsap"; // gsap import from this project
 
 export default function EnquiryDrawer() {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +34,7 @@ export default function EnquiryDrawer() {
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
-      setIsEnquiryOpen(false);
+      setIsOpen(false);
       setFormData({ name: "", phone: "", email: "" });
     }, 2500);
   };

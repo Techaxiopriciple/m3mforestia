@@ -46,7 +46,7 @@ export default function EnquirePopup({ isOpen: externalIsOpen, onClose: external
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn">
       <div 
-        className="relative w-full max-w-lg bg-white border border-forest-100 rounded-3xl shadow-2xl overflow-hidden text-forest-950 p-6 sm:p-8"
+        className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-white border border-forest-100 rounded-3xl shadow-2xl text-forest-950 p-6 sm:p-8"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}

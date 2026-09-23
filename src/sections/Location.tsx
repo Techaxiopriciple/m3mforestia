@@ -97,7 +97,7 @@ export default function Location() {
             {NODES.map((n) => (
               <div
                 key={n.label}
-                className="loc-node absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-forest-200 bg-forest-50 px-3 py-1.5 text-[11px] text-forest-900/85 whitespace-nowrap"
+                className="loc-node absolute -translate-x-1/2 -translate-y-1/2 rounded-xl sm:rounded-full border border-forest-200 bg-forest-50 px-2 py-1 sm:px-3 sm:py-1.5 text-[8px] sm:text-[11px] text-forest-900/85 text-center leading-tight max-w-[92px] sm:max-w-none sm:whitespace-nowrap"
                 style={nodePos(n.angle, n.radius)}
               >
                 {n.label}

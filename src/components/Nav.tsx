@@ -27,7 +27,7 @@ export default function Nav() {
 
       setScrolled(currentScrollY > 40);
 
-      // Agar user hero section par hai (top ke paas), toh active section ko clear kar do
+      // If the user is on the hero section (near the top), clear the active section
       if (currentScrollY < 150) {
         setActiveSection("");
       }
@@ -58,7 +58,7 @@ export default function Nav() {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            // Agar page top par nahi hai tabhi intersection trigger ho
+            // Only trigger the intersection update when the page isn't at the top
             if (entry.isIntersecting && window.scrollY >= 150) {
               setActiveSection(`#${id}`);
             }

@@ -30,7 +30,7 @@ function ArrowButton({ direction, onClick, mobile = false }: { direction: "prev"
       onClick={onClick}
       aria-label={`${direction === "prev" ? "Previous" : "Next"} slide`}
       className={`pointer-events-auto flex shrink-0 items-center justify-center rounded-full border border-white/80 bg-black/25 text-white backdrop-blur-sm transition duration-300 hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
-        mobile ? "h-9 w-9" : "h-12 w-12"
+        mobile ? "h-10 w-10" : "h-12 w-12"
       }`}
     >
       <Icon size={mobile ? 20 : 24} strokeWidth={1.4} />

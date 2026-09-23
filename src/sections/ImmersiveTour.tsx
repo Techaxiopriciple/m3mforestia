@@ -88,7 +88,7 @@ export default function ImmersiveTour() {
             onEnded={() => setPlaying(false)}
           />
 
-          {/* Title Overlay (Video play hone par fade out ho jayega, pause hone par dikhega) */}
+          {/* Title Overlay (fades out when the video plays, shows again when paused) */}
           <div
             className={`absolute inset-0 bg-forest-950/40 flex flex-col items-center justify-center text-center p-6 transition-opacity duration-500 z-10 pointer-events-none ${
               playing ? "opacity-0" : "opacity-100"

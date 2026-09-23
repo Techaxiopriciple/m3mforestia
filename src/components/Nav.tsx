@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, X, Send, CheckCircle2 } from "lucide-react";
+import { markEnquirySubmitted } from "../lib/enquiry";
 
 const LINKS = [
   { href: "#location", label: "Location" },
@@ -78,6 +79,7 @@ export default function Nav() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    markEnquirySubmitted();
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);

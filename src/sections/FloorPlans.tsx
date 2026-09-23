@@ -1,8 +1,9 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, LayoutGrid } from "lucide-react";
 import { gsap } from "../lib/gsap";
-import { FLOOR_PLANS, whatsappLink } from "../lib/content";
-import EnquirePopup from "./EnquirePopup"; // Verify this path matches the EnquirePopup component's location in your project
+import { FLOOR_PLANS } from "../lib/content";
+import EnquirePopup from "./EnquirePopup"; // Aapke EnquirePopup component ka path apne project ke hisaab se check kar lein
+import { ENQUIRY_EVENT, isEnquirySubmitted } from "../lib/enquiry";
 
 function PlanArt() {
   return (
@@ -19,11 +20,18 @@ export default function FloorPlans() {
   const cardRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [enquireOpen, setEnquireOpen] = useState(false); // Popup state
+  const [unlocked, setUnlocked] = useState(isEnquirySubmitted());
   const total = FLOOR_PLANS.length;
 
   const active = FLOOR_PLANS[activeIndex];
 
   const go = (i: number) => setActiveIndex((i + total) % total);
+
+  useEffect(() => {
+    const onEnquirySubmitted = () => setUnlocked(true);
+    window.addEventListener(ENQUIRY_EVENT, onEnquirySubmitted);
+    return () => window.removeEventListener(ENQUIRY_EVENT, onEnquirySubmitted);
+  }, []);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -80,7 +88,7 @@ export default function FloorPlans() {
 
           <div ref={cardRef} className="flex-1 min-w-0">
             <button
-              onClick={() => setEnquireOpen(true)} // Opens EnquirePopup on click
+              onClick={() => !unlocked && setEnquireOpen(true)} // Unlock hone tak click par EnquirePopup khulega
               className="relative flex items-center justify-center w-full h-64 sm:h-96 rounded-2xl overflow-hidden border border-forest-200 bg-cream-50 group cursor-pointer"
             >
               {active.image ? (
@@ -89,19 +97,23 @@ export default function FloorPlans() {
                   alt={`${active.type} floor plan — ${active.label}, ${active.size}`}
                   loading="lazy"
                   decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover blur-sm transition-transform duration-700 ease-out group-hover:scale-105"
+                  className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 ${unlocked ? "" : "blur-sm"}`}
                 />
               ) : (
                 <PlanArt />
               )}
 
-              {/* Dark tint overlay for better readability */}
-              <div className="absolute inset-0 bg-black/25 transition-colors duration-500 group-hover:bg-black/35" />
-              
-              {/* Centered Button */}
-              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#a37e38] text-white tracking-widest px-6 py-3 text-xs sm:text-sm font-medium rounded shadow-md transition-all duration-300 ease-out group-hover:bg-[#8f6d30] group-hover:scale-105 z-10">
-                VIEW FLOOR PLAN
-              </span>
+              {!unlocked && (
+                <>
+                  {/* Dark tint overlay for better readability */}
+                  <div className="absolute inset-0 bg-black/25 transition-colors duration-500 group-hover:bg-black/35" />
+
+                  {/* Centered Button */}
+                  <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#a37e38] text-white tracking-widest px-6 py-3 text-xs sm:text-sm font-medium rounded shadow-md transition-all duration-300 ease-out group-hover:bg-[#8f6d30] group-hover:scale-105 z-10">
+                    VIEW FLOOR PLAN
+                  </span>
+                </>
+              )}
             </button>
           </div>
 
@@ -133,14 +145,22 @@ export default function FloorPlans() {
         </div>
 
         <div className="fp-fade flex justify-center mt-10">
-          <a
-            href={whatsappLink("Hi, I'd like to receive the floor plans / E-brochure for M3M Forestia West.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded bg-[#a37e38] text-white px-8 py-3.5 text-sm tracking-widest font-medium hover:bg-[#8f6d30] transition-colors shadow-sm"
-          >
-            DOWNLOAD BROCHURE
-          </a>
+          {unlocked ? (
+            <a
+              href="/brochures/m3m-forestia-west-floor-plans.pdf"
+              download
+              className="rounded bg-[#a37e38] text-white px-8 py-3.5 text-sm tracking-widest font-medium hover:bg-[#8f6d30] transition-colors shadow-sm"
+            >
+              DOWNLOAD BROCHURE
+            </a>
+          ) : (
+            <button
+              onClick={() => setEnquireOpen(true)}
+              className="rounded bg-[#a37e38] text-white px-8 py-3.5 text-sm tracking-widest font-medium hover:bg-[#8f6d30] transition-colors shadow-sm cursor-pointer"
+            >
+              DOWNLOAD BROCHURE
+            </button>
+          )}
         </div>
       </div>
 

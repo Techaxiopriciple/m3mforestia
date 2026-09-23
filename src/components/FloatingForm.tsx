@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { X, CheckCircle2 } from "lucide-react";
 import { gsap } from "../lib/gsap";
+import { markEnquirySubmitted } from "../lib/enquiry";
 
 export default function FloatingForm() {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,6 +64,7 @@ export default function FloatingForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    markEnquirySubmitted();
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);

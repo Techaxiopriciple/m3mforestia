@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { X, Sparkles, Send, CheckCircle2 } from "lucide-react";
-import { gsap } from "../lib/gsap"; // gsap import from this project
+import { gsap } from "../lib/gsap"; // Aapke project ka gsap import
+import { markEnquirySubmitted } from "../lib/enquiry";
 
 export default function EnquiryDrawer() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,10 +32,11 @@ export default function EnquiryDrawer() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    markEnquirySubmitted(); // Unlocks the content across the app
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
-      setIsOpen(false);
+      closeDrawer(); // Smoothly closes the drawer instead of abrupt state clear
       setFormData({ name: "", phone: "", email: "" });
     }, 2500);
   };
@@ -66,6 +68,7 @@ export default function EnquiryDrawer() {
       >
         {/* Drawer Header */}
         <div className="flex items-center justify-between p-6 border-b border-forest-100 bg-forest-50/50">
+          <span className="font-display text-lg text-forest-950">Quick Enquiry</span>
           <button
             onClick={closeDrawer}
             className="size-10 rounded-full bg-forest-100 text-forest-800 flex items-center justify-center hover:bg-forest-200 transition-colors cursor-pointer"

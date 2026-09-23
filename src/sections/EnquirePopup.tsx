@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { X, Sparkles, Send } from "lucide-react";
+import { X, Send } from "lucide-react";
+import { markEnquirySubmitted } from "../lib/enquiry";
 
 interface EnquirePopupProps {
   isOpen?: boolean;
@@ -34,6 +35,7 @@ export default function EnquirePopup({ isOpen: externalIsOpen, onClose: external
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    markEnquirySubmitted(); // Unlocks content across the application
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
@@ -61,7 +63,6 @@ export default function EnquirePopup({ isOpen: externalIsOpen, onClose: external
         {submitted ? (
           <div className="py-12 text-center space-y-4">
             <div className="size-16 bg-forest-50 border border-forest-200 rounded-full flex items-center justify-center mx-auto text-forest-900">
-              <Sparkles size={32} />
             </div>
             <h3 className="font-display text-2xl text-forest-950">Thank You!</h3>
             <p className="text-forest-600 text-sm max-w-xs mx-auto">

@@ -1,7 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { gsap } from "../lib/gsap";
-import { PRICE } from "../lib/content";
 import { useInView } from "../lib/useInView";
 
 const AUTO_SLIDE_DELAY = 4500;
@@ -234,15 +233,6 @@ export default function Gallery() {
               <ArrowControls onPrev={handlePrev} onNext={handleNext} mobile />
             </div>
           </div>
-        </div>
-
-        {/* Plan Pills */}
-        <div className="editorial-fade mx-auto mt-10 flex max-w-7xl flex-wrap justify-center gap-3 border-t border-forest-100 px-4 pt-10">
-          {PRICE?.plans?.map((plan) => (
-            <span key={plan} className="rounded-full border border-emerald-800/50 bg-[#11221a] px-6 py-2.5 text-xs font-semibold tracking-wide text-emerald-100 shadow-sm sm:text-sm">
-              {plan}
-            </span>
-          ))}
         </div>
       </div>
     </section>

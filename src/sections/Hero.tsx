@@ -51,10 +51,10 @@ export default function Hero() {
         preload="auto"
       />
 
-      {/* Top Left Corner RERA Info - Date shifted to the bottom line */}
+      {/* Top Right Corner RERA Info */}
       <div className="hero-rera absolute top-20 sm:top-24 inset-x-0 z-30 pointer-events-none">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 w-full flex justify-start">
-          <div className="max-w-xs sm:max-w-sm pointer-events-auto text-left space-y-1.5">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 w-full flex justify-end">
+          <div className="max-w-xs sm:max-w-sm pointer-events-auto text-right space-y-1.5">
             <div>
               <p className="text-[10px] sm:text-[11px] font-medium text-cream-50/90 leading-tight tracking-wide drop-shadow-md">
                 RERA REG. NO. RC/REP/HARERA/GGM/1030/762/2026/02
@@ -64,7 +64,7 @@ export default function Hero() {
               </p>
             </div>
 
-            <div className="w-full h-px bg-gold-400/30 my-1 mr-auto w-3/4" />
+            <div className="w-full h-px bg-gold-400/30 my-1 ml-auto w-3/4" />
 
             <div>
               <p className="text-[10px] sm:text-[11px] font-medium text-cream-50/90 leading-tight tracking-wide drop-shadow-md">

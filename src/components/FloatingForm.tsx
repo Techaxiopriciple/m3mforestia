@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { X, CheckCircle2, Sparkles } from "lucide-react";
+import { X, CheckCircle2 } from "lucide-react";
 import { gsap } from "../lib/gsap";
 
 export default function FloatingForm() {

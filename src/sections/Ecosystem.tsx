@@ -106,7 +106,6 @@ export default function Ecosystem() {
           decoding="async"
           className="hidden sm:block w-full h-full object-cover object-top"
         />
-        {/* Changed from bg-forest-950/60 to a rich emerald/forest green tint */}
         <div className="absolute inset-0 bg-gradient-to-b from-forest-900/50 via-emerald-950/40 to-forest-950/60 mix-blend-multiply" />
         <div className="absolute inset-0 bg-emerald-900/20 backdrop-brightness-110" />
       </div>
@@ -225,10 +224,10 @@ export default function Ecosystem() {
               <button
                 key={tabName}
                 onClick={() => setActiveTab(i)}
-                className={`flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs sm:text-sm font-medium transition-all duration-300 tracking-wider uppercase text-center cursor-pointer ${
+                className={`flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs sm:text-sm transition-all duration-300 tracking-wider uppercase text-center cursor-pointer ${
                   activeTab === i
                     ? "bg-gold-500 text-forest-950 font-bold shadow-lg shadow-gold-500/20"
-                    : "text-cream-100/80 hover:text-white hover:bg-emerald-900/50"
+                    : "text-cream-100/80 font-medium hover:text-white hover:bg-emerald-900/50"
                 }`}
               >
                 {tabName}

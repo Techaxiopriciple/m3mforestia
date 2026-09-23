@@ -24,7 +24,7 @@ export default function App() {
       <Nav />
       <FloatingContact />
       <main>
-        <Hero ready={!loading} />
+        <Hero />
         <Ecosystem />
         <GrandWelcome />
         <Gallery />

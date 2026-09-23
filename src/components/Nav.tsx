@@ -13,26 +13,24 @@ export default function Nav() {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   // Enquiry Drawer States
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: "", phone: "", email: "" });
 
+  // Track scroll for navbar hide/show and background style
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // Background color / shadow change ke liye
       setScrolled(currentScrollY > 40);
 
-      // Scroll up / down detection
       if (currentScrollY > lastScrollY && currentScrollY > 80) {
-        // Agar user neeche scroll kar raha hai aur 80px se zyada scroll kiya hai -> Hide navbar
         setShowNavbar(false);
-        setOpen(false); // Agar mobile menu khula ho toh use bhi band kar do
+        setOpen(false);
       } else {
-        // Agar user upar scroll kar raha hai -> Show navbar
         setShowNavbar(true);
       }
 
@@ -42,6 +40,35 @@ export default function Nav() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+
+  // Track active section using IntersectionObserver for highlighting menu items
+  useEffect(() => {
+    const sectionIds = LINKS.map((l) => l.href.replace("#", ""));
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveSection(`#${id}`);
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+    };
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,23 +105,33 @@ export default function Nav() {
           />
 
           <div className="hidden lg:flex items-center gap-9">
-            {LINKS.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className={`text-sm font-medium transition-colors ${
-                  scrolled
-                    ? "text-forest-900 hover:text-forest-600"
-                    : "text-cream-50 hover:text-gold-400"
-                }`}
-              >
-                {l.label}
-              </a>
-            ))}
+            {LINKS.map((l) => {
+              const isActive = activeSection === l.href;
+              return (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  className={`relative text-sm font-medium transition-colors py-1 ${
+                    isActive
+                      ? scrolled
+                        ? "text-forest-600 font-semibold"
+                        : "text-gold-400 font-semibold"
+                      : scrolled
+                      ? "text-forest-900 hover:text-forest-600"
+                      : "text-cream-50 hover:text-gold-400"
+                  }`}
+                >
+                  {l.label}
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gold-500 rounded-full animate-pulse" />
+                  )}
+                </a>
+              );
+            })}
             <a
               href="#enquiry"
               onClick={handleOpenEnquiry}
-              className="rounded-full bg-gold-500 px-5 py-2 text-sm font-bold text-forest-950 shadow-sm cursor-pointer"
+              className="rounded-full bg-gold-500 px-5 py-2 text-sm font-bold text-forest-950 shadow-sm cursor-pointer hover:bg-gold-400 transition-colors"
             >
               Enquire Now
             </a>
@@ -111,16 +148,22 @@ export default function Nav() {
 
         {open && (
           <div className="lg:hidden bg-white border-t border-forest-100 px-5 pb-6 flex flex-col gap-4 shadow-lg shadow-forest-950/10">
-            {LINKS.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="text-forest-900 py-2 border-b border-forest-100 text-sm"
-              >
-                {l.label}
-              </a>
-            ))}
+            {LINKS.map((l) => {
+              const isActive = activeSection === l.href;
+              return (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className={`py-2 border-b border-forest-100 text-sm flex items-center justify-between ${
+                    isActive ? "text-forest-600 font-semibold pl-2 bg-forest-50/50 rounded" : "text-forest-900"
+                  }`}
+                >
+                  <span>{l.label}</span>
+                  {isActive && <span className="size-2 rounded-full bg-gold-500 mr-2" />}
+                </a>
+              );
+            })}
             <a
               href="#enquiry"
               onClick={handleOpenEnquiry}

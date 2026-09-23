@@ -41,14 +41,14 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
   return (
     <div
       ref={root}
-      className="fixed inset-0 z-100 bg-white grid place-items-center overflow-hidden"
+      className="fixed inset-0 z-[100] bg-forest-950 grid place-items-center overflow-hidden"
     >
-      <div className="absolute inset-0 bg-[url(/images/logo-hero.webp)] bg-cover bg-center opacity-25" />
+      <div className="absolute inset-0 bg-[url(/images/logo-hero.webp)] bg-cover bg-center opacity-10" />
 
       <div className="relative overflow-hidden">
-        {/* Source PNG is a white cutout (for dark backgrounds) — recolored green here via a mask so it reads on the white preloader */}
+        {/* Dark theme ke liye logo ko cream/white kar diya hai */}
         <div
-          className="preloader-word w-64 sm:w-80 lg:w-96 aspect-[2511/780] bg-forest-600"
+          className="preloader-word w-64 sm:w-80 lg:w-96 aspect-[2511/780] bg-cream-50"
           style={{
             WebkitMaskImage: "url(/images/logo/forestia-logo_new_1.png)",
             maskImage: "url(/images/logo/forestia-logo_new_1.png)",

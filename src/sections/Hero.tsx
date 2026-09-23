@@ -3,14 +3,12 @@ import { ChevronDown } from "lucide-react";
 import { gsap } from "../lib/gsap";
 import { useAutoPauseVideo } from "../lib/useAutoPauseVideo";
 
-export default function Hero({ ready }: { ready: boolean }) {
+export default function Hero() {
   const root = useRef<HTMLDivElement>(null);
   const videoRef = useAutoPauseVideo<HTMLVideoElement>();
 
   // GSAP timeline animation on component mount
   useLayoutEffect(() => {
-    if (!ready) return;
-
     const ctx = gsap.context(() => {
       gsap
         .timeline({ defaults: { ease: "power3.out" } })
@@ -25,7 +23,7 @@ export default function Hero({ ready }: { ready: boolean }) {
     }, root);
 
     return () => ctx.revert();
-  }, [ready]);
+  }, []);
 
   // Handler to close floating form on scroll click
   const handleScrollClick = () => {
@@ -36,20 +34,21 @@ export default function Hero({ ready }: { ready: boolean }) {
     <section
       id="top"
       ref={root}
-      className={`relative min-h-dvh w-full overflow-hidden py-28 lg:py-0 ${
-        ready ? "" : "invisible"
-      }`}
+      className="relative min-h-dvh w-full overflow-hidden py-28 lg:py-0 bg-forest-950"
     >
+      {/* Fallback dark solid background layer */}
+      <div className="absolute inset-0 bg-forest-950 -z-10" />
+
       {/* Background Video */}
       <video
         ref={videoRef}
-        className="hero-bg absolute inset-0 w-full h-full object-cover"
+        className="hero-bg absolute inset-0 w-full h-full object-cover bg-forest-950"
         src="/images/banner-video-forestia.mp4"
         autoPlay
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
       />
 
       {/* Top Left Corner RERA Info - Date shifted to the bottom line */}

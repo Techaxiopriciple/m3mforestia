@@ -18,8 +18,11 @@
   --color-cream-100: #f4ecdc;
   --color-cream-200: #e9dcc0;
 
-  --font-display: "Cormorant Garamond", "Times New Roman", serif;
-  --font-sans: "Manrope", system-ui, sans-serif;
+  /* Brand typography: Big Caslon for headlines, Acumin for copy.
+     First name in each stack is the Adobe Fonts family (loaded in index.html);
+     the second matches a locally installed copy (Big Caslon ships with macOS). */
+  --font-display: "big-caslon-fb", "Big Caslon", Georgia, "Times New Roman", serif;
+  --font-sans: "acumin-pro", "Acumin Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 html {

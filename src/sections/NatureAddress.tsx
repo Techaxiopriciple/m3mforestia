@@ -44,28 +44,27 @@ export default function NatureAddress() {
   }, []);
 
   return (
-    <section id="central-grove" ref={root} className="relative bg-white py-12 text-forest-950 lg:py-16">
+    <section id="central-grove" ref={root} className="relative bg-white py-10 text-forest-950 lg:py-14">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <h5 className="nature-fade mx-auto max-w-3xl text-center font-display text-3xl uppercase leading-[1.2] text-forest-950 sm:text-5xl">
+        <h5 className="nature-fade mx-auto max-w-3xl text-center font-display text-xl uppercase leading-[1.2] text-forest-950 sm:text-3xl">
           A world of privileges
           <br />
           Designed for a dynamic way of living.
         </h5>
 
-        <div className="nature-fade relative mt-8 overflow-hidden sm:mt-10">
-          {/* Source render has thin brand bars top & bottom — the aspect crop hides them */}
+        <div className="nature-fade relative mt-6 overflow-hidden sm:mt-8">
           <img
             src="/images/sanctuary-pool.webp"
             alt="Resort-style pool and clubhouse at M3M Forestia"
             loading="lazy"
             className="block aspect-[4/3] w-full object-cover sm:aspect-[16/9]"
           />
-          <span className="absolute bottom-3 right-3 text-[10px] tracking-wider text-white/80">Artistic impression</span>
+          <span className="absolute bottom-3 right-3 text-[9px] tracking-wider text-white/80">Artistic impression</span>
         </div>
 
-        <div className="nature-fade mt-12 flex items-center gap-4 sm:mt-14 sm:gap-6">
+        <div className="nature-fade mt-10 flex items-center gap-4 sm:mt-12 sm:gap-6">
           <span className="h-px flex-1 bg-gold-400/60" />
-          <p className="text-center text-xs tracking-[0.25em] text-forest-950 sm:text-sm">EXPERIENCE CENTRAL GROVE AT GIC</p>
+          <p className="text-center text-[10px] tracking-[0.25em] text-forest-950 sm:text-[11px]">EXPERIENCE CENTRAL GROVE AT GIC</p>
           <span className="h-px flex-1 bg-gold-400/60" />
         </div>
 
@@ -80,13 +79,13 @@ export default function NatureAddress() {
                   style={{ objectPosition: f.position }}
                   className="block aspect-[16/10] w-full object-cover"
                 />
-                <span className="absolute bottom-2 left-2 text-[9px] text-white/80">Artistic impression</span>
-                <span className="absolute bottom-2 right-3 text-xs font-medium uppercase tracking-[0.15em] text-white drop-shadow">
+                <span className="absolute bottom-2 left-2 text-[8px] text-white/80">Artistic impression</span>
+                <span className="absolute bottom-2 right-3 text-[10px] font-medium uppercase tracking-[0.15em] text-white drop-shadow">
                   {f.label}
                 </span>
               </div>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-wider text-forest-950">{f.category}</p>
-              <p className="mt-1 text-[11px] uppercase leading-relaxed tracking-wide text-forest-700">{f.items}</p>
+              <p className="mt-3 text-[10px] font-semibold uppercase tracking-wider text-forest-950">{f.category}</p>
+              <p className="mt-1 text-[9px] uppercase leading-relaxed tracking-wide text-forest-700">{f.items}</p>
             </div>
           ))}
         </div>

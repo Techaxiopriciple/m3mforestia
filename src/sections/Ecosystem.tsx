@@ -143,12 +143,12 @@ export default function Ecosystem() {
               loading="lazy"
               className="h-16 sm:h-20 w-auto object-contain drop-shadow-[0_4px_12px_rgba(16,185,129,0.2)]"
             />
-            <p className="text-xs sm:text-sm tracking-[0.2em] text-gold-300 uppercase font-bold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+            <p className="text-xs sm:text-sm tracking-[0.2em] text-gold-300 uppercase font-bold">
               Part of the Largest Integrated City of Gurgaon
             </p>
           </div>
           
-          <p className="mt-6 max-w-2xl text-sm sm:text-base text-white font-semibold leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+          <p className="mt-6 max-w-2xl text-sm sm:text-base text-white font-semibold leading-relaxed">
             GIC – Gurgaon International City is a thoughtfully planned, future-forward ecosystem where world-class living, leisure, and sustainability converge. Designed to inspire progress, it redefines how you live, work, and grow amidst nature.
           </p>
         </div>
@@ -200,12 +200,12 @@ export default function Ecosystem() {
                     </div>
                   </div>
 
-                  <h3 className="font-display text-lg sm:text-xl font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] hover:text-gold-400 transition-colors tracking-[0.16em] leading-snug uppercase whitespace-pre-line min-h-[3.5rem] flex items-center justify-center">
+                  <h3 className="font-display text-lg sm:text-xl font-bold text-white hover:text-gold-400 transition-colors tracking-[0.16em] leading-snug uppercase whitespace-pre-line min-h-[3.5rem] flex items-center justify-center">
                     {item.title}
                   </h3>
                 </div>
 
-                <p className="mt-5 text-sm font-semibold text-white/95 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] leading-relaxed max-w-[230px] mx-auto">
+                <p className="mt-5 text-sm font-semibold text-white/95 leading-relaxed max-w-[230px] mx-auto">
                   {item.body}
                 </p>
               </div>
@@ -215,7 +215,7 @@ export default function Ecosystem() {
 
         {/* Custom Named Tabs Section */}
         <div className="eco-item mt-16 sm:mt-20 max-w-5xl mx-auto">
-          {/* Tab Buttons Header without blur backdrop */}
+          {/* Tab Buttons Header */}
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 bg-emerald-950/70 p-2 rounded-2xl border border-emerald-500/30 mb-12 shadow-lg">
             {SECTION_TABS.map((tabName, i) => (
               <button
@@ -241,7 +241,7 @@ export default function Ecosystem() {
                   className={`${index % 2 === 0 ? "eco-stat-down" : "eco-stat-up"} border-l-2 border-gold-400/60 pl-5`}
                 >
                   <div className="font-display text-2xl sm:text-3xl text-gold-400 font-bold">{item.time}</div>
-                  <p className="mt-2 text-sm text-white font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] leading-snug">{item.title}</p>
+                  <p className="mt-2 text-sm text-white font-semibold leading-snug">{item.title}</p>
                 </div>
               ))}
             </div>

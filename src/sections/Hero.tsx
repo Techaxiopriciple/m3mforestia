@@ -54,23 +54,23 @@ export default function Hero() {
       {/* Top Right Corner RERA Info */}
       <div className="hero-rera absolute top-20 sm:top-24 inset-x-0 z-30 pointer-events-none">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 w-full flex justify-end">
-          <div className="max-w-xs sm:max-w-sm pointer-events-auto text-right space-y-1.5">
+          <div className="max-w-xs sm:max-w-sm pointer-events-auto text-right space-y-0.5">
             <div>
-              <p className="text-[10px] sm:text-[11px] font-medium text-cream-50/90 leading-tight tracking-wide drop-shadow-md">
+              <p className="text-[6px] sm:text-[7px] font-bold text-white leading-tight tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
                 RERA REG. NO. RC/REP/HARERA/GGM/1030/762/2026/02
               </p>
-              <p className="text-[10px] sm:text-[11px] font-normal text-gold-400 tracking-wide drop-shadow-md mt-0.5">
+              <p className="text-[6px] sm:text-[7px] font-semibold text-gold-300 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
                 Dated: 02.01.2026
               </p>
             </div>
 
-            <div className="w-full h-px bg-gold-400/30 my-1 ml-auto w-3/4" />
+            <div className="w-full h-px bg-gold-400/60 my-0.5 ml-auto w-3/4 shadow-[0_1px_2px_rgba(0,0,0,0.9)]" />
 
             <div>
-              <p className="text-[10px] sm:text-[11px] font-medium text-cream-50/90 leading-tight tracking-wide drop-shadow-md">
+              <p className="text-[6px] sm:text-[7px] font-bold text-white leading-tight tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
                 RERA REG. NO. RC/REP/HARERA/GGM/991/723/2025/94
               </p>
-              <p className="text-[10px] sm:text-[11px] font-normal text-gold-400 tracking-wide drop-shadow-md mt-0.5">
+              <p className="text-[6px] sm:text-[7px] font-semibold text-gold-300 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
                 Dated: 16.10.2025
               </p>
             </div>
@@ -78,38 +78,47 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Client Logos */}
-      <div className="hero-logos absolute inset-0 z-20 flex items-center pt-80 sm:pt-96 pointer-events-none">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 w-full flex items-end gap-4 pointer-events-auto">
-          <a href="#top" aria-label="M3M Forestia" className="flex items-center justify-center p-2">
+      {/* Center Branding & Logos Layout */}
+      <div className="hero-logos absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4 pointer-events-none">
+        <div className="max-w-4xl mx-auto w-full flex flex-col items-center pointer-events-auto space-y-4">
+          {/* M3M Forestia Logo & Subtitle */}
+          <a href="#top" aria-label="M3M Forestia" className="flex flex-col items-center gap-2 group">
             <img
               src="/images/logo/forestia-logo_new_1.png"
               alt="M3M Forestia"
               width={1200}
               height={373}
-              className="h-[52px] sm:h-[62px] w-auto object-contain"
+              className="h-14 sm:h-20 w-auto object-contain filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]"
             />
+            <span className="text-xs sm:text-sm uppercase tracking-[0.25em] text-white font-bold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+              Forest-Themed Residences
+            </span>
           </a>
 
-          <a href="#top" aria-label="GIC Logo" className="flex items-center justify-center p-2">
-            <img
-              src="/images/logo/gic.webp"
-              alt="GIC Logo"
-              width={300}
-              height={223}
-              className="h-[52px] sm:h-[62px] w-auto object-contain brightness-0 invert"
-            />
-          </a>
+          {/* Integrated City Text & White GIC Logo with clear details */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 pt-6 w-full">
+            <p className="text-xs sm:text-sm tracking-[0.2em] text-white uppercase font-bold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+              Part of the Largest <br className="hidden sm:block" /> Integrated City of Gurgaon
+            </p>
+            <div className="hidden sm:block h-10 w-px bg-gold-400/80 shadow-[0_2px_4px_rgba(0,0,0,0.9)]" />
+            <a href="#top" aria-label="GIC Logo" className="flex items-center justify-center p-1">
+              <img
+                src="/images/logo/gic.webp"
+                alt="GIC Logo"
+                width={300}
+                height={223}
+                className="h-8 sm:h-10 w-auto object-contain brightness-0 invert contrast-200 filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.9)]"
+              />
+            </a>
+          </div>
         </div>
       </div>
-
-      <div className="absolute inset-0 bg-gradient-to-r from-forest-950/30 via-transparent to-forest-950/10" />
 
       {/* Clickable Scroll Button */}
       <a
         href="#location"
         onClick={handleScrollClick}
-        className="hero-scroll absolute bottom-8 inset-x-0 hidden lg:flex flex-col items-center gap-2 text-cream-100/70 hover:text-white text-xs tracking-[0.3em] transition-colors cursor-pointer w-fit mx-auto z-20"
+        className="hero-scroll absolute bottom-8 inset-x-0 hidden lg:flex flex-col items-center gap-2 text-white hover:text-white text-xs tracking-[0.3em] transition-colors cursor-pointer w-fit mx-auto z-20 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] font-medium"
       >
         <span>SCROLL</span>
         <ChevronDown className="animate-bounce" size={18} />

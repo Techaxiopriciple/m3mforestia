@@ -141,18 +141,22 @@ export default function Ecosystem() {
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="eco-item flex flex-col items-center text-center">
-          <img
-            src="/images/logo/gic.webp"
-            alt="Gurgaon International City"
-            width={300}
-            height={223}
-            loading="lazy"
-            className="h-16 sm:h-20 w-auto object-contain drop-shadow-[0_4px_12px_rgba(16,185,129,0.2)]"
-          />
-          <p className="mt-6 max-w-xl text-sm sm:text-base text-cream-100/90 leading-relaxed font-medium">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.
-            <br className="hidden sm:block" />
-            Tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam.
+          <div className="flex flex-col items-center gap-3">
+            <img
+              src="/images/logo/gic.webp"
+              alt="Gurgaon International City"
+              width={300}
+              height={223}
+              loading="lazy"
+              className="h-16 sm:h-20 w-auto object-contain drop-shadow-[0_4px_12px_rgba(16,185,129,0.2)]"
+            />
+            <p className="text-xs sm:text-sm tracking-[0.2em] text-gold-300 uppercase font-bold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+              Part of the Largest Integrated City of Gurgaon
+            </p>
+          </div>
+          
+          <p className="mt-6 max-w-2xl text-sm sm:text-base text-white font-semibold leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+            GIC – Gurgaon International City is a thoughtfully planned, future-forward ecosystem where world-class living, leisure, and sustainability converge. Designed to inspire progress, it redefines how you live, work, and grow amidst nature.
           </p>
         </div>
 
@@ -203,12 +207,12 @@ export default function Ecosystem() {
                     </div>
                   </div>
 
-                  <h3 className="font-display text-lg sm:text-xl font-medium text-cream-50 hover:text-gold-400 transition-colors tracking-[0.16em] leading-snug uppercase whitespace-pre-line min-h-[3.5rem] flex items-center justify-center">
+                  <h3 className="font-display text-lg sm:text-xl font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] hover:text-gold-400 transition-colors tracking-[0.16em] leading-snug uppercase whitespace-pre-line min-h-[3.5rem] flex items-center justify-center">
                     {item.title}
                   </h3>
                 </div>
 
-                <p className="mt-5 text-sm font-medium text-cream-100/90 leading-relaxed max-w-[230px] mx-auto">
+                <p className="mt-5 text-sm font-semibold text-white/95 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] leading-relaxed max-w-[230px] mx-auto">
                   {item.body}
                 </p>
               </div>
@@ -227,7 +231,7 @@ export default function Ecosystem() {
                 className={`flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs sm:text-sm transition-all duration-300 tracking-wider uppercase text-center cursor-pointer ${
                   activeTab === i
                     ? "bg-gold-500 text-forest-950 font-bold shadow-lg shadow-gold-500/20"
-                    : "text-cream-100/80 font-medium hover:text-white hover:bg-emerald-900/50"
+                    : "text-white font-semibold hover:text-white hover:bg-emerald-900/50"
                 }`}
               >
                 {tabName}
@@ -243,8 +247,8 @@ export default function Ecosystem() {
                   key={item.title}
                   className={`${index % 2 === 0 ? "eco-stat-down" : "eco-stat-up"} border-l-2 border-gold-400/60 pl-5`}
                 >
-                  <div className="font-display text-2xl sm:text-3xl text-gold-400">{item.time}</div>
-                  <p className="mt-2 text-sm text-cream-100/85 leading-snug font-medium">{item.title}</p>
+                  <div className="font-display text-2xl sm:text-3xl text-gold-400 font-bold">{item.time}</div>
+                  <p className="mt-2 text-sm text-white font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] leading-snug">{item.title}</p>
                 </div>
               ))}
             </div>
@@ -252,7 +256,7 @@ export default function Ecosystem() {
             <div className="eco-diagram relative aspect-square max-w-md mx-auto w-full">
               <div className="absolute inset-[15%] rounded-full border border-dashed border-emerald-400/40" />
               <div className="absolute inset-0 grid place-items-center">
-                <div className="eco-node z-10 flex flex-col items-center gap-1.5 rounded-full bg-gold-500 text-forest-950 px-4 py-3 shadow-lg shadow-emerald-950/60">
+                <div className="eco-node z-10 flex flex-col items-center gap-1.5 rounded-full bg-gold-500 text-forest-950 px-4 py-3 shadow-lg shadow-emerald-950/60 font-bold">
                   <MapPin size={18} />
                   <span className="text-[10px] font-bold tracking-wide text-center leading-tight uppercase">
                     M3M FORESTIA
@@ -264,7 +268,7 @@ export default function Ecosystem() {
               {CONNECTIVITY_NODES.map((n) => (
                 <div
                   key={n.title}
-                  className="eco-node absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-emerald-500/30 bg-emerald-950/90 px-3 py-1.5 text-[11px] text-cream-100/95 whitespace-nowrap font-medium shadow-md"
+                  className="eco-node absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-emerald-500/30 bg-emerald-950/90 px-3 py-1.5 text-[11px] text-white font-semibold whitespace-nowrap shadow-md"
                   style={nodePos(n.angle, n.radius)}
                 >
                   {n.title}
@@ -279,26 +283,26 @@ export default function Ecosystem() {
           <div className="flex items-center justify-center mb-8">
             <button
               onClick={() => setLocationTab("av")}
-              className={`relative flex items-center gap-2 px-8 py-3 text-sm sm:text-base tracking-wide transition-colors font-medium after:content-[''] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-5 after:w-px after:bg-cream-100/30 ${
-                locationTab === "av" ? "text-gold-400" : "text-cream-100/90 hover:text-gold-400"
+              className={`relative flex items-center gap-2 px-8 py-3 text-sm sm:text-base tracking-wide transition-colors font-semibold after:content-[''] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-5 after:w-px after:bg-cream-100/30 ${
+                locationTab === "av" ? "text-gold-400 font-bold" : "text-white hover:text-gold-400"
               }`}
             >
               Location AV
               <ChevronDown
                 size={14}
-                className={`transition-transform ${locationTab === "av" ? "rotate-180 text-gold-400" : "text-cream-100/70"}`}
+                className={`transition-transform ${locationTab === "av" ? "rotate-180 text-gold-400" : "text-white/70"}`}
               />
             </button>
             <button
               onClick={() => setLocationTab("map")}
-              className={`flex items-center gap-2 px-8 py-3 text-sm sm:text-base tracking-wide transition-colors font-medium ${
-                locationTab === "map" ? "text-gold-400" : "text-cream-100/90 hover:text-gold-400"
+              className={`flex items-center gap-2 px-8 py-3 text-sm sm:text-base tracking-wide transition-colors font-semibold ${
+                locationTab === "map" ? "text-gold-400 font-bold" : "text-white hover:text-gold-400"
               }`}
             >
               Location Map
               <ChevronDown
                 size={14}
-                className={`transition-transform ${locationTab === "map" ? "rotate-180 text-gold-400" : "text-cream-100/70"}`}
+                className={`transition-transform ${locationTab === "map" ? "rotate-180 text-gold-400" : "text-white/70"}`}
               />
             </button>
           </div>

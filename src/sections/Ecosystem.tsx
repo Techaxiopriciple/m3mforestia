@@ -100,7 +100,7 @@ export default function Ecosystem() {
           className="w-full h-full object-cover object-top"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-forest-900/50 via-emerald-950/40 to-forest-950/60 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-emerald-900/20 backdrop-brightness-110" />
+        <div className="absolute inset-0 bg-emerald-900/20" />
       </div>
 
       <div className="absolute -right-8 sm:right-[-27%] lg:right-[-85px] top-[10%] sm:top-[20%] lg:top-[12%] w-28 sm:w-36 lg:w-40 pointer-events-none z-10">
@@ -215,8 +215,8 @@ export default function Ecosystem() {
 
         {/* Custom Named Tabs Section */}
         <div className="eco-item mt-16 sm:mt-20 max-w-5xl mx-auto">
-          {/* Tab Buttons Header with Greenish Tint */}
-          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 bg-emerald-950/70 p-2 rounded-2xl border border-emerald-500/30 backdrop-blur-md mb-12 shadow-lg">
+          {/* Tab Buttons Header without blur backdrop */}
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 bg-emerald-950/70 p-2 rounded-2xl border border-emerald-500/30 mb-12 shadow-lg">
             {SECTION_TABS.map((tabName, i) => (
               <button
                 key={tabName}

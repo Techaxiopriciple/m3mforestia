@@ -1,7 +1,7 @@
 const OFFER_ITEMS = [
   "3 BHK Forest-Themed Residences",
   "Starting ₹2.5 Cr*",
-  "Avail Inaugural Benefits",
+  "Enquire Now",
 ];
 
 export default function OfferBand() {

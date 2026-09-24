@@ -58,11 +58,11 @@ export const ECOSYSTEM = [
   },
   {
     title: "INTEGRATED\nLIVING",
-    body: "Residential, Commercial, and Employment Zones",
+    body: "Live, Work, Play and Shop",
   },
   {
-    title: "GLOBAL CITY IN PROXIMITY",
-    body: "Adjacent to Upcoming Gurgaon Urban Hub",
+    title: "EXTENSION OF GLOBAL CITY",
+    body: "Government ambitious city",
   },
   {
     title: "CITY-SCALE OPPORTUNITY",

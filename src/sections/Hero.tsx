@@ -78,30 +78,35 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Center Branding & Logos Layout */}
-      <div className="hero-logos absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-4 pointer-events-none">
-        <div className="max-w-4xl mx-auto w-full flex flex-col items-center pointer-events-auto space-y-4">
-          {/* M3M Forestia Logo & Subtitle */}
-          <a href="#top" aria-label="M3M Forestia" className="flex flex-col items-center gap-2 group">
-            <img
-              src="/images/logo/forestia-logo_new_1.png"
-              alt="M3M Forestia"
-              width={1200}
-              height={373}
-              className="h-14 sm:h-20 w-auto object-contain filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]"
-            />
-            <span className="text-xs sm:text-sm uppercase tracking-[0.25em] text-white font-bold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
-              Forest-Themed Residences
-            </span>
-          </a>
+      {/* Bottom Left Aligned Content with Centered Logo relative to bottom section width */}
+      <div className="hero-logos absolute inset-x-0 bottom-12 sm:bottom-16 lg:bottom-20 z-20 flex flex-col items-start text-left px-5 sm:px-8 max-w-7xl mx-auto pointer-events-none">
+        <div className="w-full max-w-xl flex flex-col items-start pointer-events-auto space-y-6">
+          
+          {/* M3M Forestia Logo & Subtitle - Centered specifically over the left-aligned bottom container */}
+          <div className="w-full flex justify-center pr-0 sm:pr-12 lg:pr-[30%]">
+            <div className="flex flex-col items-center group">
+              <a href="#top" aria-label="M3M Forestia" className="flex flex-col items-center group">
+                <img
+                  src="/images/logo/forestia-logo_new_1.png"
+                  alt="M3M Forestia"
+                  width={1200}
+                  height={373}
+                  className="h-14 sm:h-20 w-auto object-contain filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]"
+                />
+                <span className="text-xs sm:text-sm uppercase tracking-[0.25em] text-white font-bold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] mt-2">
+                  Forest-Themed Residences
+                </span>
+              </a>
+            </div>
+          </div>
 
-          {/* Integrated City Text & White GIC Logo with clear details */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 pt-6 w-full">
-            <p className="text-xs sm:text-sm tracking-[0.2em] text-white uppercase font-bold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+          {/* Integrated City Text & White GIC Logo (Left Aligned Block) */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-start gap-4 sm:gap-8 pt-2 w-full">
+            <p className="text-xs sm:text-sm tracking-[0.2em] text-white uppercase font-bold text-left drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
               Part of the Largest <br className="hidden sm:block" /> Integrated City of Gurgaon
             </p>
             <div className="hidden sm:block h-10 w-px bg-gold-400/80 shadow-[0_2px_4px_rgba(0,0,0,0.9)]" />
-            <a href="#top" aria-label="GIC Logo" className="flex items-center justify-center p-1">
+            <a href="#top" aria-label="GIC Logo" className="flex items-center justify-start p-1">
               <img
                 src="/images/logo/gic.webp"
                 alt="GIC Logo"
@@ -111,6 +116,7 @@ export default function Hero() {
               />
             </a>
           </div>
+
         </div>
       </div>
 

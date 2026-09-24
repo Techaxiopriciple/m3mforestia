@@ -4,15 +4,15 @@ import { gsap } from "../lib/gsap";
 const features = [
   {
     label: "Skywalk",
-    image: "/images/Forestia-Render-3.webp",
+    image: "/images/overbridge-cam.webp",
     position: "center",
     category: "Health & Wellness",
     items: "Pilates Studio | Jogging Track | Spa & Sauna | Yoga Decks | Outdoor Gym and many more...",
   },
   {
     label: "Nature's Den",
-    image: "/images/forest-trail.webp",
-    position: "center 40%",
+    image: "/images/landscape-top.webp",
+    position: "center",
     category: "Nature Living",
     items: "Forest Trail | Eco Pond | Reflexology Garden | Organic Farm | Lantern Garden and many more...",
   },

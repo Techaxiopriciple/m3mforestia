@@ -1,15 +1,49 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { MapPin, ChevronDown } from "lucide-react";
 import { gsap } from "../lib/gsap";
-import { ECOSYSTEM, CONNECTIVITY, CENTRAL_CONNECTIVITY, ECO_ICON } from "../lib/content";
+import { ECOSYSTEM, CONNECTIVITY, CENTRAL_CONNECTIVITY, VICINITY, FUTURE_DEVELOPMENT, ECO_ICON } from "../lib/content";
 import { useInView } from "../lib/useInView";
 import { useAutoPauseVideo } from "../lib/useAutoPauseVideo";
 
-const CONNECTIVITY_NODES = [...CONNECTIVITY, ...CENTRAL_CONNECTIVITY].map((item, i, arr) => ({
-  ...item,
-  angle: -90 + (360 / arr.length) * i,
-  radius: 42,
-}));
+// heading = gold stat line, text = caption below it, label = diagram node text
+type PaneItem = { heading: string; text: string; label: string };
+
+function toNodes(items: PaneItem[]) {
+  return items.map((item, i, arr) => ({
+    ...item,
+    angle: -90 + (360 / arr.length) * i,
+    radius: 42,
+  }));
+}
+
+const CONNECTIVITY_NODES = toNodes(
+  [...CONNECTIVITY, ...CENTRAL_CONNECTIVITY].map((item) => ({
+    heading: item.time,
+    text: item.title,
+    label: item.title,
+  })),
+);
+
+const VICINITY_NODES = toNodes(
+  VICINITY.map((item) => ({
+    heading: item.category,
+    text: item.places.join(", "),
+    label: item.category,
+  })),
+);
+
+const FUTURE_DEVELOPMENT_NODES = toNodes(
+  FUTURE_DEVELOPMENT.map((item) => ({
+    heading: item.title,
+    text: "",
+    label: item.title,
+  })),
+);
+
+const TAB_NODES: Record<string, ReturnType<typeof toNodes>> = {
+  Vicinity: VICINITY_NODES,
+  "Future Development": FUTURE_DEVELOPMENT_NODES,
+};
 
 // Custom tab labels provided by you
 const SECTION_TABS = [
@@ -33,6 +67,7 @@ export default function Ecosystem() {
   
   // State for the new custom tabs placed below the cards
   const [activeTab, setActiveTab] = useState(0);
+  const paneNodes = TAB_NODES[SECTION_TABS[activeTab]] ?? CONNECTIVITY_NODES;
 
   const { ref: videoWrapRef, inView: videoInView } = useInView<HTMLDivElement>();
   const { ref: tabWrapRef, inView: tabInView } = useInView<HTMLDivElement>();
@@ -235,13 +270,15 @@ export default function Ecosystem() {
           {/* Dynamic Content Pane for Active Tab */}
           <div key={activeTab} className="eco-tabpane grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
             <div className="grid grid-cols-2 gap-6">
-              {CONNECTIVITY_NODES.map((item, index) => (
+              {paneNodes.map((item, index) => (
                 <div
-                  key={item.title}
+                  key={item.label}
                   className={`${index % 2 === 0 ? "eco-stat-down" : "eco-stat-up"} border-l-2 border-gold-400/60 pl-5`}
                 >
-                  <div className="font-display text-2xl sm:text-3xl text-gold-400 font-bold">{item.time}</div>
-                  <p className="mt-2 text-sm text-white font-semibold leading-snug">{item.title}</p>
+                  <div className="font-display text-2xl sm:text-3xl text-gold-400 font-bold">{item.heading}</div>
+                  {item.text && (
+                    <p className="mt-2 text-sm text-white font-semibold leading-snug">{item.text}</p>
+                  )}
                 </div>
               ))}
             </div>
@@ -258,13 +295,13 @@ export default function Ecosystem() {
                   </span>
                 </div>
               </div>
-              {CONNECTIVITY_NODES.map((n) => (
+              {paneNodes.map((n) => (
                 <div
-                  key={n.title}
+                  key={n.label}
                   className="eco-node absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-emerald-500/30 bg-emerald-950/90 px-3 py-1.5 text-[11px] text-white font-semibold whitespace-nowrap shadow-md"
                   style={nodePos(n.angle, n.radius)}
                 >
-                  {n.title}
+                  {n.label}
                 </div>
               ))}
             </div>

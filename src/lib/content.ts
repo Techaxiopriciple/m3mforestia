@@ -97,6 +97,30 @@ export const CENTRAL_CONNECTIVITY = [
   },
 ];
 
+export const VICINITY = [
+  {
+    category: "Corporates",
+    places: ["Jaguar Experience Centre", "\n" + "Hero MotoCorp"],
+  },
+  {
+    category: "Residential",
+    places: ["Smartworld Gems","\n" +"M3M Golfhills"],
+  },
+  {
+    category: "Hospitals",
+    places: ["Fortis", "\n" + "Apollo"],  
+  },
+  {
+    category: "Educational Institutes",
+    places: ["DPS Manesar", "\n" + "Amity University"],
+  },
+];
+
+export const FUTURE_DEVELOPMENT = [
+  { title: "Gurugram - Rewari Highway" },
+  { title: "Metro Route" },
+];
+
 export const ECO_ICON = [
   {
     image: "/images/eco/diverse_housing_icon_blue.png",

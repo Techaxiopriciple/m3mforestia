@@ -71,6 +71,8 @@ export default function Ecosystem() {
 
   const { ref: videoWrapRef, inView: videoInView } = useInView<HTMLDivElement>();
   const { ref: tabWrapRef, inView: tabInView } = useInView<HTMLDivElement>();
+  
+  // useAutoPauseVideo hook automatically pauses video when it goes out of view
   const mainVideoRef = useAutoPauseVideo<HTMLVideoElement>();
   const tabVideoRef = useAutoPauseVideo<HTMLVideoElement>();
 
@@ -188,7 +190,7 @@ export default function Ecosystem() {
           </p>
         </div>
 
-        {/* First Video */}
+        {/* First Video (Plays only when in view) */}
         <div
           ref={videoWrapRef}
           className="eco-item mt-10 sm:mt-12 max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-emerald-950/80 border border-emerald-500/20 shadow-2xl h-[296px] sm:h-[415px] lg:h-[534px]"

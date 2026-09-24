@@ -9,13 +9,44 @@ const DESKTOP_SLIDE_HEIGHT = 460;
 const SWIPE_THRESHOLD = 50;
 const SLIDE_TRANSITION = "transform 700ms cubic-bezier(0.22, 1, 0.36, 1)";
 
+// Slides mirror the "Experience Central Grove at GIC" section on m3mindia.com/gic/m3m-forestia-west
 const carouselSlides = [
-  { id: 1, image: "/images/M3M-IMT-Manesar-Sports-Area.webp", title: "Forest-Themed Sports & Greens" },
-  { id: 2, image: "/images/arrival-fountain.webp", title: "Eco Clubhouse & Wellness" },
-  { id: 3, image: "/images/M3M-IMT-Manesar-Jogging-Track-Cam.webp", title: "300m Jogging & Fitness Trail" },
-  { id: 4, image: "/images/M3M-IMT-Manesar-Waterbody-Seating-Cam.webp", title: "Cascading Waterfall Courtyard" },
-  { id: 5, image: "/images/M3M-IMT-Manesar-Kids-Play-Area.webp", title: "Whimsical Kids' Play Zone" },
-  { id: 6, image: "/images/M3M-IMT-Manesar-Forest-Garden.webp", title: "Lantern-Lit Forest Garden" },
+  {
+    id: 1,
+    image: "/images/M3M-IMT-Manesar-Arrival-Area.webp",
+    title: "Grand Arrival",
+    description: "From a grand 60m approach to nature-touched entrances, step into a life beautifully lived."
+  },
+  {
+    id: 2,
+    image: "/images/natures-den.webp",
+    title: "Nature's Den",
+    description: "Shaded Cabanas And Quiet Sit-outs Designed For Pause And Presence."
+  },
+  {
+    id: 3,
+    image: "/images/skywalk.webp",
+    title: "Skywalk",
+    description: "An Elevated Pathway Offering Uninterrupted Views."
+  },
+  {
+    id: 4,
+    image: "/images/central-grove-bg.webp",
+    title: "Whispering Falls",
+    description: "Flowing Water Features That Bring Calm And Balance."
+  },
+  {
+    id: 5,
+    image: "/images/forest-trail.webp",
+    title: "Forest Trails",
+    description: "Meandering Paths For Slow Walks Through Lush Greens."
+  },
+  {
+    id: 6,
+    image: "/images/M3M-IMT-Manesar-Forest-Garden.webp",
+    title: "Homes That Open To Naturel",
+    description: "Tranquil interiors crafted with soothing aesthetics to melt away daily stress and promote everyday well-being."
+  },
 ];
 
 const slidesWithClones = [carouselSlides.at(-1)!, ...carouselSlides, carouselSlides[0]];
@@ -53,12 +84,27 @@ function ArrowControls({ onPrev, onNext, mobile = false }: { onPrev: () => void;
 
 function SlideImage({ slide, isCenter = false }: { slide: (typeof carouselSlides)[number]; isCenter?: boolean }) {
   return (
-    <img
-      src={slide.image}
-      alt={slide.title}
-      draggable={false}
-      className={`h-full w-full select-none object-cover ${isCenter ? "scale-100" : "scale-[0.86]"} transition-transform duration-700`}
-    />
+    <div className="relative h-full w-full overflow-hidden">
+      <img
+        src={slide.image}
+        alt={slide.title}
+        draggable={false}
+        className={`h-full w-full select-none object-cover ${isCenter ? "scale-100" : "scale-[0.86]"} transition-transform duration-700`}
+      />
+      {/* Text Content shown ONLY on the center slide */}
+      {isCenter && (
+        <div className="absolute inset-x-0 bottom-0 left-0 right-0 flex flex-col justify-end p-6 sm:p-8 pointer-events-none">
+          <div className="max-w-xl">
+            <h3 className="font-display text-lg sm:text-2xl font-bold text-white tracking-wide drop-shadow-md">
+              {slide.title}
+            </h3>
+            <p className="mt-1 text-xs sm:text-sm text-white/95 font-normal drop-shadow-md">
+              {slide.description}
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -185,7 +231,7 @@ export default function Gallery() {
           {/* Desktop */}
           <div className="relative hidden lg:block">
             <div
-              className="relative w-full overflow-hidden"
+              className="relative w-full overflow-hidden rounded-3xl shadow-xl"
               style={
                 {
                   "--slide-w": `min(${DESKTOP_SLIDE_WIDTH}px, calc(100vw - 4rem))`,
@@ -202,7 +248,7 @@ export default function Gallery() {
                 }}
               >
                 {slidesWithClones.map((slide, index) => (
-                  <div key={`${slide.id}-${index}`} className="relative h-full w-[var(--slide-w)] shrink-0 overflow-hidden">
+                  <div key={`${slide.id}-${index}`} className="relative h-full w-[var(--slide-w)] shrink-0 overflow-hidden rounded-2xl">
                     {nearViewport && <SlideImage slide={slide} isCenter={index === slideIndex} />}
                   </div>
                 ))}
@@ -214,7 +260,7 @@ export default function Gallery() {
 
           {/* Mobile */}
           <div className="relative block w-full lg:hidden">
-            <div className="relative mx-auto aspect-[380/254] w-full max-w-2xl overflow-hidden">
+            <div className="relative mx-auto aspect-[380/254] w-full max-w-2xl overflow-hidden rounded-2xl shadow-lg">
               <div
                 onTransitionEnd={handleTransitionEnd}
                 className="flex h-full"

@@ -72,17 +72,18 @@ export const ECOSYSTEM = [
 
 export const CONNECTIVITY = [
   {
-    title: "IGI Airport",
-    time: "20 min",
-  },
-  {
-    title: "Rewari Expressway",
+    title: "Dwarka Expressway",
     time: "10 min",
   },
   {
-    title: "Jaipur Highway",
+    title: "Gurugram-Rewari Expressway",
+    time: "10 min",
+  },
+  {
+    title: "IGI Airport",
     time: "20 min",
   },
+  
 ];
 
 export const CENTRAL_CONNECTIVITY = [
@@ -91,8 +92,8 @@ export const CENTRAL_CONNECTIVITY = [
     time: "10 min",
   },
   {
-    title: "Dwarka Expressway",
-    time: "10 min",
+    title: "NH-8",
+    time: "20 min",
   },
 ];
 

@@ -46,11 +46,11 @@ export default function NatureAddress() {
   return (
     <section id="central-grove" ref={root} className="relative bg-white py-12 text-forest-950 lg:py-16">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <h2 className="nature-fade mx-auto max-w-3xl text-center font-display text-3xl uppercase leading-[1.2] text-forest-950 sm:text-5xl">
-          An address that
+        <h5 className="nature-fade mx-auto max-w-3xl text-center font-display text-3xl uppercase leading-[1.2] text-forest-950 sm:text-5xl">
+          A world of privileges
           <br />
-          breathes with nature
-        </h2>
+          Designed for a dynamic way of living.
+        </h5>
 
         <div className="nature-fade relative mt-8 overflow-hidden sm:mt-10">
           {/* Source render has thin brand bars top & bottom — the aspect crop hides them */}

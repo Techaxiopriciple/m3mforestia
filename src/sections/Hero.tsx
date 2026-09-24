@@ -56,21 +56,21 @@ export default function Hero() {
         <div className="max-w-7xl mx-auto px-3 sm:px-6 w-full flex justify-end">
           <div className="max-w-xs sm:max-w-sm pointer-events-auto text-right space-y-0.5">
             <div>
-              <p className="text-[6px] sm:text-[7px] font-bold text-white leading-tight tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+              <p className="text-[6px] sm:text-[7px] font-normal text-white leading-tight tracking-wide">
                 RERA REG. NO. RC/REP/HARERA/GGM/1030/762/2026/02
               </p>
-              <p className="text-[6px] sm:text-[7px] font-semibold text-gold-300 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+              <p className="text-[6px] sm:text-[7px] font-normal text-gold-300 tracking-wide">
                 Dated: 02.01.2026
               </p>
             </div>
 
-            <div className="w-full h-px bg-gold-400/60 my-0.5 ml-auto w-3/4 shadow-[0_1px_2px_rgba(0,0,0,0.9)]" />
+            <div className="w-full h-px bg-gold-400/60 my-0.5 ml-auto w-3/4" />
 
             <div>
-              <p className="text-[6px] sm:text-[7px] font-bold text-white leading-tight tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+              <p className="text-[6px] sm:text-[7px] font-normal text-white leading-tight tracking-wide">
                 RERA REG. NO. RC/REP/HARERA/GGM/991/723/2025/94
               </p>
-              <p className="text-[6px] sm:text-[7px] font-semibold text-gold-300 tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+              <p className="text-[6px] sm:text-[7px] font-normal text-gold-300 tracking-wide">
                 Dated: 16.10.2025
               </p>
             </div>
@@ -93,7 +93,7 @@ export default function Hero() {
                   height={373}
                   className="h-14 sm:h-20 w-auto object-contain filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]"
                 />
-                <span className="text-xs sm:text-sm uppercase tracking-[0.25em] text-white font-bold drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] mt-2">
+                <span className="text-xs sm:text-sm uppercase tracking-[0.25em] text-white font-normal drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] mt-2">
                   Forest-Themed Residences
                 </span>
               </a>
@@ -102,7 +102,7 @@ export default function Hero() {
 
           {/* Integrated City Text & White GIC Logo (Left Aligned Block) */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-start gap-4 sm:gap-8 pt-2 w-full">
-            <p className="text-xs sm:text-sm tracking-[0.2em] text-white uppercase font-bold text-left drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+            <p className="text-xs sm:text-sm tracking-[0.2em] text-white uppercase font-normal text-left drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
               Part of the Largest <br className="hidden sm:block" /> Integrated City of Gurgaon
             </p>
             <div className="hidden sm:block h-10 w-px bg-gold-400/80 shadow-[0_2px_4px_rgba(0,0,0,0.9)]" />
@@ -124,7 +124,7 @@ export default function Hero() {
       <a
         href="#location"
         onClick={handleScrollClick}
-        className="hero-scroll absolute bottom-8 inset-x-0 hidden lg:flex flex-col items-center gap-2 text-white hover:text-white text-xs tracking-[0.3em] transition-colors cursor-pointer w-fit mx-auto z-20 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] font-medium"
+        className="hero-scroll absolute bottom-8 inset-x-0 hidden lg:flex flex-col items-center gap-2 text-white hover:text-white text-xs tracking-[0.3em] transition-colors cursor-pointer w-fit mx-auto z-20 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] font-normal"
       >
         <span>SCROLL</span>
         <ChevronDown className="animate-bounce" size={18} />

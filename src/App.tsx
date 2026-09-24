@@ -7,6 +7,7 @@ import Hero from "./sections/Hero";
 import OfferBand from "./sections/OfferBand";
 import Ecosystem from "./sections/Ecosystem";
 import GrandWelcome from "./sections/GrandWelcome";
+import NatureAddress from "./sections/NatureAddress";
 import Gallery from "./sections/Gallery";
 import FloorPlans from "./sections/FloorPlans";
 import ClubEden from "./sections/ClubEden";
@@ -27,6 +28,7 @@ export default function App() {
         <OfferBand />
         <Ecosystem />
         <GrandWelcome />
+        <NatureAddress />
         <Gallery />
         <ClubEden />
         <FloorPlans />

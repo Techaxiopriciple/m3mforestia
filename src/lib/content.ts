@@ -53,7 +53,7 @@ export const STATS = [
 
 export const ECOSYSTEM = [
   {
-    title: "150 Acres Township",
+    title: "140* Acres Township",
     body: "Gurugram’s Largest Integrated Township Development",
   },
   {

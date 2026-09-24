@@ -4,6 +4,7 @@ import Nav from "./components/Nav";
 import FloatingContact from "./components/FloatingContact";
 import Footer from "./components/Footer";
 import Hero from "./sections/Hero";
+import OfferBand from "./sections/OfferBand";
 import Ecosystem from "./sections/Ecosystem";
 import GrandWelcome from "./sections/GrandWelcome";
 import Gallery from "./sections/Gallery";
@@ -23,14 +24,15 @@ export default function App() {
       <FloatingContact />
       <main>
         <Hero />
+        <OfferBand />
         <Ecosystem />
         <GrandWelcome />
         <Gallery />
         <ClubEden />
-        <Biodiversity />
         <FloorPlans />
         <ImmersiveTour />
         <FloatingForm />
+        <Biodiversity />
       </main>
       <Footer />
     </>

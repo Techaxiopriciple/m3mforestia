@@ -93,18 +93,11 @@ export default function Ecosystem() {
       {/* Background with a greenish overlay instead of blackish */}
       <div className="absolute inset-0 -z-10">
         <img
-          src="/images/gic-bg-mob.webp"
+          src="/images/eco-bg-gemini-2.png"
           alt=""
           loading="lazy"
           decoding="async"
-          className="block sm:hidden w-full h-full object-cover object-top"
-        />
-        <img
-          src="/images/eco-bg.png"
-          alt=""
-          loading="lazy"
-          decoding="async"
-          className="hidden sm:block w-full h-full object-cover object-top"
+          className="w-full h-full object-cover object-top"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-forest-900/50 via-emerald-950/40 to-forest-950/60 mix-blend-multiply" />
         <div className="absolute inset-0 bg-emerald-900/20 backdrop-brightness-110" />
@@ -282,7 +275,7 @@ export default function Ecosystem() {
         <div className="eco-item mt-14 sm:mt-16">
           <div className="flex items-center justify-center mb-8">
             <button
-              onClick={() => setLocationTab("av")}
+              onClick={() => locationTab !== "av" && setLocationTab("av")}
               className={`relative flex items-center gap-2 px-8 py-3 text-sm sm:text-base tracking-wide transition-colors font-semibold after:content-[''] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-5 after:w-px after:bg-cream-100/30 ${
                 locationTab === "av" ? "text-gold-400 font-bold" : "text-white hover:text-gold-400"
               }`}
@@ -294,7 +287,7 @@ export default function Ecosystem() {
               />
             </button>
             <button
-              onClick={() => setLocationTab("map")}
+              onClick={() => locationTab !== "map" && setLocationTab("map")}
               className={`flex items-center gap-2 px-8 py-3 text-sm sm:text-base tracking-wide transition-colors font-semibold ${
                 locationTab === "map" ? "text-gold-400 font-bold" : "text-white hover:text-gold-400"
               }`}
@@ -310,7 +303,7 @@ export default function Ecosystem() {
           <div
             ref={tabWrapRef}
             key={locationTab}
-            className="eco-tabpane max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-emerald-950/80 border border-emerald-500/20 shadow-2xl h-[296px] sm:h-[415px] lg:h-[534px]"
+            className="eco-tabpane max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-emerald-950/95 border border-emerald-500/20 shadow-2xl h-[296px] sm:h-[415px] lg:h-[534px]"
           >
             {locationTab === "av" ? (
               tabInView && (
@@ -329,7 +322,7 @@ export default function Ecosystem() {
               <img
                 src="/images/forestia-map.webp"
                 alt="M3M Forestia West location map"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-fill"
               />
             )}
           </div>

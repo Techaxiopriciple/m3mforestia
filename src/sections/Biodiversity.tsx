@@ -19,7 +19,7 @@ export default function Biodiversity() {
   return (
     <section className="relative py-8 sm:py-10 overflow-hidden bg-white">
       <div className="text-center mb-8 sm:mb-10 px-6 relative z-10">
-        <p className="text-xs sm:text-sm tracking-[0.3em] text-forest-600 mb-3 uppercase font-medium">
+        <p className="text-xs sm:text-sm tracking-[0.3em] text-forest-600 mb-3 uppercase font-bold">
           Ecosystem & Wildlife
         </p>
       </div>

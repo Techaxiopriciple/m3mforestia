@@ -103,10 +103,6 @@ export const VICINITY = [
     places: ["Jaguar Experience Centre", "\n" + "Hero MotoCorp"],
   },
   {
-    category: "Residential",
-    places: ["Smartworld Gems","\n" +"M3M Golfhills"],
-  },
-  {
     category: "Hospitals",
     places: ["Fortis", "\n" + "Apollo"],  
   },

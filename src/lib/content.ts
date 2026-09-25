@@ -58,11 +58,11 @@ export const ECOSYSTEM = [
   },
   {
     title: "INTEGRATED\nLIVING",
-    body: "Live, Work, Play and Shop",
+    body: "Live. Work. Play. Shop.\nExperience a world where everything comes together",
   },
   {
     title: "EXTENSION OF GLOBAL CITY",
-    body: "Government ambitious city",
+    body: "Built on a bold government vision,\ncreating a future-ready destination for a new way of living.",
   },
   {
     title: "CITY-SCALE OPPORTUNITY",

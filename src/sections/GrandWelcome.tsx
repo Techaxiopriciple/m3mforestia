@@ -32,8 +32,10 @@ export default function GrandWelcome() {
       {/* Edge-to-edge Full Width Image Container */}
       <div className="relative z-0 w-full p-0 m-0 pointer-events-none">
         <img
-          src="/images/V1-FORESTIA-MASTER.png"
+          src="/images/forestia-master-sharp.webp"
           alt="M3M Forestia West grand entrance arrival"
+          width={2400}
+          height={1802}
           className="w-full h-auto object-contain block m-0 p-0"
         />
       </div>

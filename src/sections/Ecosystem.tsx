@@ -130,7 +130,7 @@ export default function Ecosystem() {
       {/* Background with a greenish overlay instead of blackish */}
       <div className="absolute inset-0 -z-10">
         <img
-          src="/images/eco-bg-gemini-2.png"
+          src="/images/eco-bg-gemini-5.png"
           alt=""
           loading="lazy"
           decoding="async"
@@ -181,7 +181,7 @@ export default function Ecosystem() {
               className="h-16 sm:h-20 w-auto object-contain drop-shadow-[0_4px_12px_rgba(16,185,129,0.2)]"
             />
             <p className="text-xs sm:text-sm tracking-[0.2em] text-gold-300 uppercase font-bold">
-              Part of the Largest Integrated City of Gurgaon
+             the Largest Integrated City of Gurgaon
             </p>
           </div>
           
@@ -242,7 +242,7 @@ export default function Ecosystem() {
                   </h3>
                 </div>
 
-                <p className="mt-5 text-sm font-semibold text-white/95 leading-relaxed max-w-[230px] mx-auto">
+                <p className="mt-5 text-sm font-semibold text-white/95 leading-relaxed max-w-[230px] mx-auto whitespace-pre-line">
                   {item.body}
                 </p>
               </div>

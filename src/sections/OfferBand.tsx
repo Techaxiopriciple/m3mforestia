@@ -1,3 +1,6 @@
+import { useState } from "react";
+import EnquirePopup from "./EnquirePopup";
+
 const OFFER_ITEMS = [
   "3 BHK Forest-Themed Residences",
   "Starting ₹2.5 Cr*",
@@ -5,6 +8,8 @@ const OFFER_ITEMS = [
 ];
 
 export default function OfferBand() {
+  const [enquireOpen, setEnquireOpen] = useState(false);
+
   return (
     <section
       aria-label="Offer highlights"
@@ -20,17 +25,29 @@ export default function OfferBand() {
                   className="hidden sm:block mx-6 lg:mx-10 h-5 w-px bg-gold-400/60"
                 />
               )}
-              <span
-                className={`text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.18em] ${
-                  i === 1 ? "text-gold-400" : "text-white"
-                }`}
-              >
-                {item}
-              </span>
+              {i === OFFER_ITEMS.length - 1 ? (
+                <button
+                  type="button"
+                  onClick={() => setEnquireOpen(true)}
+                  className="text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.18em] text-white transition-colors hover:text-gold-400 cursor-pointer"
+                >
+                  {item}
+                </button>
+              ) : (
+                <span
+                  className={`text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.18em] ${
+                    i === 1 ? "text-gold-400" : "text-white"
+                  }`}
+                >
+                  {item}
+                </span>
+              )}
             </li>
           ))}
         </ul>
       </div>
+
+      <EnquirePopup isOpen={enquireOpen} onClose={() => setEnquireOpen(false)} />
     </section>
   );
 }

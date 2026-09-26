@@ -1,11 +1,11 @@
 import { useLayoutEffect, useRef, useState, useEffect } from "react";
 import { MapPin, ChevronDown, ExternalLink } from "lucide-react";
 import { gsap } from "../lib/gsap";
-import { ECOSYSTEM, CONNECTIVITY, CENTRAL_CONNECTIVITY, VICINITY, ECO_ICON } from "../lib/content";
+import { ECOSYSTEM, CONNECTIVITY, CENTRAL_CONNECTIVITY, NEAR_BY_CONNECTIVITY, ECO_ICON } from "../lib/content";
 import { useInView } from "../lib/useInView";
 import { useAutoPauseVideo } from "../lib/useAutoPauseVideo";
 
-type PaneItem = { heading: string; text: string; label: string };
+type PaneItem = { heading: string; text: string | string[]; label: string };
 
 function toNodes(items: PaneItem[]) {
   return items.map((item, i, arr) => ({
@@ -23,15 +23,14 @@ const CONNECTIVITY_NODES = toNodes(
   })),
 );
 
-const VICINITY_NODES = toNodes(
-  VICINITY.map((item) => ({
+const NEAR_BY_CONNECTIVITY_NODES = toNodes(
+  NEAR_BY_CONNECTIVITY.map((item) => ({
     heading: item.category,
-    text: item.places.join(", "),
+    text: item.places,
     label: item.category,
   })),
 );
 
-// Aapke diye gaye exact links, headings aur relevant images ke sath sorted items
 const FUTURE_DEVELOPMENT_ITEMS = [
   {
     title: "Haryana CM unveils MSME policy with ₹55k cr investment target",
@@ -63,7 +62,7 @@ const FUTURE_DEVELOPMENT_ITEMS = [
     date: "5 Nov 2025",
     text: "M3M India is set to invest ₹7,200 crore to develop an integrated city project, expanding its footprint in the real estate sector.",
     image: "https://etimg.etb2bimg.com/photo/125121730.cms",
-    link: "https://realty.economictimes.indiatimes.com/news/industry/m3m-india-unveils-7200-crore-integrated-city-project-in-new-delhi/125121733",
+    link: "https://realty.economictimes.indiatimes.com/news/industry/m3m-india-unveils-7200-core-integrated-city-project-in-new-delhi/125121733",
   },
   {
     title: "Haryana Govt to expedite Global City project work in Gurugram",
@@ -91,16 +90,16 @@ const FUTURE_DEVELOPMENT_NODES = toNodes(
   })),
 );
 
-const TAB_NODES: Record<string, ReturnType<typeof toNodes>> = {
-  Vicinity: VICINITY_NODES,
-  "Future Development": FUTURE_DEVELOPMENT_NODES,
-};
-
 const SECTION_TABS = [
   "Location",
-  "Vicinity",
+  "Near by connectivity",
   "Future Development",
 ];
+
+const TAB_NODES: Record<string, ReturnType<typeof toNodes>> = {
+  "Near by connectivity": NEAR_BY_CONNECTIVITY_NODES,
+  "Future Development": FUTURE_DEVELOPMENT_NODES,
+};
 
 function nodePos(angle: number, radius: number) {
   const rad = (angle * Math.PI) / 180;
@@ -114,7 +113,9 @@ export default function Ecosystem() {
   const root = useRef<HTMLDivElement>(null);
   const [locationTab, setLocationTab] = useState<"av" | "map">("av");
   const [activeTab, setActiveTab] = useState(0);
-  const paneNodes = TAB_NODES[SECTION_TABS[activeTab]] ?? CONNECTIVITY_NODES;
+  
+  const currentTabName = SECTION_TABS[activeTab];
+  const paneNodes = TAB_NODES[currentTabName] ?? CONNECTIVITY_NODES;
 
   const { ref: videoWrapRef, inView: videoInView } = useInView<HTMLDivElement>();
   const tabWrapRef = useRef<HTMLDivElement>(null);
@@ -335,9 +336,12 @@ export default function Ecosystem() {
             {activeTab === 2 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {FUTURE_DEVELOPMENT_ITEMS.map((news, idx) => (
-                  <div
+                  <a
                     key={idx}
-                    className="bg-emerald-950/90 border border-emerald-500/30 rounded-2xl p-4 shadow-xl flex gap-4 items-center hover:border-gold-400 transition-all duration-300 group"
+                    href={news.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-emerald-950/90 border border-emerald-500/30 rounded-2xl p-4 shadow-xl flex gap-4 items-center hover:border-gold-400 transition-all duration-300 group cursor-pointer block"
                   >
                     <div className="flex-1 min-w-0">
                       <div className="text-[11px] text-gold-400 font-bold uppercase tracking-wider mb-1">
@@ -351,14 +355,9 @@ export default function Ecosystem() {
                       </p>
                       <div className="mt-2 flex items-center justify-between">
                         <span className="text-[10px] text-emerald-300/80">{news.date}</span>
-                        <a
-                          href={news.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-[11px] font-bold text-gold-400 hover:underline"
-                        >
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-gold-400 group-hover:underline">
                           Read <ExternalLink size={10} />
-                        </a>
+                        </span>
                       </div>
                     </div>
 
@@ -370,7 +369,7 @@ export default function Ecosystem() {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
-                  </div>
+                  </a>
                 ))}
               </div>
             ) : (
@@ -382,8 +381,19 @@ export default function Ecosystem() {
                       className={`${index % 2 === 0 ? "eco-stat-down" : "eco-stat-up"} border-l-2 border-gold-400/60 pl-5`}
                     >
                       <div className="font-display text-2xl sm:text-3xl text-gold-400 font-bold">{item.heading}</div>
-                      {item.text && (
-                        <p className="mt-2 text-sm text-white font-bold leading-snug">{item.text}</p>
+                      
+                      {Array.isArray(item.text) ? (
+                        <div className="mt-2 flex flex-col gap-0.5">
+                          {item.text.map((place, pIdx) => (
+                            <span key={pIdx} className="text-xs sm:text-xs text-white/90 font-medium leading-tight">
+                              {place}
+                            </span>
+                          ))}
+                        </div>
+                      ) : (
+                        item.text && (
+                          <p className="mt-2 text-sm text-white font-bold leading-snug">{item.text}</p>
+                        )
                       )}
                     </div>
                   ))}
@@ -448,7 +458,9 @@ export default function Ecosystem() {
             ref={tabWrapRef}
             key={locationTab}
             className={`eco-tabpane relative max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-emerald-950/95 border border-emerald-500/20 shadow-2xl ${
-              locationTab === "av" ? "h-[296px] sm:h-[415px] lg:h-[534px]" : "aspect-[1677/1088]"
+              locationTab === "av"
+                ? "h-[296px] sm:h-[415px] lg:h-[534px]"
+                : "h-auto"
             }`}
           >
             {locationTab === "av" ? (
@@ -462,17 +474,13 @@ export default function Ecosystem() {
                 preload="none"
               />
             ) : (
-              <>
-                {/* Box matches the left 1677px of the 2522x1088 map, so it ends just past IGI Airport */}
+              <div className="w-full h-full p-3 sm:p-5 lg:p-6 flex items-center justify-center">
                 <img
-                  src="/images/forestia-map.webp"
+                  src="/images/forestia-location-map.webp"
                   alt="M3M Forestia West location map"
-                  className="absolute left-0 top-0 h-full w-auto max-w-none"
+                  className="w-full h-auto object-contain object-center rounded-2xl"
                 />
-                <div className="absolute right-3 top-[48%] -translate-y-1/2 flex items-center gap-1.5 rounded-full bg-forest-950/80 px-3 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-gold-400 shadow-md">
-                  <span>New Delhi</span>
-                </div>
-              </>
+              </div>
             )}
           </div>
         </div>

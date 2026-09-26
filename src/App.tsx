@@ -24,15 +24,15 @@ export default function App() {
       <FloatingContact />
       <main>
         <Hero />
-        <OfferBand />
-        <Ecosystem />
+        <OfferBand /> 
+        <Ecosystem/>
         <GrandWelcome />
         <NatureAddress />
         <Gallery />
+         <Biodiversity />
         <FloorPlans />
         <ImmersiveTour />
         <FloatingForm />
-        <Biodiversity />
       </main>
       <Footer />
     </>

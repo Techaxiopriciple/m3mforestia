@@ -82,7 +82,7 @@ export default function FloatingForm() {
         />
       )}
 
-      <div className="fixed bottom-4 left-4 right-4 sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 sm:left-auto sm:right-8 z-50 pointer-events-none flex justify-center sm:justify-end">
+      <div className="fixed bottom-4 left-4 right-4 sm:bottom-auto sm:top-[60%] sm:-translate-y-1/2 sm:left-auto sm:right-8 z-50 pointer-events-none flex justify-center sm:justify-end">
         <div className="w-full max-w-sm pointer-events-none flex justify-center sm:justify-end">
           <div className="pointer-events-auto w-full sm:w-auto">
             {isOpen && (
@@ -90,15 +90,6 @@ export default function FloatingForm() {
                 ref={formRef}
                 className="relative max-h-[calc(100dvh-2rem)] overflow-y-auto bg-forest-950/98 backdrop-blur-xl border border-gold-400/40 rounded-xl p-5 shadow-2xl text-cream-50 w-full sm:w-[350px]"
               >
-                <button
-                  type="button"
-                  onClick={() => setIsOpen(false)}
-                  aria-label="Close Form"
-                  className="absolute top-3.5 right-3.5 h-10 w-10 rounded-md bg-forest-900/80 border border-gold-400/20 text-cream-100/70 hover:text-white hover:border-gold-400/40 transition-all flex items-center justify-center cursor-pointer z-10"
-                >
-                  <X size={16} />
-                </button>
-
                 {submitted ? (
                   <div className="py-4 text-center flex flex-col items-center justify-center gap-2">
                     <CheckCircle2 className="text-gold-400 shrink-0" size={30} />
@@ -108,15 +99,28 @@ export default function FloatingForm() {
                     </div>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="flex flex-col gap-3 pt-1">
-                    <div className="text-left mb-0.5">
-                      <h3 className="font-display text-base text-cream-50 font-medium">
-                        Request a <span className="italic text-gold-400">Callback</span>
-                      </h3>
-                      <p className="text-[11px] text-cream-100/70">
-                        Share your details and our expert will reach out.
-                      </p>
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+                    {/* Header with Close Button properly aligned */}
+                    <div className="flex items-start justify-between gap-3 pr-8">
+                      <div>
+                        <h3 className="font-display text-base text-cream-50 font-medium leading-snug">
+                          Request a <span className="italic text-gold-400">Callback</span>
+                        </h3>
+                        <p className="text-[11px] text-cream-100/70 mt-0.5">
+                          Share your details and our senior sales executive will reach out.
+                        </p>
+                      </div>
                     </div>
+
+                    {/* Absolute Close Button placed safely in the top-right corner with spacing */}
+                    <button
+                      type="button"
+                      onClick={() => setIsOpen(false)}
+                      aria-label="Close Form"
+                      className="absolute top-4 right-4 h-8 w-8 rounded-md bg-forest-900/90 border border-gold-400/20 text-cream-100/70 hover:text-white hover:border-gold-400/40 transition-all flex items-center justify-center cursor-pointer z-10 shadow-sm"
+                    >
+                      <X size={15} />
+                    </button>
 
                     <div>
                       <label className="block text-[10px] font-medium text-cream-100/80 mb-1 uppercase tracking-wider">

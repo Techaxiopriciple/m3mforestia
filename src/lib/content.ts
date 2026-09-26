@@ -53,20 +53,20 @@ export const STATS = [
 
 export const ECOSYSTEM = [
   {
-    title: "140* Acres Township",
-    body: "Gurgaon's Largest Integrated Township Development",
+    title: "140* Acres\nTownship",
+    body: "Gurgaon's Largest Integrated\nTownship Development.",
   },
   {
     title: "INTEGRATED\nLIVING",
-    body: "Live. Work. Play. Shop.\nExperience a world where everything comes together",
+    body: "Live, work, play, and shop\nall connected in one ecosystem.",
   },
   {
-    title: "NEXT TO GLOBAL CITY",
-    body: "It's to be built on bold government vision,\ncreating a future-ready destination for a new way of living.",
+    title: "NEXT TO\nGLOBAL CITY",
+    body: "At the heart of Gurugram’s\nnext major growth destination.",
   },
   {
-    title: "CITY-SCALE OPPORTUNITY",
-    body: "Invest in the New Growth Axis of Gurgaon",
+    title: "CITY-SCALE\nOPPORTUNITY",
+    body: "A landmark opportunity within\nthe prime growth corridor.",
   },
 ];
 
@@ -99,7 +99,7 @@ export const CENTRAL_CONNECTIVITY = [
   
 ];
 
-export const VICINITY = [
+export const NEAR_BY_CONNECTIVITY = [
   {
     category: "Corporates",
     places: ["Maruti Suzuki", "Honda Motor", "Hero Motorcorp", "Jaguar Experience Centre", "Times of India", "Eros Corporate Park", "IBC Knowledge Park"],

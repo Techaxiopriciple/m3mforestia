@@ -1,7 +1,10 @@
 import { Phone } from "lucide-react";
-import { CONTACT, whatsappLink } from "../lib/content";
+import { whatsappLink } from "../lib/content";
 
 export default function FloatingContact() {
+  // Random placeholder phone number
+  const phoneNumber = "+91 98765 43210";
+
   return (
     <div className="fixed bottom-6 right-5 z-50 flex flex-col gap-3">
       {/* WhatsApp Button (Visible on all devices) */}
@@ -23,14 +26,22 @@ export default function FloatingContact() {
         </svg>
       </a>
 
-      {/* Call Button (Visible only on Mobile via sm:hidden) */}
-      <a
-        href={`tel:${CONTACT.phone}`}
-        aria-label="Call us"
-        className="grid place-items-center size-13 rounded-full bg-gold-500 text-forest-950 shadow-lg shadow-forest-950/30 hover:scale-105 transition-transform sm:hidden"
-      >
-        <Phone size={20} />
-      </a>
+      {/* Call Button with Sliding Number Box (Visible on all devices) */}
+      <div className="relative group flex items-center justify-end">
+        {/* Sliding Number Box */}
+        <div className="absolute right-14 bg-white text-forest-950 px-4 py-2 rounded-xl shadow-lg border border-gold-500/30 flex items-center whitespace-nowrap opacity-0 translate-x-4 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 group-hover:pointer-events-auto transition-all duration-300 ease-out">
+          <span className="text-sm font-semibold tracking-wide">{phoneNumber}</span>
+        </div>
+
+        {/* Call Button Trigger */}
+        <a
+          href={`tel:${phoneNumber}`}
+          aria-label="Call us"
+          className="grid place-items-center size-13 rounded-full bg-gold-500 text-forest-950 shadow-lg shadow-forest-950/30 hover:scale-105 transition-transform"
+        >
+          <Phone size={20} />
+        </a>
+      </div>
     </div>
   );
 }

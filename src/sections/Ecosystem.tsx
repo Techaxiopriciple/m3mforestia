@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef, useState, useEffect } from "react";
-import { MapPin, ChevronDown } from "lucide-react";
+import { MapPin, ChevronDown, ExternalLink } from "lucide-react";
 import { gsap } from "../lib/gsap";
-import { ECOSYSTEM, CONNECTIVITY, CENTRAL_CONNECTIVITY, VICINITY, FUTURE_DEVELOPMENT, ECO_ICON } from "../lib/content";
+import { ECOSYSTEM, CONNECTIVITY, CENTRAL_CONNECTIVITY, VICINITY, ECO_ICON } from "../lib/content";
 import { useInView } from "../lib/useInView";
 import { useAutoPauseVideo } from "../lib/useAutoPauseVideo";
 
@@ -32,11 +32,63 @@ const VICINITY_NODES = toNodes(
   })),
 );
 
+// Future Development 6 Cards with Links, Texts, and Images based on your screenshot
+const FUTURE_DEVELOPMENT_ITEMS = [
+  {
+    title: "Haryana plans to invest Rs 1 trillion in Gurugram Global City",
+    source: "Construction World",
+    date: "10 Oct 2022",
+    text: "The Haryana government is looking to invest of Rs 1 trillion in the Global City project in Gurugram, which will come up on...",
+    image: "/images/news-1.webp",
+    link: "https://www.constructionworld.in",
+  },
+  {
+    title: "Haryana to launch AI Mission with World Bank support: CM Nayab Saini",
+    source: "The Tribune",
+    date: "22 Jan 2026",
+    text: "Calling Artificial Intelligence (AI) the future of development, Haryana Chief Minister Nayab Saini on Wednesday announced that the...",
+    image: "/images/news-2.webp",
+    link: "https://www.tribuneindia.com",
+  },
+  {
+    title: "M3M enters integrated township segment, to invest Rs 7,200 cr in Gurugram",
+    source: "Business Standard",
+    date: "5 Nov 2025",
+    text: "M3M India will invest 7200 crore to develop a 150-acre integrated township, Gurgaon International City, marking its entry into the...",
+    image: "/images/news-3.webp",
+    link: "https://www.business-standard.com",
+  },
+  {
+    title: "Haryana Govt to expedite Global City project work in Gurugram",
+    source: "The Statesman",
+    date: "20 Jan 2025",
+    text: "After the Punjab and Haryana High Court quashed the public interest litigation against it, the Haryana Government on Friday said that the...",
+    image: "/images/news-4.webp",
+    link: "https://www.thestatesman.com",
+  },
+  {
+    title: "Haryana Unveils 'Make in Haryana' Industrial Policy; Targets ₹5 Lakh Crore Investment, AI-Led Growth",
+    source: "ETGovernment",
+    date: "2 Jun 2026",
+    text: "Chief Minister Nayab Saini Launches New Industrial Policy Framework, with Focus on AI, Data Centres, GCCs and Future-Ready.",
+    image: "/images/news-5.webp",
+    link: "https://government.economictimes.indiatimes.com",
+  },
+  {
+    title: "M3M India to invest ₹7,200 crore to develop integrated city in Delhi",
+    source: "ET Realty",
+    date: "5 Nov 2025",
+    text: "M3M India is set to invest ₹7,200 crore to develop integrated city in Gurgaon International City (GIC), a 150-acre integrated township on the Dwarka Expressway Link Road.",
+    image: "/images/news-6.webp",
+    link: "https://realty.economictimes.indiatimes.com",
+  },
+];
+
 const FUTURE_DEVELOPMENT_NODES = toNodes(
-  FUTURE_DEVELOPMENT.map((item) => ({
-    heading: item.title,
-    text: "",
-    label: item.title,
+  FUTURE_DEVELOPMENT_ITEMS.map((item) => ({
+    heading: item.source,
+    text: item.title,
+    label: item.source,
   })),
 );
 
@@ -295,43 +347,92 @@ export default function Ecosystem() {
           </div>
 
           {/* Dynamic Content Pane for Active Tab */}
-          <div key={activeTab} className="eco-tabpane grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
-            <div className="grid grid-cols-2 gap-6">
-              {paneNodes.map((item, index) => (
-                <div
-                  key={item.label}
-                  className={`${index % 2 === 0 ? "eco-stat-down" : "eco-stat-up"} border-l-2 border-gold-400/60 pl-5`}
-                >
-                  <div className="font-display text-2xl sm:text-3xl text-gold-400 font-bold">{item.heading}</div>
-                  {item.text && (
-                    <p className="mt-2 text-sm text-white font-bold leading-snug">{item.text}</p>
-                  )}
-                </div>
-              ))}
-            </div>
+          <div key={activeTab} className="eco-tabpane">
+            {activeTab === 2 ? (
+              /* Future Development Horizontal Rectangular Grid Layout (Like Screenshot) */
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {FUTURE_DEVELOPMENT_ITEMS.map((news, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-emerald-950/90 border border-emerald-500/30 rounded-2xl p-4 shadow-xl flex gap-4 items-center hover:border-gold-400 transition-all duration-300 group"
+                  >
+                    {/* Left Text Content */}
+                    <div className="flex-1 min-w-0">
+                      <div className="text-[11px] text-gold-400 font-bold uppercase tracking-wider mb-1">
+                        {news.source}
+                      </div>
+                      <h4 className="font-display text-xs sm:text-sm font-bold text-white group-hover:text-gold-300 transition-colors leading-snug line-clamp-2">
+                        {news.title}
+                      </h4>
+                      <p className="mt-1 text-[11px] text-white/70 leading-relaxed line-clamp-2">
+                        {news.text}
+                      </p>
+                      <div className="mt-2 flex items-center justify-between">
+                        <span className="text-[10px] text-emerald-300/80">{news.date}</span>
+                        <a
+                          href={news.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-[11px] font-bold text-gold-400 hover:underline"
+                        >
+                          Read <ExternalLink size={10} />
+                        </a>
+                      </div>
+                    </div>
 
-            <div className="eco-diagram relative aspect-square max-w-md mx-auto w-full">
-              <div className="absolute inset-[15%] rounded-full border border-dashed border-emerald-400/40" />
-              <div className="absolute inset-0 grid place-items-center">
-                <div className="eco-node z-10 flex flex-col items-center gap-1.5 rounded-full bg-gold-500 text-forest-950 px-4 py-3 shadow-lg shadow-emerald-950/60 font-bold">
-                  <MapPin size={18} />
-                  <span className="text-[10px] font-bold tracking-wide text-center leading-tight uppercase">
-                    M3M FORESTIA
-                    <br />
-                    West
-                  </span>
+                    {/* Right Thumbnail Image */}
+                    <div className="w-24 h-24 sm:w-28 sm:h-28 shrink-0 rounded-xl overflow-hidden border border-emerald-500/20 shadow-inner">
+                      <img
+                        src={news.image}
+                        alt={news.title}
+                        loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              /* Location & Vicinity Default Layout */
+              <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
+                <div className="grid grid-cols-2 gap-6">
+                  {paneNodes.map((item, index) => (
+                    <div
+                      key={item.label}
+                      className={`${index % 2 === 0 ? "eco-stat-down" : "eco-stat-up"} border-l-2 border-gold-400/60 pl-5`}
+                    >
+                      <div className="font-display text-2xl sm:text-3xl text-gold-400 font-bold">{item.heading}</div>
+                      {item.text && (
+                        <p className="mt-2 text-sm text-white font-bold leading-snug">{item.text}</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="eco-diagram relative aspect-square max-w-md mx-auto w-full">
+                  <div className="absolute inset-[15%] rounded-full border border-dashed border-emerald-400/40" />
+                  <div className="absolute inset-0 grid place-items-center">
+                    <div className="eco-node z-10 flex flex-col items-center gap-1.5 rounded-full bg-gold-500 text-forest-950 px-4 py-3 shadow-lg shadow-emerald-950/60 font-bold">
+                      <MapPin size={18} />
+                      <span className="text-[10px] font-bold tracking-wide text-center leading-tight uppercase">
+                        M3M FORESTIA
+                        <br />
+                        West
+                      </span>
+                    </div>
+                  </div>
+                  {paneNodes.map((n) => (
+                    <div
+                      key={n.label}
+                      className="eco-node absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-emerald-500/30 bg-emerald-950/90 px-3 py-1.5 text-[11px] text-white font-bold whitespace-nowrap shadow-md"
+                      style={nodePos(n.angle, n.radius)}
+                    >
+                      {n.label}
+                    </div>
+                  ))}
                 </div>
               </div>
-              {paneNodes.map((n) => (
-                <div
-                  key={n.label}
-                  className="eco-node absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-emerald-500/30 bg-emerald-950/90 px-3 py-1.5 text-[11px] text-white font-bold whitespace-nowrap shadow-md"
-                  style={nodePos(n.angle, n.radius)}
-                >
-                  {n.label}
-                </div>
-              ))}
-            </div>
+            )}
           </div>
         </div>
 

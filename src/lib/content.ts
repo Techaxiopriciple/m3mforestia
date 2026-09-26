@@ -54,15 +54,15 @@ export const STATS = [
 export const ECOSYSTEM = [
   {
     title: "140* Acres Township",
-    body: "Gurugram’s Largest Integrated Township Development",
+    body: "Gurgaon's Largest Integrated Township Development",
   },
   {
     title: "INTEGRATED\nLIVING",
     body: "Live. Work. Play. Shop.\nExperience a world where everything comes together",
   },
   {
-    title: "EXTENSION OF GLOBAL CITY",
-    body: "Built on a bold government vision,\ncreating a future-ready destination for a new way of living.",
+    title: "NEXT TO GLOBAL CITY",
+    body: "It's to be built on bold government vision,\ncreating a future-ready destination for a new way of living.",
   },
   {
     title: "CITY-SCALE OPPORTUNITY",
@@ -72,43 +72,45 @@ export const ECOSYSTEM = [
 
 export const CONNECTIVITY = [
   {
-    title: "Dwarka Expressway",
-    time: "10 min",
-  },
-  {
-    title: "Gurugram-Rewari Expressway",
-    time: "10 min",
-  },
-  {
     title: "IGI Airport",
-    time: "20 min",
+    time: "20* min",
+  },
+  {
+    title: "KMP Expressway",
+    time: "01* min",
+  },
+  
+  {
+    title: "Dwarka Expressway",
+    time: "20* min",
   },
   
 ];
 
 export const CENTRAL_CONNECTIVITY = [
   {
-    title: "KMP Expressway",
-    time: "10 min",
-  },
-  {
     title: "NH-8",
-    time: "20 min",
+    time: "24* min",
   },
+   {
+    title: "Gurugram-Rewari Expressway",
+    time: "8* min",
+  },
+  
 ];
 
 export const VICINITY = [
   {
     category: "Corporates",
-    places: ["Jaguar Experience Centre", "\n" + "Hero MotoCorp"],
+    places: ["Maruti Suzuki", "Honda Motor", "Hero Motorcorp", "Jaguar Experience Centre", "Times of India", "Eros Corporate Park", "IBC Knowledge Park"],
   },
   {
     category: "Hospitals",
-    places: ["Fortis", "\n" + "Apollo"],  
+    places: ["Fortis", "Apollo Spectra", "Artemis", "Silver Streaks"],  
   },
   {
     category: "Educational Institutes",
-    places: ["DPS Manesar", "\n" + "Amity University"],
+    places: ["Bal Bharti", "DPS Manesar", "Amity University"],
   },
 ];
 

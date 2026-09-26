@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState, useEffect } from "react";
 import { MapPin, ChevronDown } from "lucide-react";
 import { gsap } from "../lib/gsap";
 import { ECOSYSTEM, CONNECTIVITY, CENTRAL_CONNECTIVITY, VICINITY, FUTURE_DEVELOPMENT, ECO_ICON } from "../lib/content";
@@ -50,7 +50,6 @@ const SECTION_TABS = [
   "Location",
   "Vicinity",
   "Future Development",
-  "Density of area",
 ];
 
 function nodePos(angle: number, radius: number) {
@@ -70,11 +69,33 @@ export default function Ecosystem() {
   const paneNodes = TAB_NODES[SECTION_TABS[activeTab]] ?? CONNECTIVITY_NODES;
 
   const { ref: videoWrapRef, inView: videoInView } = useInView<HTMLDivElement>();
-  const { ref: tabWrapRef, inView: tabInView } = useInView<HTMLDivElement>();
+  const tabWrapRef = useRef<HTMLDivElement>(null);
   
   // useAutoPauseVideo hook automatically pauses video when it goes out of view
   const mainVideoRef = useAutoPauseVideo<HTMLVideoElement>();
-  const tabVideoRef = useAutoPauseVideo<HTMLVideoElement>();
+  
+  // Custom ref for Location AV video to play/pause based on 100% visibility (threshold: 1.0)
+  const customTabVideoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const videoEl = customTabVideoRef.current;
+    const wrapEl = tabWrapRef.current;
+    if (!videoEl || !wrapEl || locationTab !== "av") return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.intersectionRatio >= 1.0) {
+          videoEl.play().catch(() => {});
+        } else {
+          videoEl.pause();
+        }
+      },
+      { threshold: 1.0 }
+    );
+
+    observer.observe(wrapEl);
+    return () => observer.disconnect();
+  }, [locationTab]);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -127,7 +148,7 @@ export default function Ecosystem() {
       ref={root}
       className="relative pt-8 sm:pt-10 lg:pt-14 pb-14 sm:pb-20 lg:pb-24 overflow-hidden"
     >
-      {/* Background with a greenish overlay instead of blackish */}
+      {/* Background with a slightly darker green backdrop overlay */}
       <div className="absolute inset-0 -z-10">
         <img
           src="/images/eco-bg-gemini-5.png"
@@ -136,8 +157,7 @@ export default function Ecosystem() {
           decoding="async"
           className="w-full h-full object-cover object-top"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-forest-900/50 via-emerald-950/40 to-forest-950/60 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-emerald-900/20" />
+        <div className="absolute inset-0 bg-emerald-950/40" />
       </div>
 
       <div className="absolute -right-8 sm:right-[-27%] lg:right-[-85px] top-[10%] sm:top-[20%] lg:top-[12%] w-28 sm:w-36 lg:w-40 pointer-events-none z-10">
@@ -171,21 +191,26 @@ export default function Ecosystem() {
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="eco-item flex flex-col items-center text-center">
-          <div className="flex flex-col items-center gap-3">
-            <img
-              src="/images/logo/gic.webp"
-              alt="Gurgaon International City"
-              width={300}
-              height={223}
-              loading="lazy"
-              className="h-16 sm:h-20 w-auto object-contain drop-shadow-[0_4px_12px_rgba(16,185,129,0.2)]"
-            />
-            <p className="text-xs sm:text-sm tracking-[0.2em] text-gold-300 uppercase font-bold">
-             the Largest Integrated City of Gurgaon
+          
+          {/* Integrated City Text (Extra Bold/Dark), Golden Divider, & Original GIC Logo */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 pt-6 pb-4 w-full mb-8">
+            <p className="text-xs sm:text-sm tracking-[0.2em] text-gold-400 uppercase font-black text-center sm:text-left leading-relaxed">
+              Part of the Largest <br className="hidden sm:block" /> Integrated City of Gurgaon
             </p>
+            <div className="hidden sm:block h-14 w-px bg-gold-400" />
+            <a href="#top" aria-label="GIC Logo" className="flex items-center justify-start p-2">
+              <img
+                src="/images/logo/gic.webp"
+                alt="GIC Logo"
+                width={300}
+                height={223}
+                loading="lazy"
+                className="h-12 sm:h-14 w-auto object-contain"
+              />
+            </a>
           </div>
           
-          <p className="mt-6 max-w-2xl text-sm sm:text-base text-white font-semibold leading-relaxed">
+          <p className="max-w-2xl text-sm sm:text-base text-white font-bold leading-relaxed">
             GIC – Gurgaon International City is a thoughtfully planned, future-forward ecosystem where world-class living, leisure, and sustainability converge. Designed to inspire progress, it redefines how you live, work, and grow amidst nature.
           </p>
         </div>
@@ -242,7 +267,7 @@ export default function Ecosystem() {
                   </h3>
                 </div>
 
-                <p className="mt-5 text-sm font-semibold text-white/95 leading-relaxed max-w-[230px] mx-auto whitespace-pre-line">
+                <p className="mt-5 text-sm font-bold text-white leading-relaxed max-w-[230px] mx-auto whitespace-pre-line">
                   {item.body}
                 </p>
               </div>
@@ -261,7 +286,7 @@ export default function Ecosystem() {
                 className={`flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs sm:text-sm transition-all duration-300 tracking-wider uppercase text-center cursor-pointer ${
                   activeTab === i
                     ? "bg-gold-500 text-forest-950 font-bold shadow-lg shadow-gold-500/20"
-                    : "text-white font-semibold hover:text-white hover:bg-emerald-900/50"
+                    : "text-white font-bold hover:text-white hover:bg-emerald-900/50"
                 }`}
               >
                 {tabName}
@@ -279,7 +304,7 @@ export default function Ecosystem() {
                 >
                   <div className="font-display text-2xl sm:text-3xl text-gold-400 font-bold">{item.heading}</div>
                   {item.text && (
-                    <p className="mt-2 text-sm text-white font-semibold leading-snug">{item.text}</p>
+                    <p className="mt-2 text-sm text-white font-bold leading-snug">{item.text}</p>
                   )}
                 </div>
               ))}
@@ -300,7 +325,7 @@ export default function Ecosystem() {
               {paneNodes.map((n) => (
                 <div
                   key={n.label}
-                  className="eco-node absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-emerald-500/30 bg-emerald-950/90 px-3 py-1.5 text-[11px] text-white font-semibold whitespace-nowrap shadow-md"
+                  className="eco-node absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-emerald-500/30 bg-emerald-950/90 px-3 py-1.5 text-[11px] text-white font-bold whitespace-nowrap shadow-md"
                   style={nodePos(n.angle, n.radius)}
                 >
                   {n.label}
@@ -315,7 +340,7 @@ export default function Ecosystem() {
           <div className="flex items-center justify-center mb-8">
             <button
               onClick={() => locationTab !== "av" && setLocationTab("av")}
-              className={`relative flex items-center gap-2 px-8 py-3 text-sm sm:text-base tracking-wide transition-colors font-semibold after:content-[''] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-5 after:w-px after:bg-cream-100/30 ${
+              className={`relative flex items-center gap-2 px-8 py-3 text-sm sm:text-base tracking-wide transition-colors font-bold after:content-[''] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-5 after:w-px after:bg-cream-100/30 ${
                 locationTab === "av" ? "text-gold-400 font-bold" : "text-white hover:text-gold-400"
               }`}
             >
@@ -327,7 +352,7 @@ export default function Ecosystem() {
             </button>
             <button
               onClick={() => locationTab !== "map" && setLocationTab("map")}
-              className={`flex items-center gap-2 px-8 py-3 text-sm sm:text-base tracking-wide transition-colors font-semibold ${
+              className={`flex items-center gap-2 px-8 py-3 text-sm sm:text-base tracking-wide transition-colors font-bold ${
                 locationTab === "map" ? "text-gold-400 font-bold" : "text-white hover:text-gold-400"
               }`}
             >
@@ -345,18 +370,15 @@ export default function Ecosystem() {
             className="eco-tabpane max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-emerald-950/95 border border-emerald-500/20 shadow-2xl h-[296px] sm:h-[415px] lg:h-[534px]"
           >
             {locationTab === "av" ? (
-              tabInView && (
-                <video
-                  ref={tabVideoRef}
-                  className="w-full h-full object-cover"
-                  src="/images/gic-location-av.mp4"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="none"
-                />
-              )
+              <video
+                ref={customTabVideoRef}
+                className="w-full h-full object-cover"
+                src="/images/gic-location-av.mp4"
+                muted
+                loop
+                playsInline
+                preload="none"
+              />
             ) : (
               <img
                 src="/images/forestia-map.webp"

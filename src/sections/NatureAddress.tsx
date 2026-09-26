@@ -46,11 +46,16 @@ export default function NatureAddress() {
   return (
     <section id="central-grove" ref={root} className="relative bg-white py-10 text-forest-950 lg:py-14">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <h5 className="nature-fade mx-auto max-w-3xl text-center font-display text-xl uppercase leading-[1.2] text-forest-950 sm:text-3xl">
-          A world of privileges
-          <br />
-          Designed for a dynamic way of living.
-        </h5>
+        
+        {/* Updated Heading & Subheading */}
+        <div className="nature-fade mx-auto max-w-3xl text-center">
+          <h5 className="font-display text-2xl uppercase leading-[1.2] text-forest-950 sm:text-4xl">
+            An Extravagant Club Lifestyle
+          </h5>
+          <p className="mt-2 text-xs uppercase tracking-widest text-forest-700 sm:text-sm">
+            A Thoughtfully Curated Clubhouse, Contemporary In Design and Rich In Experiences
+          </p>
+        </div>
 
         <div className="nature-fade relative mt-6 overflow-hidden sm:mt-8">
           <img

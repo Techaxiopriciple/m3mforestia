@@ -78,14 +78,14 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Bottom Left Aligned Content with Centered Logo relative to bottom section width */}
-      <div className="hero-logos absolute inset-x-0 bottom-12 sm:bottom-16 lg:bottom-20 z-20 flex flex-col items-start text-left px-5 sm:px-8 max-w-7xl mx-auto pointer-events-none">
+      {/* Bottom Left Aligned Logo matching Navbar container padding */}
+      <div className="hero-logos absolute inset-x-0 bottom-12 sm:bottom-16 lg:bottom-20 z-20 flex flex-col items-start text-left px-5 sm:px-6 max-w-7xl mx-auto pointer-events-none">
         <div className="w-full max-w-xl flex flex-col items-start pointer-events-auto space-y-6">
           
-          {/* M3M Forestia Logo & Subtitle - Centered specifically over the left-aligned bottom container */}
-          <div className="w-full flex justify-center pr-0 sm:pr-12 lg:pr-[30%]">
-            <div className="flex flex-col items-center group">
-              <a href="#top" aria-label="M3M Forestia" className="flex flex-col items-center group">
+          {/* Logo strictly left-aligned matching the Navbar logo position */}
+          <div className="w-full flex justify-start">
+            <div className="flex flex-col items-start group">
+              <a href="#top" aria-label="M3M Forestia" className="flex flex-col items-start group">
                 <img
                   src="/images/logo/forestia-logo_new_1.png"
                   alt="M3M Forestia"
@@ -93,30 +93,9 @@ export default function Hero() {
                   height={373}
                   className="h-14 sm:h-20 w-auto object-contain filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.9)]"
                 />
-                <span className="text-xs sm:text-sm uppercase tracking-[0.25em] text-white font-normal drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)] mt-2">
-                  Forest-Themed Residences
-                </span>
               </a>
             </div>
           </div>
-
-          {/* Integrated City Text & White GIC Logo (Left Aligned Block) */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-start gap-4 sm:gap-8 pt-2 w-full">
-            <p className="text-xs sm:text-sm tracking-[0.2em] text-white uppercase font-normal text-left drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
-              Part of the Largest <br className="hidden sm:block" /> Integrated City of Gurgaon
-            </p>
-            <div className="hidden sm:block h-10 w-px bg-gold-400/80 shadow-[0_2px_4px_rgba(0,0,0,0.9)]" />
-            <a href="#top" aria-label="GIC Logo" className="flex items-center justify-start p-1">
-              <img
-                src="/images/logo/gic.webp"
-                alt="GIC Logo"
-                width={300}
-                height={223}
-                className="h-8 sm:h-10 w-auto object-contain brightness-0 invert contrast-200 filter drop-shadow-[0_4px_10px_rgba(0,0,0,0.9)]"
-              />
-            </a>
-          </div>
-
         </div>
       </div>
 

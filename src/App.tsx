@@ -31,10 +31,10 @@ export default function App() {
         <NatureAddress />
         <Gallery />
         <ClubEden />
-        <Biodiversity />
         <FloorPlans />
         <ImmersiveTour />
         <FloatingForm />
+        <Biodiversity />
       </main>
       <Footer />
     </>

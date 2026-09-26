@@ -5,7 +5,6 @@ import { ECOSYSTEM, CONNECTIVITY, CENTRAL_CONNECTIVITY, VICINITY, ECO_ICON } fro
 import { useInView } from "../lib/useInView";
 import { useAutoPauseVideo } from "../lib/useAutoPauseVideo";
 
-// heading = gold stat line, text = caption below it, label = diagram node text
 type PaneItem = { heading: string; text: string; label: string };
 
 function toNodes(items: PaneItem[]) {
@@ -32,55 +31,55 @@ const VICINITY_NODES = toNodes(
   })),
 );
 
-// Future Development 6 Cards with Links, Texts, and Images based on your screenshot
+// Aapke diye gaye exact links, headings aur relevant images ke sath sorted items
 const FUTURE_DEVELOPMENT_ITEMS = [
   {
-    title: "Haryana plans to invest Rs 1 trillion in Gurugram Global City",
-    source: "Construction World",
-    date: "10 Oct 2022",
-    text: "The Haryana government is looking to invest of Rs 1 trillion in the Global City project in Gurugram, which will come up on...",
-    image: "/images/news-1.webp",
-    link: "https://www.constructionworld.in",
+    title: "Haryana CM unveils MSME policy with ₹55k cr investment target",
+    source: "ETGovernment",
+    date: "2026",
+    text: "Haryana Chief Minister unveils a new MSME policy framework targeting ₹55,000 crore investment to boost industrial growth and employment.",
+    image: "https://etimg.etb2bimg.com/photo/133143406.cms",
+    link: "https://government.economictimes.indiatimes.com/news/policy/haryana-cm-unveils-msme-policy-with-55k-cr-investment-target/133143373",
   },
   {
-    title: "Haryana to launch AI Mission with World Bank support: CM Nayab Saini",
+    title: "Haryana to launch AI Mission with World Bank support: CM Saini",
     source: "The Tribune",
     date: "22 Jan 2026",
-    text: "Calling Artificial Intelligence (AI) the future of development, Haryana Chief Minister Nayab Saini on Wednesday announced that the...",
-    image: "/images/news-2.webp",
-    link: "https://www.tribuneindia.com",
+    text: "Calling Artificial Intelligence (AI) the future of development, Haryana Chief Minister Nayab Saini announced the upcoming AI Mission.",
+    image: "https://www.tribuneindia.com/sortd-service/imaginary/v22-01/jpg/large/high?url=dGhldHJpYnVuZS1zb3J0ZC1wcm8tcHJvZC1zb3J0ZC9tZWRpYTZkZjY5ZDMwLWY3NDgtMTFmMC1hMDFiLTY5ODE4NmI1ZTViMy5qcGc=",
+    link: "https://www.tribuneindia.com/news/haryana/haryana-to-launch-ai-mission-with-world-bank-support-cm-saini/",
   },
   {
-    title: "M3M enters integrated township segment, to invest Rs 7,200 cr in Gurugram",
+    title: "M3M India to invest ₹7,200 cr to build 150-acre township in Gurugram",
     source: "Business Standard",
     date: "5 Nov 2025",
-    text: "M3M India will invest 7200 crore to develop a 150-acre integrated township, Gurgaon International City, marking its entry into the...",
-    image: "/images/news-3.webp",
-    link: "https://www.business-standard.com",
+    text: "M3M India will invest 7200 crore to develop a 150-acre integrated township, Gurgaon International City, marking its entry into the segment.",
+    image: "https://bsmedia.business-standard.com/_media/bs/img/article/2025-07/09/full/1752081818-7308.jpg?im=FeatureCrop,size=(826,465)",
+    link: "https://www.business-standard.com/companies/news/m3m-india-to-invest-7-200-cr-to-build-150-acre-township-in-gurugram-125110500645_1.html",
+  },
+  {
+    title: "M3M India unveils ₹7,200 crore integrated city project in New Delhi",
+    source: "ET Realty",
+    date: "5 Nov 2025",
+    text: "M3M India is set to invest ₹7,200 crore to develop an integrated city project, expanding its footprint in the real estate sector.",
+    image: "https://etimg.etb2bimg.com/photo/125121730.cms",
+    link: "https://realty.economictimes.indiatimes.com/news/industry/m3m-india-unveils-7200-crore-integrated-city-project-in-new-delhi/125121733",
   },
   {
     title: "Haryana Govt to expedite Global City project work in Gurugram",
     source: "The Statesman",
     date: "20 Jan 2025",
-    text: "After the Punjab and Haryana High Court quashed the public interest litigation against it, the Haryana Government on Friday said that the...",
-    image: "/images/news-4.webp",
-    link: "https://www.thestatesman.com",
+    text: "After legal clarifications, the Haryana Government stated it will expedite the development work of the Global City project.",
+    image: "https://www.thestatesman.com/wp-content/uploads/2023/01/Representative-pic.-Global-City-to-be-built-in-Gurugram.jpg",
+    link: "https://www.thestatesman.com/india/haryana-govt-to-expedite-global-city-project-work-in-gurugram-1503148536.html",
   },
   {
-    title: "Haryana Unveils 'Make in Haryana' Industrial Policy; Targets ₹5 Lakh Crore Investment, AI-Led Growth",
-    source: "ETGovernment",
-    date: "2 Jun 2026",
-    text: "Chief Minister Nayab Saini Launches New Industrial Policy Framework, with Focus on AI, Data Centres, GCCs and Future-Ready.",
-    image: "/images/news-5.webp",
-    link: "https://government.economictimes.indiatimes.com",
-  },
-  {
-    title: "M3M India to invest ₹7,200 crore to develop integrated city in Delhi",
-    source: "ET Realty",
-    date: "5 Nov 2025",
-    text: "M3M India is set to invest ₹7,200 crore to develop integrated city in Gurgaon International City (GIC), a 150-acre integrated township on the Dwarka Expressway Link Road.",
-    image: "/images/news-6.webp",
-    link: "https://realty.economictimes.indiatimes.com",
+    title: "Haryana plans to invest Rs 1 trillion in Gurugram Global City",
+    source: "Construction World",
+    date: "10 Oct 2022",
+    text: "The Haryana government is looking to invest Rs 1 trillion in the mega Global City project in Gurugram.",
+    image: "https://www.constructionworld.in/assets/uploads/431117d70fe7d8569820151e315f9d29.jpg?w=600&auto=format&fit=crop&q=80",
+    link: "https://www.constructionworld.in/latest-construction-news/real-estate-news/haryana-plans-to-invest-rs-1-trillion-in-gurugram-global-city/36899",
   },
 ];
 
@@ -97,7 +96,6 @@ const TAB_NODES: Record<string, ReturnType<typeof toNodes>> = {
   "Future Development": FUTURE_DEVELOPMENT_NODES,
 };
 
-// Custom tab labels provided by you
 const SECTION_TABS = [
   "Location",
   "Vicinity",
@@ -115,18 +113,12 @@ function nodePos(angle: number, radius: number) {
 export default function Ecosystem() {
   const root = useRef<HTMLDivElement>(null);
   const [locationTab, setLocationTab] = useState<"av" | "map">("av");
-  
-  // State for the new custom tabs placed below the cards
   const [activeTab, setActiveTab] = useState(0);
   const paneNodes = TAB_NODES[SECTION_TABS[activeTab]] ?? CONNECTIVITY_NODES;
 
   const { ref: videoWrapRef, inView: videoInView } = useInView<HTMLDivElement>();
   const tabWrapRef = useRef<HTMLDivElement>(null);
-  
-  // useAutoPauseVideo hook automatically pauses video when it goes out of view
   const mainVideoRef = useAutoPauseVideo<HTMLVideoElement>();
-  
-  // Custom ref for Location AV video to play/pause based on 100% visibility (threshold: 1.0)
   const customTabVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -200,7 +192,6 @@ export default function Ecosystem() {
       ref={root}
       className="relative pt-8 sm:pt-10 lg:pt-14 pb-14 sm:pb-20 lg:pb-24 overflow-hidden"
     >
-      {/* Background with a slightly darker green backdrop overlay */}
       <div className="absolute inset-0 -z-10">
         <img
           src="/images/eco-bg-gemini-5.png"
@@ -243,8 +234,6 @@ export default function Ecosystem() {
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="eco-item flex flex-col items-center text-center">
-          
-          {/* Integrated City Text (Extra Bold/Dark), Golden Divider, & Original GIC Logo */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 pt-6 pb-4 w-full mb-8">
             <p className="text-xs sm:text-sm tracking-[0.2em] text-gold-400 uppercase font-black text-center sm:text-left leading-relaxed">
               Part of the Largest <br className="hidden sm:block" /> Integrated City of Gurgaon
@@ -267,7 +256,6 @@ export default function Ecosystem() {
           </p>
         </div>
 
-        {/* First Video (Plays only when in view) */}
         <div
           ref={videoWrapRef}
           className="eco-item mt-10 sm:mt-12 max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-emerald-950/80 border border-emerald-500/20 shadow-2xl h-[296px] sm:h-[415px] lg:h-[534px]"
@@ -286,7 +274,6 @@ export default function Ecosystem() {
           )}
         </div>
 
-        {/* Original 4 Cards Grid Layout */}
         <div className="mt-12 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {ECOSYSTEM.map((item, i) => {
             const Icon = ECO_ICON[i];
@@ -327,9 +314,7 @@ export default function Ecosystem() {
           })}
         </div>
 
-        {/* Custom Named Tabs Section */}
         <div className="eco-item mt-16 sm:mt-20 max-w-5xl mx-auto">
-          {/* Tab Buttons Header */}
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 bg-emerald-950/70 p-2 rounded-2xl border border-emerald-500/30 mb-12 shadow-lg">
             {SECTION_TABS.map((tabName, i) => (
               <button
@@ -346,17 +331,14 @@ export default function Ecosystem() {
             ))}
           </div>
 
-          {/* Dynamic Content Pane for Active Tab */}
           <div key={activeTab} className="eco-tabpane">
             {activeTab === 2 ? (
-              /* Future Development Horizontal Rectangular Grid Layout (Like Screenshot) */
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {FUTURE_DEVELOPMENT_ITEMS.map((news, idx) => (
                   <div
                     key={idx}
                     className="bg-emerald-950/90 border border-emerald-500/30 rounded-2xl p-4 shadow-xl flex gap-4 items-center hover:border-gold-400 transition-all duration-300 group"
                   >
-                    {/* Left Text Content */}
                     <div className="flex-1 min-w-0">
                       <div className="text-[11px] text-gold-400 font-bold uppercase tracking-wider mb-1">
                         {news.source}
@@ -380,7 +362,6 @@ export default function Ecosystem() {
                       </div>
                     </div>
 
-                    {/* Right Thumbnail Image */}
                     <div className="w-24 h-24 sm:w-28 sm:h-28 shrink-0 rounded-xl overflow-hidden border border-emerald-500/20 shadow-inner">
                       <img
                         src={news.image}
@@ -393,7 +374,6 @@ export default function Ecosystem() {
                 ))}
               </div>
             ) : (
-              /* Location & Vicinity Default Layout */
               <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
                 <div className="grid grid-cols-2 gap-6">
                   {paneNodes.map((item, index) => (
@@ -436,7 +416,6 @@ export default function Ecosystem() {
           </div>
         </div>
 
-        {/* Location AV / Location Map Tabs */}
         <div className="eco-item mt-14 sm:mt-16">
           <div className="flex items-center justify-center mb-8">
             <button

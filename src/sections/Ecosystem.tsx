@@ -447,7 +447,9 @@ export default function Ecosystem() {
           <div
             ref={tabWrapRef}
             key={locationTab}
-            className="eco-tabpane max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-emerald-950/95 border border-emerald-500/20 shadow-2xl h-[296px] sm:h-[415px] lg:h-[534px]"
+            className={`eco-tabpane relative max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-emerald-950/95 border border-emerald-500/20 shadow-2xl ${
+              locationTab === "av" ? "h-[296px] sm:h-[415px] lg:h-[534px]" : "aspect-[1677/1088]"
+            }`}
           >
             {locationTab === "av" ? (
               <video
@@ -460,11 +462,17 @@ export default function Ecosystem() {
                 preload="none"
               />
             ) : (
-              <img
-                src="/images/forestia-map.webp"
-                alt="M3M Forestia West location map"
-                className="w-full h-full object-fill"
-              />
+              <>
+                {/* Box matches the left 1677px of the 2522x1088 map, so it ends just past IGI Airport */}
+                <img
+                  src="/images/forestia-map.webp"
+                  alt="M3M Forestia West location map"
+                  className="absolute left-0 top-0 h-full w-auto max-w-none"
+                />
+                <div className="absolute right-3 top-[48%] -translate-y-1/2 flex items-center gap-1.5 rounded-full bg-forest-950/80 px-3 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-gold-400 shadow-md">
+                  <span>New Delhi</span>
+                </div>
+              </>
             )}
           </div>
         </div>

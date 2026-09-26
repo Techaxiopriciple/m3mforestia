@@ -26,9 +26,9 @@ export default function GrandWelcome() {
     <section
       id="arrival"
       ref={root}
-      className="relative w-full aspect-[4/3] max-h-[100svh] overflow-hidden bg-forest-950"
+      className="relative w-full min-h-[75vh] lg:min-h-[100vh] h-auto overflow-hidden bg-forest-950 flex items-center justify-center"
     >
-      {/* Full-bleed background image */}
+      {/* Desktop par size pura bada rahega aur image kategi nahi */}
       <img
         src="/images/forestia-master-bg.webp"
         alt="M3M Forestia West grand entrance arrival"
@@ -36,7 +36,7 @@ export default function GrandWelcome() {
         height={1802}
         loading="lazy"
         decoding="async"
-        className="grand-fade absolute inset-0 w-full h-full object-cover object-[center_60%] pointer-events-none"
+        className="grand-fade w-full h-auto min-h-full object-cover object-center pointer-events-none"
       />
     </section>
   );

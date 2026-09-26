@@ -10,7 +10,6 @@ import GrandWelcome from "./sections/GrandWelcome";
 import NatureAddress from "./sections/NatureAddress";
 import Gallery from "./sections/Gallery";
 import FloorPlans from "./sections/FloorPlans";
-import ClubEden from "./sections/ClubEden";
 import Biodiversity from "./sections/Biodiversity";
 import ImmersiveTour from "./sections/ImmersiveTour";
 import FloatingForm from "./components/FloatingForm";
@@ -30,7 +29,6 @@ export default function App() {
         <GrandWelcome />
         <NatureAddress />
         <Gallery />
-        <ClubEden />
         <FloorPlans />
         <ImmersiveTour />
         <FloatingForm />

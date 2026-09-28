@@ -6,16 +6,28 @@ export default function GrandWelcome() {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // Animate elements with fade-in and upward motion on scroll trigger
+      // Fade-in and upward motion animation on scroll
       gsap.from(".grand-fade", {
         opacity: 0,
         y: 30,
-        stagger: 0.15,
         duration: 0.9,
         ease: "power3.out",
         scrollTrigger: {
           trigger: root.current,
           start: "top 75%",
+        },
+      });
+
+      // Smooth subtle zoom-in effect tailored for all devices
+      gsap.to(".grand-bg-img", {
+        scale: 1.05,
+        duration: 5,
+        ease: "power1.out",
+        scrollTrigger: {
+          trigger: root.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
         },
       });
     }, root);
@@ -27,25 +39,25 @@ export default function GrandWelcome() {
     <section
       id="arrival"
       ref={root}
-      className="relative w-screen h-[100dvh] overflow-hidden flex items-center justify-center bg-black"
+      className="relative w-screen min-h-screen overflow-hidden flex items-center justify-center bg-black"
     >
       <div className="grand-fade relative w-full h-full flex items-center justify-center">
-        {/* Image stretches end-to-end to completely fill the screen without cutting content */}
+        {/* High-end crisp rendering image without forced height constraints */}
         <img
           src="/images/forestia-master-bg.webp"
           alt="M3M Forestia West grand entrance arrival"
-          width={2400}
-          height={1802}
-          loading="lazy"
+          width={2880}
+          height={2160}
+          loading="eager"
           decoding="async"
-          className="absolute inset-0 w-full h-full object-fill pointer-events-none block"
+          className="grand-bg-img w-full h-auto object-cover pointer-events-none block"
           style={{
-            filter: "drop-shadow(0 20px 30px rgba(0, 0, 0, 0.6))",
+            imageRendering: "-webkit-optimize-contrast",
           }}
         />
 
-        {/* Soft gradient overlay at the bottom for cinematic depth */}
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/70 via-black/30 to-transparent pointer-events-none" />
+        {/* Top cinematic gradient overlay for smooth header blending */}
+        <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/70 via-black/30 to-transparent pointer-events-none" />
       </div>
     </section>
   );

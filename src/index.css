@@ -18,11 +18,47 @@
   --color-cream-100: #f4ecdc;
   --color-cream-200: #e9dcc0;
 
-  /* Brand typography: Big Caslon for headlines, Acumin for copy.
-     First name in each stack is the Adobe Fonts family (loaded in index.html);
-     the second matches a locally installed copy (Big Caslon ships with macOS). */
-  --font-display: "big-caslon-fb", "Big Caslon", Georgia, "Times New Roman", serif;
-  --font-sans: "acumin-pro", "Acumin Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Brand typography: Big Caslon for headlines, Acumin for copy (self-hosted, see @font-face below). */
+  --font-display: "Big Caslon", Georgia, "Times New Roman", serif;
+  --font-sans: "Acumin Pro", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Big Caslon has a single Medium cut; the weight range maps every weight to it
+   so headings with font-bold don't get a smeared faux bold. */
+@font-face {
+  font-family: "Big Caslon";
+  src: url("/fonts/BigCaslon.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Acumin Pro";
+  src: url("/fonts/Acumin-RPro.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Acumin Pro";
+  src: url("/fonts/Acumin-ItPro.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Acumin Pro";
+  src: url("/fonts/Acumin-BdPro.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Acumin Pro";
+  src: url("/fonts/Acumin-BdItPro.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
 }
 
 html {

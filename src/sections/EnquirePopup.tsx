@@ -73,7 +73,7 @@ export default function EnquirePopup({ isOpen: externalIsOpen, onClose: external
           <>
             {/* Header */}
             <div className="mb-6 space-y-1.5 text-center sm:text-left">
-              <h3 className="font-display text-2xl sm:text-3xl text-forest-950">
+              <h3 className="font-display text-[1.6rem] md:text-[2rem] leading-tight text-forest-950">
                 Enquire Now
               </h3>
               <p className="text-forest-600 text-xs sm:text-sm">

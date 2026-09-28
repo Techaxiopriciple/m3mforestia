@@ -113,10 +113,10 @@ function SlideImage({ slide, isCenter = false }: { slide: (typeof carouselSlides
       {isCenter && (
         <div className="absolute inset-x-0 bottom-0 left-0 right-0 flex flex-col justify-end p-6 sm:p-8 pointer-events-none">
           <div className="max-w-xl">
-            <h3 className="font-display text-lg sm:text-2xl font-bold text-white tracking-wide drop-shadow-md">
+            <h3 className="card-heading text-white drop-shadow-md">
               {slide.title}
             </h3>
-            <p className="mt-1 text-xs sm:text-sm text-white/95 font-normal drop-shadow-md">
+            <p className="mt-1 text-sm md:text-[1.2rem] leading-snug text-white/95 drop-shadow-md">
               {slide.description}
             </p>
           </div>
@@ -239,8 +239,8 @@ export default function Gallery() {
     <section id="gallery" ref={root} className="relative overflow-hidden bg-white py-12 text-forest-950 lg:py-16">
       <div ref={preloadRef} className="relative z-10 w-full">
         <div className="editorial-fade mx-auto mb-12 max-w-3xl space-y-3 px-4 text-center">
-          <h5 className="section-heading text-forest-950">An Address That Breathes With Nature</h5>
-          <p className="mt-2 text-xs uppercase tracking-widest text-forest-700 sm:text-sm">M3M Forestia West offers thoughtfully designed homes, where space, light, and nature
+          <h2 className="section-heading text-forest-950">An Address That Breathes With Nature</h2>
+          <p className="mt-2 body-copy text-forest-950/75">M3M Forestia West offers thoughtfully designed homes, where space, light, and nature
             come together to create everyday calm.
           </p>
         </div>

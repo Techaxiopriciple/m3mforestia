@@ -119,11 +119,11 @@ export default function Nav() {
                 <a
                   key={l.href}
                   href={l.href}
-                  className={`relative text-sm font-medium transition-colors py-1 ${
+                  className={`relative eyebrow transition-colors py-1 ${
                     isActive
                       ? scrolled
-                        ? "text-forest-600 font-semibold"
-                        : "text-gold-400 font-semibold"
+                        ? "text-forest-600"
+                        : "text-gold-400"
                       : scrolled
                       ? "text-forest-900 hover:text-forest-600"
                       : "text-cream-50 hover:text-gold-400"
@@ -221,7 +221,7 @@ export default function Nav() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <h4 className="font-display text-2xl text-forest-950">Request Callback</h4>
+                <h4 className="font-display text-[1.6rem] md:text-[2rem] leading-tight text-forest-950">Request Callback</h4>
                 <p className="text-sm text-forest-600">
                   Fill in your details below to schedule a site visit or receive the e-brochure.
                 </p>

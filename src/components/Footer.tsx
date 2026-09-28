@@ -7,23 +7,23 @@ export default function Footer() {
         <div className="grid sm:grid-cols-3 gap-10 pb-10 border-b border-forest-100">
           <div>
             <p className="font-display text-xl text-forest-950">M3M FORESTIA WEST</p>
-            <p className="mt-3 text-sm text-forest-900/60 leading-relaxed">
+            <p className="mt-3 text-[0.88rem] font-medium text-forest-950/75 leading-relaxed">
               M3M India Infrastructures Private Limited
               <br />
               CIN: U45400HR2014PTC054057
             </p>
           </div>
           <div>
-            <p className="text-xs tracking-[0.3em] text-forest-600 mb-3">PROJECT SITE</p>
-            <p className="text-sm text-forest-900/60 leading-relaxed">
+            <p className="eyebrow text-forest-600 mb-3">Project Site</p>
+            <p className="text-[0.88rem] font-medium text-forest-950/75 leading-relaxed">
               M3M Forestia at Gurgaon International City,
               <br />
               Sector-M-9, M-10 &amp; M-11, Gurugram, Haryana
             </p>
           </div>
           <div>
-            <p className="text-xs tracking-[0.3em] text-forest-600 mb-3">CONTACT</p>
-            <p className="text-sm text-forest-900/60 leading-relaxed">
+            <p className="eyebrow text-forest-600 mb-3">Contact</p>
+            <p className="text-[0.88rem] font-medium text-forest-950/75 leading-relaxed">
               {CONTACT.phoneDisplay} · {CONTACT.tollFree}
               <br />
               {CONTACT.email}

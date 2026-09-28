@@ -15,7 +15,7 @@ export default function OfferBand() {
       aria-label="Offer highlights"
       className="relative bg-gradient-to-r from-forest-950 via-emerald-900 to-forest-950 border-y border-gold-400/40"
     >
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 py-4 sm:py-5">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 py-3 sm:py-4">
         <ul className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-0 text-center">
           {OFFER_ITEMS.map((item, i) => (
             <li key={item} className="flex items-center">
@@ -29,13 +29,14 @@ export default function OfferBand() {
                 <button
                   type="button"
                   onClick={() => setEnquireOpen(true)}
-                  className="text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.18em] text-white transition-colors hover:text-gold-400 cursor-pointer"
+                  // Added feature-text so it matches the exact same size as the other items
+                  className="feature-text font-bold uppercase text-white transition-colors hover:text-gold-400 cursor-pointer"
                 >
                   {item}
                 </button>
               ) : (
                 <span
-                  className={`text-xs sm:text-sm lg:text-base font-bold uppercase tracking-[0.18em] ${
+                  className={`feature-text font-bold uppercase ${
                     i === 1 ? "text-gold-400" : "text-white"
                   }`}
                 >

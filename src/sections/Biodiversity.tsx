@@ -19,7 +19,7 @@ export default function Biodiversity() {
   return (
     <section className="relative py-8 sm:py-10 overflow-hidden bg-white">
       <div className="text-center mb-8 sm:mb-10 px-6 relative z-10">
-        <p className="text-xs sm:text-sm tracking-[0.3em] text-forest-600 mb-3 uppercase font-bold">
+        <p className="eyebrow text-forest-600 mb-3">
           Ecosystem & Wildlife
         </p>
       </div>
@@ -29,7 +29,7 @@ export default function Biodiversity() {
           {loop.map((item, i) => (
             <span
               key={i}
-              className="flex items-center gap-3 text-forest-950 text-sm sm:text-base font-medium tracking-wide whitespace-nowrap bg-forest-50/80 px-6 py-3 rounded-full border border-forest-200 shadow-sm"
+              className="flex items-center gap-3 text-forest-950 feature-text whitespace-nowrap bg-forest-50/80 px-6 py-3 rounded-full border border-forest-200 shadow-sm"
             >
               {i % 2 === 0 ? (
                 <Bird size={16} className="text-[#a37e38] shrink-0" />

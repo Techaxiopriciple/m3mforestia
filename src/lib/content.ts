@@ -57,15 +57,15 @@ export const ECOSYSTEM = [
     body: "Gurgaon's Largest Integrated\nTownship Development.",
   },
   {
-    title: "INTEGRATED\nLIVING",
+    title: "Integrated\nLiving",
     body: "Live, work, play, and shop\nAll thoughtfully connected in one vibrant ecosystem.",
   },
   {
-    title: "NEXT TO\nGLOBAL CITY",
+    title: "Next to\nGlobal City",
     body: "At the heart of Gurugram’s\nnext global growth destination.",
   },
   {
-    title: "CITY-SCALE\nOPPORTUNITY",
+    title: "City-Scale\nOpportunity",
     body: "A landmark opportunity within\nGurugram's most ambitious growth corridor.",
   },
 ];

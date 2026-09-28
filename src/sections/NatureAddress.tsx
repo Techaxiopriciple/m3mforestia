@@ -109,10 +109,10 @@ export default function NatureAddress() {
         
         {/* Heading & Subheading */}
         <div className="nature-fade mx-auto max-w-3xl text-center">
-          <h5 className="section-heading text-forest-950">
+          <h2 className="section-heading text-forest-950">
             An Extravagant Club Lifestyle
-          </h5>
-          <p className="mt-2 text-xs uppercase tracking-widest text-forest-700 sm:text-sm">
+          </h2>
+          <p className="mt-2 section-label text-forest-700">
             A Thoughtfully Curated Clubhouse, Contemporary In Design and Rich In Experiences
           </p>
         </div>
@@ -129,7 +129,7 @@ export default function NatureAddress() {
 
         <div className="nature-fade mt-10 flex items-center gap-4 sm:mt-12 sm:gap-6">
           <span className="h-px flex-1 bg-gold-400/60" />
-          <p className="text-center text-[10px] tracking-[0.25em] text-forest-950 sm:text-[11px] font-bold">EXPERIENCE CENTRAL GROVE AT GIC</p>
+          <h3 className="text-center section-heading text-forest-950">Experience Central Grove at GIC</h3>
           <span className="h-px flex-1 bg-gold-400/60" />
         </div>
 
@@ -156,7 +156,7 @@ export default function NatureAddress() {
                   tabIndex={selected ? 0 : -1}
                   onClick={() => setActive(i)}
                   onKeyDown={onTabKeyDown}
-                  className={`flex items-center gap-2 px-6 py-3 rounded-full text-xs sm:text-sm font-medium tracking-wide transition-all duration-300 border shadow-sm cursor-pointer ${
+                  className={`flex items-center gap-2 px-6 py-3 rounded-full pill-text transition-all duration-300 border shadow-sm cursor-pointer ${
                     selected
                       ? "bg-forest-950 text-gold-400 border-forest-950 shadow-md scale-105"
                       : "bg-forest-50/80 text-forest-950 border-forest-200 hover:bg-forest-100"
@@ -184,7 +184,7 @@ export default function NatureAddress() {
                 {feature.items.map((item, idx) => (
                   <span
                     key={idx}
-                    className="flex items-center gap-2 bg-white text-forest-950 text-xs sm:text-sm font-medium px-4 py-2 rounded-xl border border-forest-200/80 shadow-sm"
+                    className="flex items-center gap-2 bg-white text-forest-950 feature-text px-4 py-2 rounded-xl border border-forest-200/80 shadow-sm"
                   >
                     <CheckCircle2 size={14} className="text-[#a37e38] shrink-0" />
                     {item}

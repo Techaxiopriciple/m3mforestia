@@ -69,9 +69,9 @@ export default function ImmersiveTour() {
         
         {/* Section Heading */}
         <div className="tour-fade text-center mb-10">
-          <h5 className="section-heading text-forest-950">
+          <h2 className="section-heading text-forest-950">
             Construction Update
-          </h5>
+          </h2>
         </div>
 
         {/* Clean Video Player Box */}
@@ -94,7 +94,7 @@ export default function ImmersiveTour() {
               playing ? "opacity-0" : "opacity-100"
             }`}
           >
-            <h3 className="font-display text-xl sm:text-3xl lg:text-4xl text-cream-50 tracking-wider">
+            <h3 className="card-title text-cream-50">
               {VIDEO_DATA.title}
             </h3>
             <div className="w-24 sm:w-48 h-[1px] bg-cream-50/50 mt-4" />

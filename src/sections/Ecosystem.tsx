@@ -256,7 +256,7 @@ export default function Ecosystem() {
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="eco-item flex flex-col items-center text-center">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 pt-6 pb-4 w-full mb-8">
-            <p className="text-xs sm:text-sm tracking-[0.2em] text-gold-400 uppercase font-black text-center sm:text-left leading-relaxed">
+            <p className="eyebrow text-gold-400 text-center sm:text-left">
               Part of the Largest <br className="hidden sm:block" /> Integrated City of Gurgaon
             </p>
             <div className="hidden sm:block h-14 w-px bg-gold-400" />
@@ -271,7 +271,7 @@ export default function Ecosystem() {
               />
             </a>
           </div>
-          <p className="max-w-2xl text-sm sm:text-base text-white font-bold leading-relaxed">
+          <p className="max-w-2xl body-copy text-white/90">
             GIC – Gurgaon International City is a thoughtfully planned, future-forward ecosystem where world-class living, leisure, and sustainability converge. Designed to inspire progress, it redefines how you live, work, and grow amidst nature.
           </p>
         </div>
@@ -321,12 +321,12 @@ export default function Ecosystem() {
                     </div>
                   </div>
 
-                  <h3 className="font-display text-lg sm:text-xl font-bold text-white hover:text-gold-400 transition-colors tracking-[0.16em] leading-snug uppercase whitespace-pre-line min-h-[3.5rem] flex items-center justify-center">
+                  <h3 className="card-heading text-white hover:text-gold-400 transition-colors whitespace-pre-line min-h-[3.5rem] flex items-center justify-center">
                     {item.title}
                   </h3>
                 </div>
 
-                <p className="mt-5 text-sm font-bold text-white leading-relaxed max-w-[230px] mx-auto whitespace-pre-line">
+                <p className="mt-5 body-copy text-white/85 max-w-[230px] mx-auto whitespace-pre-line">
                   {item.body}
                 </p>
               </div>
@@ -340,10 +340,10 @@ export default function Ecosystem() {
               <button
                 key={tabName}
                 onClick={() => setActiveTab(i)}
-                className={`flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs sm:text-sm transition-all duration-300 tracking-wider uppercase text-center cursor-pointer ${
+                className={`flex-1 min-w-[140px] px-4 py-3 rounded-xl pill-text transition-all duration-300 text-center cursor-pointer ${
                   activeTab === i
-                    ? "bg-gold-500 text-forest-950 font-bold shadow-lg shadow-gold-500/20"
-                    : "text-white font-bold hover:text-white hover:bg-emerald-900/50"
+                    ? "bg-gold-500 text-forest-950 shadow-lg shadow-gold-500/20"
+                    : "text-white hover:text-white hover:bg-emerald-900/50"
                 }`}
               >
                 {tabName}
@@ -363,13 +363,13 @@ export default function Ecosystem() {
                     className="bg-emerald-950/90 border border-emerald-500/30 rounded-2xl p-4 shadow-xl flex gap-4 items-center hover:border-gold-400 transition-all duration-300 group cursor-pointer block"
                   >
                     <div className="flex-1 min-w-0">
-                      <div className="text-[11px] text-gold-400 font-bold uppercase tracking-wider mb-1">
+                      <div className="eyebrow text-gold-400 mb-1">
                         {news.source}
                       </div>
-                      <h4 className="font-display text-xs sm:text-sm font-bold text-white group-hover:text-gold-300 transition-colors leading-snug line-clamp-2">
+                      <h4 className="info-text font-semibold text-white group-hover:text-gold-300 transition-colors line-clamp-2">
                         {news.title}
                       </h4>
-                      <p className="mt-1 text-[11px] text-white/70 leading-relaxed line-clamp-2">
+                      <p className="mt-1 text-[0.8rem] font-medium text-white/70 leading-normal line-clamp-2">
                         {news.text}
                       </p>
                       <div className="mt-2 flex items-center justify-between">
@@ -399,19 +399,19 @@ export default function Ecosystem() {
                       key={item.label}
                       className={`${index % 2 === 0 ? "eco-stat-down" : "eco-stat-up"} border-l-2 border-gold-400/60 pl-5`}
                     >
-                      <div className="font-display text-2xl sm:text-3xl text-gold-400 font-bold">{item.heading}</div>
+                      <div className="card-title text-gold-400">{item.heading}</div>
                       
                       {Array.isArray(item.text) ? (
                         <div className="mt-2 flex flex-col gap-0.5">
                           {item.text.map((place, pIdx) => (
-                            <span key={pIdx} className="text-xs sm:text-xs text-white/90 font-medium leading-tight">
+                            <span key={pIdx} className="info-text text-white/80">
                               {place}
                             </span>
                           ))}
                         </div>
                       ) : (
                         item.text && (
-                          <p className="mt-2 text-sm text-white font-bold leading-snug">{item.text}</p>
+                          <p className="mt-2 info-text text-white/80">{item.text}</p>
                         )
                       )} 
                     </div>
@@ -449,8 +449,8 @@ export default function Ecosystem() {
           <div className="flex items-center justify-center mb-8">
             <button
               onClick={() => locationTab !== "av" && setLocationTab("av")}
-              className={`relative flex items-center gap-2 px-8 py-3 text-sm sm:text-base tracking-wide transition-colors font-bold after:content-[''] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-5 after:w-px after:bg-cream-100/30 ${
-                locationTab === "av" ? "text-gold-400 font-bold" : "text-white hover:text-gold-400"
+              className={`relative flex items-center gap-2 px-8 py-3 cta-text transition-colors after:content-[''] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-5 after:w-px after:bg-cream-100/30 ${
+                locationTab === "av" ? "text-gold-400" : "text-white hover:text-gold-400"
               }`}
             >
               Location AV
@@ -461,8 +461,8 @@ export default function Ecosystem() {
             </button>
             <button
               onClick={() => locationTab !== "map" && setLocationTab("map")}
-              className={`flex items-center gap-2 px-8 py-3 text-sm sm:text-base tracking-wide transition-colors font-bold ${
-                locationTab === "map" ? "text-gold-400 font-bold" : "text-white hover:text-gold-400"
+              className={`flex items-center gap-2 px-8 py-3 cta-text transition-colors ${
+                locationTab === "map" ? "text-gold-400" : "text-white hover:text-gold-400"
               }`}
             >
               Location Map

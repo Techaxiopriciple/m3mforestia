@@ -68,12 +68,12 @@ export default function FloorPlans() {
 
       <div className="max-w-4xl mx-auto px-6">
         <div className="fp-fade text-center mb-12 sm:mb-14">
-          <p className="text-xs sm:text-sm tracking-[0.4em] text-forest-600 mb-5">
-            UNIT CONFIGURATIONS
+          <p className="eyebrow text-forest-600 mb-5">
+            Unit Configurations
           </p>
-          <h5 className="section-heading text-forest-950">
+          <h2 className="section-heading text-forest-950">
             Floor <span className="italic text-forest-600">Plans</span>
-          </h5>
+          </h2>
         </div>
 
         {/* Active slide */}
@@ -109,8 +109,8 @@ export default function FloorPlans() {
                   <div className="absolute inset-0 bg-black/25 transition-colors duration-500 group-hover:bg-black/35" />
 
                   {/* Centered Button */}
-                  <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#a37e38] text-white tracking-widest px-6 py-3 text-xs sm:text-sm font-medium rounded shadow-md transition-all duration-300 ease-out group-hover:bg-[#8f6d30] group-hover:scale-105 z-10">
-                    VIEW FLOOR PLAN
+                  <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#a37e38] text-white px-6 py-3 cta-text whitespace-nowrap rounded shadow-md transition-all duration-300 ease-out group-hover:bg-[#8f6d30] group-hover:scale-105 z-10">
+                    View Floor Plan
                   </span>
                 </>
               )}
@@ -149,16 +149,16 @@ export default function FloorPlans() {
             <a
               href="/brochures/m3m-forestia-west-floor-plans.pdf"
               download
-              className="rounded bg-[#a37e38] text-white px-8 py-3.5 text-sm tracking-widest font-medium hover:bg-[#8f6d30] transition-colors shadow-sm"
+              className="rounded bg-[#a37e38] text-white px-8 py-3.5 cta-text hover:bg-[#8f6d30] transition-colors shadow-sm"
             >
-              DOWNLOAD BROCHURE
+              Download Brochure
             </a>
           ) : (
             <button
               onClick={() => setEnquireOpen(true)}
-              className="rounded bg-[#a37e38] text-white px-8 py-3.5 text-sm tracking-widest font-medium hover:bg-[#8f6d30] transition-colors shadow-sm cursor-pointer"
+              className="rounded bg-[#a37e38] text-white px-8 py-3.5 cta-text hover:bg-[#8f6d30] transition-colors shadow-sm cursor-pointer"
             >
-              DOWNLOAD BROCHURE
+              Download Brochure
             </button>
           )}
         </div>

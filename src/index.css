@@ -93,13 +93,124 @@ body {
   font-family: var(--font-display);
 }
 
-/* One size for every section title across the site; change it here only. */
+/* Type scale, mirrored from the reference page (m3mindia.com/gic/m3m-forestia-west).
+   Its mobile breakpoint is <=767px, so every step switches at `md`. Headings stay
+   regular weight, sentence case and untracked; only eyebrow labels are uppercase.
+   Colours are left to the component so each role works on light and dark sections. */
+
+/* Section titles (h1–h4): 1.8rem/35px on mobile, 2.2rem on desktop. */
 @utility section-heading {
   font-family: var(--font-display);
-  font-size: var(--text-3xl);
-  line-height: 1.15;
-  @variant sm {
-    font-size: var(--text-5xl);
+  font-weight: 400;
+  font-size: 1.8rem;
+  line-height: 35px;
+  letter-spacing: normal;
+  text-transform: none;
+  @variant md {
+    font-size: 2.2rem;
+    line-height: 1.25;
+  }
+}
+
+/* Serif title laid over an image card: 1.7rem on mobile, 2.2rem/45px on desktop. */
+@utility card-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.7rem;
+  line-height: 1.3;
+  @variant md {
+    font-size: 2.2rem;
+    line-height: 45px;
+  }
+}
+
+/* Sans heading inside a card or slide: semibold, 1rem on mobile, 1.5rem on desktop. */
+@utility card-heading {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.3;
+  @variant md {
+    font-size: 1.5rem;
+  }
+}
+
+/* Sub-heading / tagline under a section title (reference h5): semibold, 16px/28px on mobile, 15px on desktop. */
+@utility section-label {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 28px;
+  @variant md {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+}
+
+/* Small uppercase eyebrow above a title: the reference's only tracked caps (12px, 2.2px tracking). */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+}
+
+/* Description paragraphs: medium weight, 14px on mobile, 1rem on desktop, 1.5 leading. */
+@utility body-copy {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+  @variant md {
+    font-size: 1rem;
+  }
+}
+
+/* Feature list items and chips: medium weight, 14px on mobile, 16px/20px on desktop. */
+@utility feature-text {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  @variant md {
+    font-size: 16px;
+  }
+}
+
+/* Info blocks (connectivity, stats labels): 13px on mobile, 14px on tablet, 16px on desktop. */
+@utility info-text {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.5;
+  @variant md {
+    font-size: 14px;
+  }
+  @variant lg {
+    font-size: 16px;
+  }
+}
+
+/* Primary CTA label: semibold 16px on mobile, 18px on desktop. */
+@utility cta-text {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.5;
+  @variant md {
+    font-size: 18px;
+  }
+}
+
+/* Pill tabs and secondary buttons: 0.8rem on mobile, 0.9rem on desktop. */
+@utility pill-text {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  @variant md {
+    font-size: 0.9rem;
   }
 }
 

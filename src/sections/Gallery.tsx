@@ -47,6 +47,24 @@ const carouselSlides = [
     title: "Homes That Open To Naturel",
     description: "Tranquil interiors crafted with soothing aesthetics to melt away daily stress and promote everyday well-being."
   },
+  {
+    id: 7,
+    image: "/images/M3M-IMT-Manesar-Tree-Closeup.webp",
+    title: "Living Canopy",
+    description: "Mature Trees And Layered Greens That Frame Every View."
+  },
+  {
+    id: 8,
+    image: "/images/M3M-IMT-Manesar-Kids-Play-Area.webp",
+    title: "Kids' Play Area",
+    description: "Safe, Open Spaces Where Little Ones Play Amid Nature."
+  },
+  {
+    id: 9,
+    image: "/images/M3M-IMT-Manesar-Dropoff-Cam.webp",
+    title: "Drop-off Plaza",
+    description: "A Graceful, Green-lined Arrival At Your Doorstep."
+  },
 ];
 
 const slidesWithClones = [carouselSlides.at(-1)!, ...carouselSlides, carouselSlides[0]];

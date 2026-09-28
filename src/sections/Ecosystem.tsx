@@ -215,7 +215,7 @@ export default function Ecosystem() {
     >
       <div className="absolute inset-0 -z-10">
         <img
-          src="/images/eco-bg-gemini-5.png"
+          src="/images/gic_bg.jpg"
           alt=""
           loading="lazy"
           decoding="async"

@@ -121,7 +121,6 @@ export default function Ecosystem() {
   const mainVideoRef = useRef<HTMLVideoElement>(null);
   const customTabVideoRef = useRef<HTMLVideoElement>(null);
 
-  // 50% visibility check for Location AV video
   useEffect(() => {
     const wrapEl = tabWrapRef.current;
     if (!wrapEl || locationTab !== "av") return;
@@ -138,7 +137,6 @@ export default function Ecosystem() {
       const visibleBottom = Math.min(rect.bottom, windowHeight);
       const visibleHeight = Math.max(0, visibleBottom - visibleTop);
 
-      // Agar 50% ya usse zyada screen par hai toh play karein
       if (elementHeight > 0 && visibleHeight >= elementHeight * 0.5) {
         if (videoEl.paused) {
           videoEl.play().catch((err) => console.log("Play error:", err));
@@ -301,7 +299,7 @@ export default function Ecosystem() {
             return (
               <div
                 key={item.title}
-                className={`${i % 2 === 0 ? "eco-card-up" : "eco-card-down"} relative text-center px-6 py-8 lg:py-4 flex flex-col justify-between`}
+                className={`${i % 2 === 0 ? "eco-card-up" : "eco-card-down"} relative text-center px-6 py-8 lg:py-4 flex flex-col`}
               >
                 {i < ECOSYSTEM.length - 1 && (
                   <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 h-24 w-px bg-gradient-to-b from-transparent via-gold-400/50 to-transparent" />
@@ -326,9 +324,11 @@ export default function Ecosystem() {
                   </h3>
                 </div>
 
-                <p className="mt-5 body-copy text-white/85 max-w-[230px] mx-auto whitespace-pre-line">
-                  {item.body}
-                </p>
+                <div className="mt-3 flex items-center justify-center">
+                  <p className="body-copy text-white/85 max-w-[230px] mx-auto whitespace-pre-line">
+                    {item.body}
+                  </p>
+                </div>
               </div>
             );
           })}
@@ -342,8 +342,8 @@ export default function Ecosystem() {
                 onClick={() => setActiveTab(i)}
                 className={`flex-1 min-w-[140px] px-4 py-3 rounded-xl pill-text transition-all duration-300 text-center cursor-pointer ${
                   activeTab === i
-                    ? "bg-gold-500 text-forest-950 shadow-lg shadow-gold-500/20"
-                    : "text-white hover:text-white hover:bg-emerald-900/50"
+                    ? "bg-gold-500 text-forest-950 font-bold shadow-lg shadow-gold-500/20"
+                    : "text-white hover:text-white hover:bg-emerald-900/50 font-normal"
                 }`}
               >
                 {tabName}

@@ -476,16 +476,12 @@ export default function Ecosystem() {
           <div
             ref={tabWrapRef}
             key={locationTab}
-            className={`eco-tabpane relative max-w-[59rem] mx-auto overflow-hidden ${
-              locationTab === "map"
-                ? "h-auto bg-transparent border-0 shadow-none"
-                : "rounded-3xl bg-emerald-950/95 border border-emerald-500/20 shadow-2xl h-[340px] sm:h-[460px] lg:h-[600px]"
-            }`}
+            className="eco-tabpane relative max-w-[59rem] mx-auto overflow-hidden rounded-3xl bg-emerald-950/95 border border-emerald-500/20 shadow-2xl h-[340px] sm:h-[460px] lg:h-[600px] flex items-center justify-center p-0"
           >
             {locationTab === "av" ? (
               <video
                 ref={customTabVideoRef}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-fill"
                 src="/images/gic-location-av.mp4"
                 autoPlay
                 muted
@@ -494,13 +490,11 @@ export default function Ecosystem() {
                 preload="auto"
               />
             ) : (
-              <div className="w-full h-auto">
-                <img
-                  src="/images/forestia-location-map.webp"
-                  alt="M3M Forestia West location map"
-                  className="w-full h-auto object-contain block mx-auto"
-                />
-              </div>
+              <img
+                src="/images/forestia-location-map-v4.webp"
+                alt="M3M Forestia West location map"
+                className="w-full h-full object-fill block"
+              />
             )}
           </div>
         </div>

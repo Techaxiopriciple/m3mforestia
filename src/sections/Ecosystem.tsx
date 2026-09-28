@@ -3,7 +3,6 @@ import { MapPin, ChevronDown, ExternalLink } from "lucide-react";
 import { gsap } from "../lib/gsap";
 import { ECOSYSTEM, CONNECTIVITY, CENTRAL_CONNECTIVITY, NEAR_BY_CONNECTIVITY, ECO_ICON } from "../lib/content";
 import { useInView } from "../lib/useInView";
-import { useAutoPauseVideo } from "../lib/useAutoPauseVideo";
 
 type PaneItem = { heading: string; text: string | string[]; label: string };
 
@@ -119,27 +118,48 @@ export default function Ecosystem() {
 
   const { ref: videoWrapRef, inView: videoInView } = useInView<HTMLDivElement>();
   const tabWrapRef = useRef<HTMLDivElement>(null);
-  const mainVideoRef = useAutoPauseVideo<HTMLVideoElement>();
+  const mainVideoRef = useRef<HTMLVideoElement>(null);
   const customTabVideoRef = useRef<HTMLVideoElement>(null);
 
+  // 50% visibility check for Location AV video
   useEffect(() => {
-    const videoEl = customTabVideoRef.current;
     const wrapEl = tabWrapRef.current;
-    if (!videoEl || !wrapEl || locationTab !== "av") return;
+    if (!wrapEl || locationTab !== "av") return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.intersectionRatio >= 1.0) {
-          videoEl.play().catch(() => {});
-        } else {
+    const handleScrollOrResize = () => {
+      const videoEl = customTabVideoRef.current;
+      if (!videoEl) return;
+
+      const rect = wrapEl.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const elementHeight = rect.height;
+
+      const visibleTop = Math.max(rect.top, 0);
+      const visibleBottom = Math.min(rect.bottom, windowHeight);
+      const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+
+      // Agar 50% ya usse zyada screen par hai toh play karein
+      if (elementHeight > 0 && visibleHeight >= elementHeight * 0.5) {
+        if (videoEl.paused) {
+          videoEl.play().catch((err) => console.log("Play error:", err));
+        }
+      } else {
+        if (!videoEl.paused) {
           videoEl.pause();
         }
-      },
-      { threshold: 1.0 }
-    );
+      }
+    };
 
-    observer.observe(wrapEl);
-    return () => observer.disconnect();
+    const timer = setTimeout(handleScrollOrResize, 100);
+
+    window.addEventListener("scroll", handleScrollOrResize, { passive: true });
+    window.addEventListener("resize", handleScrollOrResize);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("scroll", handleScrollOrResize);
+      window.removeEventListener("resize", handleScrollOrResize);
+    };
   }, [locationTab]);
 
   useLayoutEffect(() => {
@@ -270,7 +290,7 @@ export default function Ecosystem() {
               muted
               loop
               playsInline
-              preload="none"
+              preload="auto"
             />
           )}
         </div>
@@ -468,10 +488,11 @@ export default function Ecosystem() {
                 ref={customTabVideoRef}
                 className="w-full h-full object-cover"
                 src="/images/gic-location-av.mp4"
+                autoPlay
                 muted
                 loop
                 playsInline
-                preload="none"
+                preload="auto"
               />
             ) : (
               <div className="w-full h-auto">

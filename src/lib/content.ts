@@ -58,15 +58,15 @@ export const ECOSYSTEM = [
   },
   {
     title: "INTEGRATED\nLIVING",
-    body: "Live, work, play, and shop\nall connected in one ecosystem.",
+    body: "Live, work, play, and shop\nAll thoughtfully connected in one vibrant ecosystem.",
   },
   {
     title: "NEXT TO\nGLOBAL CITY",
-    body: "At the heart of Gurugram’s\nnext major growth destination.",
+    body: "At the heart of Gurugram’s\nnext global growth destination.",
   },
   {
     title: "CITY-SCALE\nOPPORTUNITY",
-    body: "A landmark opportunity within\nthe prime growth corridor.",
+    body: "A landmark opportunity within\nGurugram's most ambitious growth corridor.",
   },
 ];
 

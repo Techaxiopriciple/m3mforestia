@@ -259,7 +259,7 @@ export default function Ecosystem() {
 
         <div
           ref={videoWrapRef}
-          className="eco-item mt-10 sm:mt-12 max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-emerald-950/80 border border-emerald-500/20 shadow-2xl h-[296px] sm:h-[415px] lg:h-[534px]"
+          className="eco-item mt-10 sm:mt-12 max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-emerald-950/80 border border-emerald-500/20 shadow-2xl h-[340px] sm:h-[460px] lg:h-[600px]"
         >
           {videoInView && (
             <video
@@ -394,7 +394,7 @@ export default function Ecosystem() {
                         item.text && (
                           <p className="mt-2 text-sm text-white font-bold leading-snug">{item.text}</p>
                         )
-                      )}
+                      )} 
                     </div>
                   ))}
                 </div>
@@ -457,10 +457,10 @@ export default function Ecosystem() {
           <div
             ref={tabWrapRef}
             key={locationTab}
-            className={`eco-tabpane relative max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-emerald-950/95 border border-emerald-500/20 shadow-2xl ${
-              locationTab === "av"
-                ? "h-[296px] sm:h-[415px] lg:h-[534px]"
-                : "h-auto"
+            className={`eco-tabpane relative max-w-[59rem] mx-auto overflow-hidden ${
+              locationTab === "map"
+                ? "h-auto bg-transparent border-0 shadow-none"
+                : "rounded-3xl bg-emerald-950/95 border border-emerald-500/20 shadow-2xl h-[340px] sm:h-[460px] lg:h-[600px]"
             }`}
           >
             {locationTab === "av" ? (
@@ -474,11 +474,11 @@ export default function Ecosystem() {
                 preload="none"
               />
             ) : (
-              <div className="w-full h-full p-3 sm:p-5 lg:p-6 flex items-center justify-center">
+              <div className="w-full h-auto">
                 <img
                   src="/images/forestia-location-map.webp"
                   alt="M3M Forestia West location map"
-                  className="w-full h-auto object-contain object-center rounded-2xl"
+                  className="w-full h-auto object-contain block mx-auto"
                 />
               </div>
             )}

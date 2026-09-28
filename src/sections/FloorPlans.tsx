@@ -71,9 +71,9 @@ export default function FloorPlans() {
           <p className="text-xs sm:text-sm tracking-[0.4em] text-forest-600 mb-5">
             UNIT CONFIGURATIONS
           </p>
-          <h2 className="font-display text-3xl sm:text-5xl text-forest-950 leading-tight">
+          <h5 className="section-heading text-forest-950">
             Floor <span className="italic text-forest-600">Plans</span>
-          </h2>
+          </h5>
         </div>
 
         {/* Active slide */}

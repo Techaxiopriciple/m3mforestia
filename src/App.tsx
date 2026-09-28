@@ -29,7 +29,7 @@ export default function App() {
         <GrandWelcome />
         <NatureAddress />
         <Gallery />
-         <Biodiversity />
+        <Biodiversity />
         <FloorPlans />
         <ImmersiveTour />
         <FloatingForm />

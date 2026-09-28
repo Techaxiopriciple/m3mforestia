@@ -26,7 +26,7 @@ export default function Enquiry() {
       <div className="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
         <div className="enq-fade">
           <p className="text-xs sm:text-sm tracking-[0.4em] text-forest-600 mb-5">GET IN TOUCH</p>
-          <h2 className="font-display text-3xl sm:text-5xl text-forest-950 leading-tight">
+          <h2 className="section-heading text-forest-950">
             Experience a <span className="italic text-forest-600">Different Rhythm of Living</span>
           </h2>
           <p className="mt-5 text-forest-900/70 leading-relaxed">

@@ -49,7 +49,7 @@ export default function Clubhouse() {
               </p>
               
               {/* Italic Subheading */}
-              <h2 className="font-display italic text-2xl sm:text-3xl lg:text-4xl text-forest-900/90 font-normal leading-snug mb-6">
+              <h2 className="section-heading italic text-forest-900/90 font-normal mb-6">
                 Designed for a dynamic way of living.
               </h2>
               

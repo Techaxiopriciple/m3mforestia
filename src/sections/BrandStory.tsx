@@ -69,7 +69,7 @@ export default function BrandStory() {
           BEYOND SURFACES &amp; STRUCTURES
         </p>
 
-        <h2 className="story-line font-display text-2xl sm:text-3xl md:text-4xl leading-[1.2] text-cream-50">
+        <h2 className="story-line section-heading text-cream-50">
           True luxury today is found in spaces that feel{" "}
           <span className="italic text-gold-400">open, calm,</span> and deeply
           connected to their surroundings.

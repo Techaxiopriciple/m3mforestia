@@ -69,9 +69,9 @@ export default function ImmersiveTour() {
         
         {/* Section Heading */}
         <div className="tour-fade text-center mb-10">
-          <h2 className="font-display text-3xl sm:text-4xl text-forest-950">
+          <h5 className="section-heading text-forest-950">
             Construction Update
-          </h2>
+          </h5>
         </div>
 
         {/* Clean Video Player Box */}

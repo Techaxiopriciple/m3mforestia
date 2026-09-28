@@ -60,7 +60,7 @@ export default function Location() {
           <p className="text-xs sm:text-sm tracking-[0.4em] text-forest-600 mb-5">
             AT THE CENTER OF LIFE &amp; GROWTH
           </p>
-          <h2 className="font-display text-3xl sm:text-5xl text-forest-950 max-w-2xl mx-auto leading-tight">
+          <h2 className="section-heading text-forest-950 max-w-2xl mx-auto">
             Strategically Placed, <span className="italic text-forest-600">Effortlessly Connected</span>
           </h2>
           <p className="mt-5 text-forest-900/70 max-w-xl mx-auto">

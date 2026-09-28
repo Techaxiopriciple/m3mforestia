@@ -271,7 +271,6 @@ export default function Ecosystem() {
               />
             </a>
           </div>
-          
           <p className="max-w-2xl text-sm sm:text-base text-white font-bold leading-relaxed">
             GIC – Gurgaon International City is a thoughtfully planned, future-forward ecosystem where world-class living, leisure, and sustainability converge. Designed to inspire progress, it redefines how you live, work, and grow amidst nature.
           </p>

@@ -93,6 +93,16 @@ body {
   font-family: var(--font-display);
 }
 
+/* One size for every section title across the site; change it here only. */
+@utility section-heading {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  line-height: 1.15;
+  @variant sm {
+    font-size: var(--text-5xl);
+  }
+}
+
 .text-stroke-gold {
   -webkit-text-stroke: 1px var(--color-gold-400);
 }

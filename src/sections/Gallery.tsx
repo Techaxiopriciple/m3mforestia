@@ -239,8 +239,8 @@ export default function Gallery() {
     <section id="gallery" ref={root} className="relative overflow-hidden bg-white py-12 text-forest-950 lg:py-16">
       <div ref={preloadRef} className="relative z-10 w-full">
         <div className="editorial-fade mx-auto mb-12 max-w-3xl space-y-3 px-4 text-center">
-          <h2 className="font-display text-3xl leading-[1.15] text-forest-950 sm:text-5xl">An Address That Breathes With Nature</h2>
-          <p className="mx-auto max-w-xl text-xs font-normal leading-relaxed text-forest-700 sm:text-sm">M3M Forestia West offers thoughtfully designed homes, where space, light, and nature
+          <h5 className="section-heading text-forest-950">An Address That Breathes With Nature</h5>
+          <p className="mt-2 text-xs uppercase tracking-widest text-forest-700 sm:text-sm">M3M Forestia West offers thoughtfully designed homes, where space, light, and nature
             come together to create everyday calm.
           </p>
         </div>

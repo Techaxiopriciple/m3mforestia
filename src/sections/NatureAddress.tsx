@@ -109,7 +109,7 @@ export default function NatureAddress() {
         
         {/* Heading & Subheading */}
         <div className="nature-fade mx-auto max-w-3xl text-center">
-          <h5 className="font-display text-2xl uppercase leading-[1.2] text-forest-950 sm:text-4xl">
+          <h5 className="section-heading text-forest-950">
             An Extravagant Club Lifestyle
           </h5>
           <p className="mt-2 text-xs uppercase tracking-widest text-forest-700 sm:text-sm">

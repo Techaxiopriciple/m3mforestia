@@ -211,7 +211,7 @@ export default function Ecosystem() {
       ref={root}
       className="relative pt-8 sm:pt-10 lg:pt-14 pb-14 sm:pb-20 lg:pb-24 overflow-hidden"
     >
-      <div className="absolute inset-0 -z-10">
+      <div className="absolute inset-0 -z-10 ">
         <img
           src="/images/gic_bg.jpg"
           alt=""
@@ -219,7 +219,7 @@ export default function Ecosystem() {
           decoding="async"
           className="w-full h-full object-cover object-top"
         />
-        <div className="absolute inset-0 bg-emerald-950/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/70 via-emerald-950/40 to-emerald-950/90" />
       </div>
 
       <div className="absolute -right-8 sm:right-[-27%] lg:right-[-85px] top-[10%] sm:top-[20%] lg:top-[12%] w-28 sm:w-36 lg:w-40 pointer-events-none z-10">
@@ -392,17 +392,18 @@ export default function Ecosystem() {
                 ))}
               </div>
             ) : (
+              // RESTORED: items-center used back on the grid container with flexible inner spacing
               <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 sm:gap-y-8 gap-x-6">
                   {paneNodes.map((item, index) => (
                     <div
                       key={item.label}
-                      className={`${index % 2 === 0 ? "eco-stat-down" : "eco-stat-up"} border-l-2 border-gold-400/60 pl-5`}
+                      className={`${index % 2 === 0 ? "eco-stat-down" : "eco-stat-up"} border-l-2 border-gold-400/60 pl-5 flex flex-col justify-start py-1`}
                     >
                       <div className="card-title text-gold-400">{item.heading}</div>
                       
                       {Array.isArray(item.text) ? (
-                        <div className="mt-2 flex flex-col gap-0.5">
+                        <div className="mt-2 flex flex-col gap-1">
                           {item.text.map((place, pIdx) => (
                             <span key={pIdx} className="info-text text-white/80">
                               {place}

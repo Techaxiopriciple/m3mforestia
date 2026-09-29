@@ -82,7 +82,8 @@ export default function FloatingForm() {
         />
       )}
 
-      <div className="fixed bottom-4 left-4 right-4 sm:bottom-auto sm:top-[60%] sm:-translate-y-1/2 sm:left-auto sm:right-8 z-50 pointer-events-none flex justify-center sm:justify-end">
+      {/* Yahan top ko 50% se badha kar 53% kiya gaya hai taaki ekdum thoda sa aur niche ho jaye */}
+      <div className="fixed bottom-6 left-4 right-4 sm:bottom-auto sm:top-[53%] sm:-translate-y-1/2 sm:left-auto sm:right-8 z-50 pointer-events-none flex justify-center sm:justify-end">
         <div className="w-full max-w-sm pointer-events-none flex justify-center sm:justify-end">
           <div className="pointer-events-auto w-full sm:w-auto">
             {isOpen && (

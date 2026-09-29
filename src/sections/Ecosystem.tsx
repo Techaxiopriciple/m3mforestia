@@ -491,7 +491,7 @@ export default function Ecosystem() {
               />
             ) : (
               <img
-                src="/images/forestia-location-map-v4.webp"
+                src="/images/Forestia-map.png"
                 alt="M3M Forestia West location map"
                 className="w-full h-full object-fill block"
               />

@@ -88,25 +88,25 @@ export default function FloatingForm() {
             {isOpen && (
               <div
                 ref={formRef}
-                className="relative max-h-[calc(100dvh-2rem)] overflow-y-auto bg-forest-950/98 backdrop-blur-xl border border-gold-400/40 rounded-xl p-5 shadow-2xl text-cream-50 w-full sm:w-[350px]"
+                className="relative max-h-[calc(100dvh-2rem)] overflow-y-auto bg-forest-950/98 backdrop-blur-xl border border-gold-400/40 rounded-xl p-6 shadow-2xl text-cream-50 w-full sm:w-[370px]"
               >
                 {submitted ? (
-                  <div className="py-4 text-center flex flex-col items-center justify-center gap-2">
-                    <CheckCircle2 className="text-gold-400 shrink-0" size={30} />
+                  <div className="py-4 text-center flex flex-col items-center justify-center gap-2.5">
+                    <CheckCircle2 className="text-gold-400 shrink-0" size={34} />
                     <div>
-                      <p className="text-sm font-semibold text-cream-50">Thank you!</p>
-                      <p className="text-[11px] text-cream-100/70 mt-0.5">We will get in touch shortly.</p>
+                      <p className="text-base font-semibold text-cream-50">Thank you!</p>
+                      <p className="text-xs text-cream-100/70 mt-0.5">We will get in touch shortly.</p>
                     </div>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
                     {/* Header with Close Button properly aligned */}
                     <div className="flex items-start justify-between gap-3 pr-8">
                       <div>
-                        <h3 className="font-display text-base text-cream-50 font-medium leading-snug">
+                        <h3 className="font-display text-lg text-cream-50 font-medium leading-snug">
                           Request a <span className="italic text-gold-400">Callback</span>
                         </h3>
-                        <p className="text-[11px] text-cream-100/70 mt-0.5">
+                        <p className="text-xs text-cream-100/70 mt-1">
                           Share your details and our senior sales executive will reach out.
                         </p>
                       </div>
@@ -119,11 +119,11 @@ export default function FloatingForm() {
                       aria-label="Close Form"
                       className="absolute top-4 right-4 h-8 w-8 rounded-md bg-forest-900/90 border border-gold-400/20 text-cream-100/70 hover:text-white hover:border-gold-400/40 transition-all flex items-center justify-center cursor-pointer z-10 shadow-sm"
                     >
-                      <X size={15} />
+                      <X size={16} />
                     </button>
 
                     <div>
-                      <label className="block text-[10px] font-medium text-cream-100/80 mb-1 uppercase tracking-wider">
+                      <label className="block text-xs font-medium text-cream-100/80 mb-1.5 uppercase tracking-wider">
                         Name *
                       </label>
                       <input
@@ -132,12 +132,12 @@ export default function FloatingForm() {
                         placeholder="Enter your name"
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-3.5 py-2 rounded-lg bg-forest-900/90 border border-gold-400/30 text-xs text-cream-50 placeholder:text-cream-100/40 focus:outline-none focus:border-gold-400"
+                        className="w-full px-3.5 py-2.5 rounded-lg bg-forest-900/90 border border-gold-400/30 text-sm text-cream-50 placeholder:text-cream-100/40 focus:outline-none focus:border-gold-400"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-medium text-cream-100/80 mb-1 uppercase tracking-wider">
+                      <label className="block text-xs font-medium text-cream-100/80 mb-1.5 uppercase tracking-wider">
                         Phone *
                       </label>
                       <input
@@ -146,12 +146,12 @@ export default function FloatingForm() {
                         placeholder="Enter phone number"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-3.5 py-2 rounded-lg bg-forest-900/90 border border-gold-400/30 text-xs text-cream-50 placeholder:text-cream-100/40 focus:outline-none focus:border-gold-400"
+                        className="w-full px-3.5 py-2.5 rounded-lg bg-forest-900/90 border border-gold-400/30 text-sm text-cream-50 placeholder:text-cream-100/40 focus:outline-none focus:border-gold-400"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-medium text-cream-100/80 mb-1 uppercase tracking-wider">
+                      <label className="block text-xs font-medium text-cream-100/80 mb-1.5 uppercase tracking-wider">
                         Email <span className="text-cream-100/40 lowercase font-normal">(optional)</span>
                       </label>
                       <input
@@ -159,14 +159,14 @@ export default function FloatingForm() {
                         placeholder="Enter email address"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-3.5 py-2 rounded-lg bg-forest-900/90 border border-gold-400/30 text-xs text-cream-50 placeholder:text-cream-100/40 focus:outline-none focus:border-gold-400"
+                        className="w-full px-3.5 py-2.5 rounded-lg bg-forest-900/90 border border-gold-400/30 text-sm text-cream-50 placeholder:text-cream-100/40 focus:outline-none focus:border-gold-400"
                       />
                     </div>
 
                     <button
                       type="submit"
                       aria-label="Enquire Now"
-                      className="w-full py-2.5 px-4 rounded-lg bg-gold-500 hover:bg-gold-400 text-forest-950 font-bold text-[11px] uppercase tracking-wider transition-all shadow-md shadow-gold-500/20 flex items-center justify-center gap-1.5 cursor-pointer mt-1"
+                      className="w-full py-3 px-4 rounded-lg bg-gold-500 hover:bg-gold-400 text-forest-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-gold-500/20 flex items-center justify-center gap-1.5 cursor-pointer mt-1.5"
                     >
                       <span>Enquire Now</span>
                     </button>

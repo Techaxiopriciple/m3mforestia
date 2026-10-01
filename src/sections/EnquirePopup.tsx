@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { X, Send } from "lucide-react";
+import { X, Send, Loader2 } from "lucide-react";
 import { markEnquirySubmitted } from "../lib/enquiry";
+
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw4wCBlXXQvpEQZjhGdOYr0462N0sVV0Ec-x2HMHBDGewNwN08IGbz0HZgAPy9eBtoy/exec";
 
 interface EnquirePopupProps {
   isOpen?: boolean;
@@ -10,6 +12,7 @@ interface EnquirePopupProps {
 export default function EnquirePopup({ isOpen: externalIsOpen, onClose: externalOnClose }: EnquirePopupProps) {
   const [internalIsOpen, setInternalIsOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -33,14 +36,30 @@ export default function EnquirePopup({ isOpen: externalIsOpen, onClose: external
     setInternalIsOpen(false);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    markEnquirySubmitted(); // Unlocks content across the application
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      handleClose();
-    }, 2500);
+    if (loading) return;
+    setLoading(true);
+
+    try {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: new URLSearchParams(formData),
+      });
+
+      markEnquirySubmitted(); // Unlocks content across the application
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        handleClose();
+        setFormData({ name: "", phone: "", email: "" });
+      }, 2500);
+    } catch (err) {
+      console.error("Submission error:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -63,6 +82,7 @@ export default function EnquirePopup({ isOpen: externalIsOpen, onClose: external
         {submitted ? (
           <div className="py-12 text-center space-y-4">
             <div className="size-16 bg-forest-50 border border-forest-200 rounded-full flex items-center justify-center mx-auto text-forest-900">
+              {/* Add check icon if needed */}
             </div>
             <h3 className="font-display text-2xl text-forest-950">Thank You!</h3>
             <p className="text-forest-600 text-sm max-w-xs mx-auto">
@@ -87,6 +107,7 @@ export default function EnquirePopup({ isOpen: externalIsOpen, onClose: external
                 <label className="block text-xs font-semibold text-forest-800 mb-1">Full Name</label>
                 <input
                   type="text"
+                  name="name"
                   required
                   placeholder="Enter your full name"
                   value={formData.name}
@@ -100,6 +121,7 @@ export default function EnquirePopup({ isOpen: externalIsOpen, onClose: external
                   <label className="block text-xs font-semibold text-forest-800 mb-1">Phone Number</label>
                   <input
                     type="tel"
+                    name="phone"
                     required
                     placeholder="+91 98765 43210"
                     value={formData.phone}
@@ -111,6 +133,7 @@ export default function EnquirePopup({ isOpen: externalIsOpen, onClose: external
                   <label className="block text-xs font-semibold text-forest-800 mb-1">Email Address</label>
                   <input
                     type="email"
+                    name="email"
                     required
                     placeholder="name@example.com"
                     value={formData.email}
@@ -122,10 +145,20 @@ export default function EnquirePopup({ isOpen: externalIsOpen, onClose: external
 
               <button
                 type="submit"
-                className="w-full mt-2 bg-forest-950 hover:bg-forest-900 text-white font-semibold py-3.5 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-forest-950/20 cursor-pointer"
+                disabled={loading}
+                className="w-full mt-2 bg-forest-950 hover:bg-forest-900 text-white font-semibold py-3.5 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 shadow-lg shadow-forest-950/20 cursor-pointer disabled:opacity-50"
               >
-                <span>Submit Enquiry</span>
-                <Send size={16} />
+                {loading ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" />
+                    <span>Submitting...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Submit Enquiry</span>
+                    <Send size={16} />
+                  </>
+                )}
               </button>
             </form>
           </>

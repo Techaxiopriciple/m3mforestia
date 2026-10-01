@@ -1,19 +1,23 @@
 import { useState, useRef } from "react";
-import { X, Sparkles, Send, CheckCircle2 } from "lucide-react";
-import { gsap } from "../lib/gsap"; // Aapke project ka gsap import
+import { X, Sparkles, Send, CheckCircle2, Loader2 } from "lucide-react";
+import { gsap } from "../lib/gsap";
 import { markEnquirySubmitted } from "../lib/enquiry";
 
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw4wCBlXXQvpEQZjhGdOYr0462N0sVV0Ec-x2HMHBDGewNwN08IGbz0HZgAPy9eBtoy/exec";
+
 export default function EnquiryDrawer() {
+  console.log("EnquiryDrawer rendered");
   const [isOpen, setIsOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({ name: "", phone: "", email: "" });
+  const [error, setError] = useState("");
 
-  const drawerRef = useRef<HTMLDivElement>(null);
-  const backdropRef = useRef<HTMLDivElement>(null);
+  const drawerRef = useRef(null);
+  const backdropRef = useRef(null);
 
   const openDrawer = () => {
     setIsOpen(true);
-    // GSAP animation for smooth slide in
     setTimeout(() => {
       gsap.to(backdropRef.current, { opacity: 1, duration: 0.3, display: "block" });
       gsap.to(drawerRef.current, { x: "0%", duration: 0.4, ease: "power3.out" });
@@ -21,29 +25,48 @@ export default function EnquiryDrawer() {
   };
 
   const closeDrawer = () => {
-    // GSAP animation for smooth slide out
     gsap.to(drawerRef.current, { x: "100%", duration: 0.3, ease: "power3.in" });
-    gsap.to(backdropRef.current, { 
-      opacity: 0, 
-      duration: 0.3, 
-      onComplete: () => setIsOpen(false) 
+    gsap.to(backdropRef.current, {
+      opacity: 0,
+      duration: 0.3,
+      display: "none",
+      onComplete: () => setIsOpen(false)
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    markEnquirySubmitted(); // Unlocks the content across the app
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      closeDrawer(); // Smoothly closes the drawer instead of abrupt state clear
-      setFormData({ name: "", phone: "", email: "" });
-    }, 2500);
+    if (loading) return;
+    setLoading(true);
+    setError("");
+
+    try {
+      // no-cors fetch request data ko seedha Google Sheet tak bhej degi bina 403 error ke
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: new URLSearchParams(formData),
+      });
+
+      markEnquirySubmitted();
+      setSubmitted(true);
+
+      setTimeout(() => {
+        setSubmitted(false);
+        closeDrawer();
+        setFormData({ name: "", phone: "", email: "" });
+      }, 2500);
+
+    } catch (err) {
+      console.error("Submission error:", err);
+      setError("Something went wrong. Please check your connection and try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
-      {/* 1. Trigger Button */}
       <button
         onClick={openDrawer}
         className="px-6 py-3 rounded-full bg-forest-900 text-white font-medium hover:bg-forest-800 transition-all shadow-lg cursor-pointer flex items-center gap-2"
@@ -52,7 +75,6 @@ export default function EnquiryDrawer() {
         <span>Enquire Now</span>
       </button>
 
-      {/* 2. Backdrop Overlay (Controlled by GSAP) */}
       <div
         ref={backdropRef}
         onClick={closeDrawer}
@@ -60,13 +82,11 @@ export default function EnquiryDrawer() {
         className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
       />
 
-      {/* 3. Sliding Drawer Panel (Controlled by GSAP) */}
       <div
         ref={drawerRef}
         style={{ transform: "translateX(100%)" }}
         className="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-white text-forest-950 shadow-2xl z-50 flex flex-col"
       >
-        {/* Drawer Header */}
         <div className="flex items-center justify-between p-6 border-b border-forest-100 bg-forest-50/50">
           <span className="font-display text-lg text-forest-950">Quick Enquiry</span>
           <button
@@ -78,7 +98,6 @@ export default function EnquiryDrawer() {
           </button>
         </div>
 
-        {/* Drawer Body / Form Content */}
         <div className="flex-1 overflow-y-auto p-6 sm:p-8">
           {submitted ? (
             <div className="h-full flex flex-col items-center justify-center text-center space-y-4 py-12">
@@ -106,6 +125,7 @@ export default function EnquiryDrawer() {
                   </label>
                   <input
                     type="text"
+                    name="name"
                     required
                     placeholder="John Doe"
                     value={formData.name}
@@ -120,6 +140,7 @@ export default function EnquiryDrawer() {
                   </label>
                   <input
                     type="tel"
+                    name="phone"
                     required
                     placeholder="+91 98765 43210"
                     value={formData.phone}
@@ -134,6 +155,7 @@ export default function EnquiryDrawer() {
                   </label>
                   <input
                     type="email"
+                    name="email"
                     required
                     placeholder="john@example.com"
                     value={formData.email}
@@ -143,12 +165,28 @@ export default function EnquiryDrawer() {
                 </div>
               </div>
 
+              {error && (
+                <p role="alert" className="text-sm text-red-600">
+                  {error}
+                </p>
+              )}
+
               <button
                 type="submit"
-                className="w-full py-4 rounded-xl bg-forest-900 text-white font-medium hover:bg-forest-800 transition-all shadow-lg cursor-pointer flex items-center justify-center gap-2 group"
+                disabled={loading}
+                className="w-full py-4 rounded-xl bg-forest-900 text-white font-medium hover:bg-forest-800 transition-all shadow-lg cursor-pointer flex items-center justify-center gap-2 group disabled:opacity-50"
               >
-                <span>Submit Enquiry</span>
-                <Send size={16} className="group-hover:translate-x-1 transition-transform" />
+                {loading ? (
+                  <>
+                    <Loader2 size={18} className="animate-spin" />
+                    <span>Submitting...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Submit Enquiry</span>
+                    <Send size={16} className="group-hover:translate-x-1 transition-transform" />
+                  </>
+                )}
               </button>
 
               <p className="text-[11px] text-center text-forest-500">

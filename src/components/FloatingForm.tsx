@@ -1,14 +1,17 @@
 import { useState, useEffect, useRef } from "react";
-import { X, CheckCircle2 } from "lucide-react";
+import { X, CheckCircle2, Loader2 } from "lucide-react";
 import { gsap } from "../lib/gsap";
 import { markEnquirySubmitted } from "../lib/enquiry";
+
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw4wCBlXXQvpEQZjhGdOYr0462N0sVV0Ec-x2HMHBDGewNwN08IGbz0HZgAPy9eBtoy/exec";
 
 export default function FloatingForm() {
   const [isOpen, setIsOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({ name: "", phone: "", email: "" });
 
-  const formRef = useRef<HTMLDivElement>(null);
+  const animBoxRef = useRef<HTMLDivElement>(null);
   const inactivityTimerRef = useRef<number | null>(null);
 
   // Automatically expand the callback form after 4 seconds of site inactivity.
@@ -43,10 +46,10 @@ export default function FloatingForm() {
 
   // GSAP animation when the form opens
   useEffect(() => {
-    if (isOpen && formRef.current) {
+    if (isOpen && animBoxRef.current) {
       const isMobile = window.innerWidth < 640;
       gsap.fromTo(
-        formRef.current,
+        animBoxRef.current,
         { opacity: 0, y: isMobile ? 20 : 0, x: isMobile ? 0 : 20, scale: 0.95 },
         { opacity: 1, y: 0, x: 0, scale: 1, duration: 0.35, ease: "power3.out" }
       );
@@ -62,15 +65,32 @@ export default function FloatingForm() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isOpen]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    markEnquirySubmitted();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setIsOpen(false);
-      setFormData({ name: "", phone: "", email: "" });
-    }, 3500);
+    if (loading) return;
+    setLoading(true);
+
+    try {
+      // no-cors fetch request data ko seedha Google Script tak bhej deti hai
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: new URLSearchParams(formData),
+      });
+
+      markEnquirySubmitted();
+      setSubmitted(true);
+
+      setTimeout(() => {
+        setSubmitted(false);
+        setIsOpen(false);
+        setFormData({ name: "", phone: "", email: "" });
+      }, 3500);
+    } catch (err) {
+      console.error("Submission error:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -82,13 +102,12 @@ export default function FloatingForm() {
         />
       )}
 
-      {/* Yahan top ko 50% se badha kar 53% kiya gaya hai taaki ekdum thoda sa aur niche ho jaye */}
       <div className="fixed bottom-6 left-4 right-4 sm:bottom-auto sm:top-[53%] sm:-translate-y-1/2 sm:left-auto sm:right-8 z-50 pointer-events-none flex justify-center sm:justify-end">
         <div className="w-full max-w-sm pointer-events-none flex justify-center sm:justify-end">
           <div className="pointer-events-auto w-full sm:w-auto">
             {isOpen && (
               <div
-                ref={formRef}
+                ref={animBoxRef}
                 className="relative max-h-[calc(100dvh-2rem)] overflow-y-auto bg-forest-950/98 backdrop-blur-xl border border-gold-400/40 rounded-xl p-6 shadow-2xl text-cream-50 w-full sm:w-[370px]"
               >
                 {submitted ? (
@@ -166,10 +185,18 @@ export default function FloatingForm() {
 
                     <button
                       type="submit"
+                      disabled={loading}
                       aria-label="Enquire Now"
-                      className="w-full py-3 px-4 rounded-lg bg-gold-500 hover:bg-gold-400 text-forest-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-gold-500/20 flex items-center justify-center gap-1.5 cursor-pointer mt-1.5"
+                      className="w-full py-3 px-4 rounded-lg bg-gold-500 hover:bg-gold-400 text-forest-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-gold-500/20 flex items-center justify-center gap-1.5 cursor-pointer mt-1.5 disabled:opacity-50"
                     >
-                      <span>Enquire Now</span>
+                      {loading ? (
+                        <>
+                          <Loader2 size={16} className="animate-spin" />
+                          <span>Submitting...</span>
+                        </>
+                      ) : (
+                        <span>Enquire Now</span>
+                      )}
                     </button>
                   </form>
                 )}

@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { Menu, X, Send, CheckCircle2, Loader2 } from "lucide-react";
-import { markEnquirySubmitted } from "../lib/enquiry";
-
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw4wCBlXXQvpEQZjhGdOYr0462N0sVV0Ec-x2HMHBDGewNwN08IGbz0HZgAPy9eBtoy/exec";
+import { Menu, X } from "lucide-react";
+import EnquiryDrawer from "../sections/EnquiryDrawer";
 
 const LINKS = [
   { href: "#location", label: "Location" },
@@ -17,13 +15,7 @@ export default function Nav() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-
-  // Enquiry Drawer States
   const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({ name: "", phone: "", email: "" });
-  const [error, setError] = useState("");
 
   // Track scroll for navbar hide/show, background style, and Hero section reset
   useEffect(() => {
@@ -80,42 +72,6 @@ export default function Nav() {
       observers.forEach((observer) => observer.disconnect());
     };
   }, []);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (loading) return;
-    setLoading(true);
-    setError("");
-
-    try {
-      // Query parameters banakar GET request bhej rahe hain (CORS issues se bachne ke liye)
-      const params = new URLSearchParams({
-        name: formData.name,
-        phone: formData.phone,
-        email: formData.email,
-      });
-
-      await fetch(`${GOOGLE_SCRIPT_URL}?${params.toString()}`, {
-        method: "GET",
-        mode: "no-cors",
-      });
-
-      markEnquirySubmitted();
-      setSubmitted(true);
-
-      setTimeout(() => {
-        setSubmitted(false);
-        setIsEnquiryOpen(false);
-        setFormData({ name: "", phone: "", email: "" });
-      }, 2500);
-
-    } catch (err) {
-      console.error("Submission error:", err);
-      setError("Something went wrong. Please check your connection and try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleOpenEnquiry = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -212,126 +168,7 @@ export default function Nav() {
         )}
       </header>
 
-      {/* Backdrop Overlay for Slide-over Drawer */}
-      {isEnquiryOpen && (
-        <div
-          onClick={() => setIsEnquiryOpen(false)}
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 transition-opacity"
-        />
-      )}
-
-      {/* Right Side Slide-Over Drawer Panel */}
-      <div
-        className={`fixed top-0 right-0 h-full w-full sm:w-[420px] bg-white text-forest-950 shadow-2xl z-50 transform transition-transform duration-300 ease-in-out flex flex-col ${
-          isEnquiryOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="flex items-center justify-between p-6 border-b border-forest-100 bg-forest-50/50">
-          <span className="font-display text-lg text-forest-950">Quick Enquiry</span>
-          <button
-            onClick={() => setIsEnquiryOpen(false)}
-            className="size-10 rounded-full bg-forest-100 text-forest-800 flex items-center justify-center hover:bg-forest-200 transition-colors cursor-pointer"
-            aria-label="Close drawer"
-          >
-            <X size={20} />
-          </button>
-        </div>
-
-        <div className="flex-1 overflow-y-auto p-6 sm:p-8">
-          {submitted ? (
-            <div className="h-full flex flex-col items-center justify-center text-center space-y-4 py-12">
-              <div className="size-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center animate-bounce">
-                <CheckCircle2 size={32} />
-              </div>
-              <h4 className="font-display text-2xl text-forest-950">Thank You!</h4>
-              <p className="text-sm text-forest-600">
-                Our luxury consultant will get in touch with you shortly with exclusive pricing and floor plans.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <h4 className="font-display text-[1.6rem] md:text-[2rem] leading-tight text-forest-950">Request Callback</h4>
-                <p className="text-sm text-forest-600">
-                  Fill in your details below to schedule a site visit or receive the e-brochure.
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-forest-700 mb-1.5">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="John Doe"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-forest-200 bg-forest-50/30 text-forest-950 focus:outline-none focus:border-forest-600 transition-colors"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-forest-700 mb-1.5">
-                    Phone Number
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="+91 98765 43210"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-forest-200 bg-forest-50/30 text-forest-950 focus:outline-none focus:border-forest-600 transition-colors"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-forest-700 mb-1.5">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="john@example.com"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border border-forest-200 bg-forest-50/30 text-forest-950 focus:outline-none focus:border-forest-600 transition-colors"
-                  />
-                </div>
-              </div>
-
-              {error && (
-                <p role="alert" className="text-sm text-red-600">
-                  {error}
-                </p>
-              )}
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-4 rounded-xl bg-forest-900 text-white font-medium hover:bg-forest-800 transition-all shadow-lg cursor-pointer flex items-center justify-center gap-2 group disabled:opacity-50"
-              >
-                {loading ? (
-                  <>
-                    <Loader2 size={18} className="animate-spin" />
-                    <span>Submitting...</span>
-                  </>
-                ) : (
-                  <>
-                    <span>Submit Enquiry</span>
-                    <Send size={16} className="group-hover:translate-x-1 transition-transform" />
-                  </>
-                )}
-              </button>
-
-              <p className="text-[11px] text-center text-forest-500">
-                By submitting, you agree to our terms & conditions and privacy policy.
-              </p>
-            </form>
-          )}
-        </div>
-      </div>
+      <EnquiryDrawer isOpen={isEnquiryOpen} onClose={() => setIsEnquiryOpen(false)} />
     </>
   );
 }

@@ -209,7 +209,7 @@ export default function Ecosystem() {
     <section
       id="location"
       ref={root}
-      className="relative pt-8 sm:pt-10 lg:pt-14 pb-14 sm:pb-20 lg:pb-24 overflow-hidden"
+      className="relative pt-8 sm:pt-10 lg:pt-14 pb-14 sm:pb-20 lg:pb-24 overflow-hidden font-sans"
     >
       <div className="absolute inset-0 -z-10 ">
         <img
@@ -254,10 +254,10 @@ export default function Ecosystem() {
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="eco-item flex flex-col items-center text-center">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 pt-6 pb-4 w-full mb-8">
-            <p className="eyebrow text-gold-400 text-center sm:text-left">
+            <p className="text-xs sm:text-sm tracking-wider uppercase text-gold-400 text-center sm:text-left font-medium">
               Part of the Largest <br className="hidden sm:block" /> Integrated City of Gurgaon
             </p>
-            <div className="hidden sm:block h-14 w-px bg-gold-400" />
+            <div className="hidden sm:block h-16 w-px bg-gold-400/60" />
             <a href="#top" aria-label="GIC Logo" className="flex items-center justify-start p-2">
               <img
                 src="/images/logo/gic.webp"
@@ -265,11 +265,11 @@ export default function Ecosystem() {
                 width={300}
                 height={223}
                 loading="lazy"
-                className="h-12 sm:h-14 w-auto object-contain"
+                className="h-16 sm:h-20 w-auto object-contain"
               />
             </a>
           </div>
-          <p className="max-w-2xl body-copy text-white/90">
+          <p className="max-w-lg text-xs sm:text-sm text-white/80 leading-relaxed text-center">
             GIC – Gurgaon International City is a thoughtfully planned, future-forward ecosystem where world-class living, leisure, and sustainability converge. Designed to inspire progress, it redefines how you live, work, and grow amidst nature.
           </p>
         </div>
@@ -319,13 +319,13 @@ export default function Ecosystem() {
                     </div>
                   </div>
 
-                  <h3 className="card-heading text-white hover:text-gold-400 transition-colors whitespace-pre-line min-h-[3.5rem] flex items-center justify-center">
+                  <h3 className="card-heading font-display text-white hover:text-gold-400 transition-colors whitespace-pre-line min-h-[3.5rem] flex items-center justify-center">
                     {item.title}
                   </h3>
                 </div>
 
                 <div className="mt-3 flex items-center justify-center">
-                  <p className="body-copy text-white/85 max-w-[230px] mx-auto whitespace-pre-line">
+                  <p className="body-copy text-white/80 max-w-lg text-xs leading-relaxed sm:text-sm mx-auto whitespace-pre-line">
                     {item.body}
                   </p>
                 </div>
@@ -340,10 +340,10 @@ export default function Ecosystem() {
               <button
                 key={tabName}
                 onClick={() => setActiveTab(i)}
-                className={`flex-1 min-w-[140px] px-4 py-3 rounded-xl pill-text transition-all duration-300 text-center cursor-pointer ${
+                className={`flex-1 min-w-[140px] px-4 py-3 rounded-xl pill-text font-bold transition-all duration-300 text-center cursor-pointer ${
                   activeTab === i
-                    ? "bg-gold-500 text-forest-950 font-bold shadow-lg shadow-gold-500/20"
-                    : "text-white hover:text-white hover:bg-emerald-900/50 font-normal"
+                    ? "bg-gold-500 text-forest-950 shadow-lg shadow-gold-500/20"
+                    : "text-white hover:text-white hover:bg-emerald-900/50"
                 }`}
               >
                 {tabName}
@@ -366,7 +366,7 @@ export default function Ecosystem() {
                       <div className="eyebrow text-gold-400 mb-1">
                         {news.source}
                       </div>
-                      <h4 className="info-text font-semibold text-white group-hover:text-gold-300 transition-colors line-clamp-2">
+                      <h4 className="info-text font-display font-semibold text-white group-hover:text-gold-300 transition-colors line-clamp-2">
                         {news.title}
                       </h4>
                       <p className="mt-1 text-[0.8rem] font-medium text-white/70 leading-normal line-clamp-2">
@@ -392,7 +392,6 @@ export default function Ecosystem() {
                 ))}
               </div>
             ) : (
-              // RESTORED: items-center used back on the grid container with flexible inner spacing
               <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 sm:gap-y-8 gap-x-6">
                   {paneNodes.map((item, index) => (
@@ -400,7 +399,7 @@ export default function Ecosystem() {
                       key={item.label}
                       className={`${index % 2 === 0 ? "eco-stat-down" : "eco-stat-up"} border-l-2 border-gold-400/60 pl-5 flex flex-col justify-start py-1`}
                     >
-                      <div className="card-title text-gold-400">{item.heading}</div>
+                      <div className="card-title font-display text-gold-400">{item.heading}</div>
                       
                       {Array.isArray(item.text) ? (
                         <div className="mt-2 flex flex-col gap-1">
@@ -450,7 +449,7 @@ export default function Ecosystem() {
           <div className="flex items-center justify-center mb-8">
             <button
               onClick={() => locationTab !== "av" && setLocationTab("av")}
-              className={`relative flex items-center gap-2 px-8 py-3 cta-text transition-colors after:content-[''] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-5 after:w-px after:bg-cream-100/30 ${
+              className={`relative flex items-center gap-2 px-8 py-3 cta-text font-bold transition-colors after:content-[''] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-5 after:w-px after:bg-cream-100/30 ${
                 locationTab === "av" ? "text-gold-400" : "text-white hover:text-gold-400"
               }`}
             >
@@ -462,7 +461,7 @@ export default function Ecosystem() {
             </button>
             <button
               onClick={() => locationTab !== "map" && setLocationTab("map")}
-              className={`flex items-center gap-2 px-8 py-3 cta-text transition-colors ${
+              className={`flex items-center gap-2 px-8 py-3 cta-text font-bold transition-colors ${
                 locationTab === "map" ? "text-gold-400" : "text-white hover:text-gold-400"
               }`}
             >

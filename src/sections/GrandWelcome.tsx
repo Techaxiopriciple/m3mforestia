@@ -77,24 +77,23 @@ export default function GrandWelcome() {
         />
 
         <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/70 via-black/30 to-transparent pointer-events-none" />
-
-        <button
-          type="button"
-          onClick={() => setVrOpen(true)}
-          aria-haspopup="dialog"
-          className="group absolute right-4 sm:right-8 lg:right-12 bottom-6 sm:bottom-10 z-10 flex items-center gap-2.5 sm:gap-3 rounded-full bg-forest-950/70 backdrop-blur-md border border-gold-400/60 pl-2 pr-4 sm:pr-6 py-2 text-cream-50 shadow-2xl shadow-black/40 hover:bg-forest-950/90 hover:border-gold-300 transition-all duration-300 cursor-pointer"
-        >
-          <span className="relative grid place-items-center size-9 sm:size-11 rounded-full bg-gold-400 text-forest-950 group-hover:bg-gold-300 transition-colors">
-            <span className="absolute inset-0 rounded-full bg-gold-400/60 animate-ping motion-reduce:hidden" />
-            <Rotate3d size={20} className="relative" />
-          </span>
-          <span className="flex flex-col items-start leading-tight">
-            <span className="hidden sm:block text-[10px] tracking-[2.2px] uppercase text-gold-300">
-              360° Tour
+          <button
+            type="button"
+            onClick={() => setVrOpen(true)}
+            aria-haspopup="dialog"
+            className="group absolute right-4 sm:right-8 lg:right-12 bottom-6 sm:bottom-10 z-10 flex items-center gap-6 sm:gap-8 rounded-full bg-forest-950/80 backdrop-blur-md border border-gold-400/60 pl-2.5 pr-20 sm:pr-24 py-1.5 sm:py-2 text-cream-50 shadow-2xl shadow-black/40 hover:bg-forest-950/90 hover:border-gold-300 transition-all duration-300 cursor-pointer"
+          >
+            <span className="relative grid place-items-center size-9 sm:size-10 rounded-full bg-gold-400 text-forest-950 group-hover:bg-gold-300 transition-colors">
+              <span className="absolute inset-0 rounded-full bg-gold-400/60 animate-ping motion-reduce:hidden" />
+              <Rotate3d size={18} className="relative" />
             </span>
-            <span className="pill-text font-semibold sm:text-base">VR View</span>
-          </span>
-        </button>
+            <span className="flex flex-col items-start leading-tight">
+              <span className="hidden sm:block text-[9px] tracking-[3px] uppercase text-gold-300 font-semibold">
+                360° Tour
+              </span>
+              <span className="pill-text font-medium text-xs sm:text-sm">VR View</span>
+            </span>
+          </button>
       </div>
 
       {vrOpen &&

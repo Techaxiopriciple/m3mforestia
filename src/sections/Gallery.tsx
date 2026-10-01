@@ -240,7 +240,8 @@ export default function Gallery() {
       <div ref={preloadRef} className="relative z-10 w-full">
         <div className="editorial-fade mx-auto mb-12 max-w-3xl space-y-3 px-4 text-center">
           <h2 className="section-heading text-forest-950">An Address That Breathes With Nature</h2>
-          <p className="mt-2 body-copy text-forest-950/75">M3M Forestia West offers thoughtfully designed homes, where space, light, and nature
+          <p className="mt-2 body-copy font-normal text-xs sm:text-sm text-forest-950/75">
+            M3M Forestia West offers thoughtfully designed homes, where space, light, and nature
             come together to create everyday calm.
           </p>
         </div>

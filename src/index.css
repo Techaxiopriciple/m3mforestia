@@ -217,3 +217,7 @@ body {
 .text-stroke-gold {
   -webkit-text-stroke: 1px var(--color-gold-400);
 }
+
+.info-text {
+  @apply text-xs sm:text-sm text-white/80 leading-relaxed;
+}

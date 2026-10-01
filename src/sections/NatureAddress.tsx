@@ -112,7 +112,7 @@ export default function NatureAddress() {
           <h2 className="section-heading text-forest-950">
             An Extravagant Club Lifestyle
           </h2>
-          <p className="mt-2 section-label text-forest-700">
+          <p className="mt-2 section-label font-normal text-xs text-forest-700">
             A Thoughtfully Curated Clubhouse, Contemporary In Design and Rich In Experiences
           </p>
         </div>
@@ -184,7 +184,7 @@ export default function NatureAddress() {
                 {feature.items.map((item, idx) => (
                   <span
                     key={idx}
-                    className="flex items-center gap-2 bg-white text-forest-950 feature-text px-4 py-2 rounded-xl border border-forest-200/80 shadow-sm"
+                    className="flex items-center gap-2 bg-white text-forest-950 text-xs sm:text-sm px-4 py-2 rounded-xl border border-forest-200/80 shadow-sm"
                   >
                     <CheckCircle2 size={14} className="text-[#a37e38] shrink-0" />
                     {item}

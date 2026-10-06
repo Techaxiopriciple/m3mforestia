@@ -22,9 +22,9 @@ export default function EnquiryDrawer({ isOpen, onClose }: EnquiryDrawerProps) {
     try {
       // 1. URL se dynamically UTM parameters nikalna (Guidelines ke mutabiq)
       const urlParams = new URLSearchParams(window.location.search);
-      const utmSource = urlParams.get("utm_source") || "Direct";
-      const utmMedium = urlParams.get("utm_medium") || "";
-      const utmCampaign = urlParams.get("utm_campaign") || "";
+      // const utmSource = urlParams.get("utm_source") || "Direct";
+      // const utmMedium = urlParams.get("utm_medium") || "";
+      // const utmCampaign = urlParams.get("utm_campaign") || "";
 
       // 2. SFDC service ko data bhejna
       const response = await submitLeadToSFDC({

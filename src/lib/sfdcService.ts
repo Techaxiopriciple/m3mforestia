@@ -1,6 +1,6 @@
 import { SFDC_CONFIG } from "../config/sfdcConfig";
 
-interface LeadPayload {
+export interface LeadInput {
   name: string;
   phone: string;
   email?: string;
@@ -10,41 +10,68 @@ interface LeadPayload {
   utm_medium?: string;
   utm_campaign?: string;
   agency?: string;
-  company?: string; // Honeypot field (must be empty for real users)[cite: 2]
+  company?: string; // Honeypot: real users never see this field, so it must stay empty
 }
 
-export async function submitLeadToSFDC(data: LeadPayload) {
+export type LeadResult = { success: true } | { success: false; message: string };
+
+const MAX_FIELD_LENGTH = 200;
+
+const clean = (value: string | undefined) => (value ?? "").trim().slice(0, MAX_FIELD_LENGTH);
+
+export async function submitLeadToSFDC(data: LeadInput): Promise<LeadResult> {
   const payload = {
-    name: data.name,
-    phone: data.phone,
-    email: data.email || "",
-    budget: data.budget || "",
-    location: data.location || "",
-    utm_source: data.utm_source || "",
-    utm_medium: data.utm_medium || "",
-    utm_campaign: data.utm_campaign || "",
-    agency: data.agency || SFDC_CONFIG.agencyName,
-    company: data.company || "", // Honeypot
+    name: clean(data.name),
+    phone: clean(data.phone),
+    email: clean(data.email),
+    budget: clean(data.budget),
+    location: clean(data.location),
+    utm_source: clean(data.utm_source),
+    utm_medium: clean(data.utm_medium),
+    utm_campaign: clean(data.utm_campaign),
+    agency: clean(data.agency) || SFDC_CONFIG.agencyName,
+    company: clean(data.company),
   };
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), SFDC_CONFIG.requestTimeoutMs);
+
   try {
-    const response = await fetch(SFDC_CONFIG.apiUrl, {
+    // text/plain keeps this a CORS "simple request" (no preflight), which Apps Script cannot answer.
+    const response = await fetch(SFDC_CONFIG.leadUrl, {
       method: "POST",
-      // Apps script ke sath cors/no-cors handling ke liye standard headers
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8", 
-      },
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(payload),
+      redirect: "follow",
+      signal: controller.signal,
     });
 
-    const result = await response.json();
-    if (result.status === "error") {
-      throw new Error(result.message || "Failed to submit lead");
+    if (!response.ok) {
+      return { success: false, message: `Lead endpoint responded with ${response.status}` };
     }
 
-    return { success: true, data: result };
+    // Apps Script returns HTML (not JSON) on script errors or permission problems.
+    const text = await response.text();
+    let result: { status?: string; message?: string };
+    try {
+      result = JSON.parse(text);
+    } catch {
+      return { success: false, message: "Unexpected response from lead endpoint" };
+    }
+
+    if (result.status === "error") {
+      return { success: false, message: result.message || "Failed to submit lead" };
+    }
+
+    return { success: true };
   } catch (error) {
-    console.error("Lead submission error:", error);
-    return { success: false, error };
+    const message =
+      error instanceof DOMException && error.name === "AbortError"
+        ? "Lead submission timed out"
+        : "Network error while submitting lead";
+    console.error(message, error);
+    return { success: false, message };
+  } finally {
+    clearTimeout(timeout);
   }
 }

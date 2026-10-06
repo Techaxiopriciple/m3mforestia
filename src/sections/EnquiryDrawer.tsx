@@ -1,16 +1,30 @@
 import { useState } from "react";
 import { X, Send, CheckCircle2, Loader2 } from "lucide-react";
-import { submitLeadToSFDC } from "../lib/sfdcService"; //
+import { submitLeadToSFDC } from "../lib/sfdcService";
+import { markEnquirySubmitted } from "../lib/enquiry";
 
 interface EnquiryDrawerProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+const EMPTY_FORM = { name: "", phone: "", email: "", company: "" };
+
+// Reads attribution params from the current URL at submit time.
+function getTrackingParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utm_source: params.get("utm_source") ?? "",
+    utm_medium: params.get("utm_medium") ?? "",
+    utm_campaign: params.get("utm_campaign") ?? "",
+    agency: params.get("agency") ?? "", // service falls back to SFDC_CONFIG.agencyName
+  };
+}
+
 export default function EnquiryDrawer({ isOpen, onClose }: EnquiryDrawerProps) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({ name: "", phone: "", email: "" });
+  const [formData, setFormData] = useState(EMPTY_FORM);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -19,45 +33,31 @@ export default function EnquiryDrawer({ isOpen, onClose }: EnquiryDrawerProps) {
     setLoading(true);
     setError("");
 
-    try {
-      // 1. URL se dynamically UTM parameters nikalna (Guidelines ke mutabiq)
-      const urlParams = new URLSearchParams(window.location.search);
-      // const utmSource = urlParams.get("utm_source") || "Direct";
-      // const utmMedium = urlParams.get("utm_medium") || "";
-      // const utmCampaign = urlParams.get("utm_campaign") || "";
+    const response = await submitLeadToSFDC({
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      budget: "",
+      location: "",
+      ...getTrackingParams(),
+      company: formData.company,
+    });
 
-      // 2. SFDC service ko data bhejna
-      const response = await submitLeadToSFDC({
-        name: formData.name,       
-        phone: formData.phone,     
-        email: formData.email,     
-        budget: "2.5cr",         // Optional: e.g., '2-2.5'[cite: 1]
-        location: "Gurugram",     // Optional: e.g., 'GIC' or 'SPR'[cite: 1]
-        utm_source: urlParams.get("utm_source") || "",     
-        utm_medium: urlParams.get("utm_medium") || "",
-        utm_campaign: urlParams.get("utm_campaign") || "",
-        agency: urlParams.get("agency") || "",
-        company: "", // Honeypot field (must remain empty)[cite: 1]
-      });
+    setLoading(false);
 
-      if (!response.success) {
-        throw new Error("Failed to submit lead");
-      }
-
-      setSubmitted(true);
-
-      setTimeout(() => {
-        setSubmitted(false);
-        onClose();
-        setFormData({ name: "", phone: "", email: "" });
-      }, 2500);
-
-    } catch (err) {
-      console.error("Submission error:", err);
+    if (!response.success) {
       setError("Something went wrong. Please check your connection and try again.");
-    } finally {
-      setLoading(false);
+      return;
     }
+
+    markEnquirySubmitted();
+    setSubmitted(true);
+
+    setTimeout(() => {
+      setSubmitted(false);
+      onClose();
+      setFormData(EMPTY_FORM);
+    }, 2500);
   };
 
   return (
@@ -150,6 +150,21 @@ export default function EnquiryDrawer({ isOpen, onClose }: EnquiryDrawerProps) {
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border border-forest-200 bg-forest-50/30 text-forest-950 focus:outline-none focus:border-forest-600 transition-colors"
                   />
+                </div>
+
+                {/* Honeypot: hidden from people and screen readers; bots that fill it get rejected server-side */}
+                <div aria-hidden="true" className="absolute -left-[9999px] size-px overflow-hidden">
+                  <label>
+                    Company
+                    <input
+                      type="text"
+                      name="company"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={formData.company}
+                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                    />
+                  </label>
                 </div>
               </div>
 

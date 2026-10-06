@@ -1,9 +1,14 @@
-import { useState } from "react";
-import { Send } from "lucide-react";
-import { RESIDENCE_SIZES, whatsappLink } from "../lib/content";
+import { CheckCircle2, Loader2, Send } from "lucide-react";
+import { useLeadForm } from "../lib/useLeadForm";
+import { Honeypot, FieldError } from "./LeadFormParts";
 
-// Shared lead-capture form: compact (Hero, first fold — name + phone only)
-// or full (Enquiry section — adds unit interest). Same WhatsApp submit for both.
+const inputClass = (invalid: boolean) =>
+  `w-full rounded-lg bg-white border px-4 py-3 text-forest-950 text-sm focus:outline-none ${
+    invalid ? "border-red-500 focus:border-red-600" : "border-forest-200 focus:border-forest-600"
+  }`;
+
+// Shared inline lead-capture form: compact (name + phone, first fold) or full (adds email).
+// Submits to Salesforce through the same service as the drawer and popups.
 export default function EnquiryForm({
   compact = false,
   title,
@@ -13,55 +18,88 @@ export default function EnquiryForm({
   title?: string;
   className?: string;
 }) {
-  const [form, setForm] = useState({ name: "", phone: "", unit: RESIDENCE_SIZES[0].size });
+  const lead = useLeadForm();
+  const { errors, submitting, submitted, submitError } = lead;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const message = `Hi, I'm ${form.name || "interested in M3M Forestia West"}. Phone: ${
-      form.phone || "—"
-    }. I'd like details for a ${form.unit} unit.`;
-    window.open(whatsappLink(message), "_blank", "noopener,noreferrer");
-  };
+  if (submitted) {
+    return (
+      <div role="status" className={`flex flex-col items-center justify-center gap-3 text-center py-8 ${className}`}>
+        <CheckCircle2 size={36} className="text-forest-600" />
+        <p className="font-display text-2xl text-forest-950">Thank You!</p>
+        <p className="text-sm text-forest-900/70 max-w-xs">
+          Our team will get in touch with you shortly with floor plans and pricing.
+        </p>
+      </div>
+    );
+  }
 
   return (
-    <form onSubmit={handleSubmit} className={`space-y-4 ${className}`}>
+    <form onSubmit={lead.handleSubmit} noValidate className={`space-y-4 ${className}`}>
       {title && (
         <p className="text-sm font-medium tracking-wide text-forest-950 mb-1">{title}</p>
       )}
-      <input
-        required
-        value={form.name}
-        onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-        className="w-full rounded-lg bg-white border border-forest-200 px-4 py-3 text-forest-950 text-sm focus:outline-none focus:border-forest-600"
-        placeholder="Your name"
-      />
-      <input
-        required
-        type="tel"
-        value={form.phone}
-        onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-        className="w-full rounded-lg bg-white border border-forest-200 px-4 py-3 text-forest-950 text-sm focus:outline-none focus:border-forest-600"
-        placeholder="+91 00000 00000"
-      />
+      <div>
+        <input
+          {...lead.fieldProps("name")}
+          required
+          autoComplete="name"
+          aria-label="Your name"
+          className={inputClass(!!errors.name)}
+          placeholder="Your name"
+        />
+        <FieldError id={lead.errorId("name")} message={errors.name} />
+      </div>
+      <div>
+        <input
+          {...lead.fieldProps("phone")}
+          required
+          type="tel"
+          autoComplete="tel"
+          maxLength={20}
+          aria-label="Phone number"
+          className={inputClass(!!errors.phone)}
+          placeholder="+91 00000 00000"
+        />
+        <FieldError id={lead.errorId("phone")} message={errors.phone} />
+      </div>
       {!compact && (
-        <select
-          value={form.unit}
-          onChange={(e) => setForm((f) => ({ ...f, unit: e.target.value }))}
-          className="w-full rounded-lg bg-white border border-forest-200 px-4 py-3 text-forest-950 text-sm focus:outline-none focus:border-forest-600"
-        >
-          {RESIDENCE_SIZES.map((r) => (
-            <option key={r.size} value={r.size}>
-              {r.label} · {r.size}
-            </option>
-          ))}
-        </select>
+        <div>
+          <input
+            {...lead.fieldProps("email")}
+            type="email"
+            autoComplete="email"
+            aria-label="Email address (optional)"
+            className={inputClass(!!errors.email)}
+            placeholder="Email (optional)"
+          />
+          <FieldError id={lead.errorId("email")} message={errors.email} />
+        </div>
       )}
+
+      <Honeypot value={lead.values.company} onChange={(v) => lead.setField("company", v)} />
+
+      {submitError && (
+        <p role="alert" className="text-sm text-red-600">
+          {submitError}
+        </p>
+      )}
+
       <button
         type="submit"
-        className="w-full flex items-center justify-center gap-2 rounded-full bg-forest-700 text-white px-6 py-3.5 text-sm font-medium hover:bg-forest-800 transition-colors"
+        disabled={submitting}
+        className="w-full flex items-center justify-center gap-2 rounded-full bg-forest-700 text-white px-6 py-3.5 text-sm font-medium hover:bg-forest-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        <Send size={16} />
-        {compact ? "Get a Callback" : "Send via WhatsApp"}
+        {submitting ? (
+          <>
+            <Loader2 size={16} className="animate-spin" />
+            Submitting...
+          </>
+        ) : (
+          <>
+            <Send size={16} />
+            {compact ? "Get a Callback" : "Submit Enquiry"}
+          </>
+        )}
       </button>
       <div className="pt-1 text-center space-y-1">
         <p className="text-[10px] text-forest-900/45 leading-relaxed">
@@ -71,11 +109,6 @@ export default function EnquiryForm({
           RERA REG. NO. RC/REP/HARERA/GGM/991/723/2025/94
         </p>
       </div>
-      {!compact && (
-        <p className="text-[11px] text-forest-900/50 text-center leading-relaxed">
-          No spam — this opens a WhatsApp chat directly with our sales team.
-        </p>
-      )}
     </form>
   );
 }

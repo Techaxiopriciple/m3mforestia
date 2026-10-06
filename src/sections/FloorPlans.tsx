@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, LayoutGrid } from "lucide-react";
 import { gsap } from "../lib/gsap";
 import { FLOOR_PLANS } from "../lib/content";
-import EnquirePopup from "./EnquirePopup"; // Aapke EnquirePopup component ka path apne project ke hisaab se check kar lein
+import EnquirePopup from "./EnquirePopup";
 import { ENQUIRY_EVENT, isEnquirySubmitted } from "../lib/enquiry";
 
 function PlanArt() {
@@ -88,7 +88,7 @@ export default function FloorPlans() {
 
           <div ref={cardRef} className="flex-1 min-w-0">
             <button
-              onClick={() => !unlocked && setEnquireOpen(true)} // Unlock hone tak click par EnquirePopup khulega
+              onClick={() => !unlocked && setEnquireOpen(true)} // Until the visitor has submitted an enquiry, clicking opens the EnquirePopup
               className="relative flex items-center justify-center w-full h-64 sm:h-96 rounded-2xl overflow-hidden border border-forest-200 bg-cream-50 group cursor-pointer"
             >
               {active.image ? (

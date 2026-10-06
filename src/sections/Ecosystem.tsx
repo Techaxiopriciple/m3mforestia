@@ -276,7 +276,7 @@ export default function Ecosystem() {
 
         <div
           ref={videoWrapRef}
-          className="eco-item mt-10 sm:mt-12 max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-emerald-950/80 border border-emerald-500/20 shadow-2xl h-[340px] sm:h-[460px] lg:h-[600px]"
+          className="eco-item mt-10 sm:mt-12 max-w-[59rem] mx-auto rounded-3xl overflow-hidden bg-emerald-950/80 border border-emerald-500/20 shadow-2xl aspect-video lg:aspect-auto lg:h-[600px]"
         >
           {videoInView && (
             <video
@@ -444,7 +444,7 @@ export default function Ecosystem() {
                   {paneNodes.map((n) => (
                     <div
                       key={n.label}
-                      className="eco-node absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-emerald-500/30 bg-emerald-950/90 px-3 py-1.5 text-[11px] text-white font-bold whitespace-nowrap shadow-md"
+                      className="eco-node absolute -translate-x-1/2 -translate-y-1/2 rounded-full border border-emerald-500/30 bg-emerald-950/90 px-3 py-1.5 text-[11px] text-white font-bold shadow-md w-max max-w-[7.5rem] text-center leading-tight sm:max-w-none sm:whitespace-nowrap"
                       style={nodePos(n.angle, n.radius)}
                     >
                       {n.label}
@@ -460,7 +460,7 @@ export default function Ecosystem() {
           <div className="flex items-center justify-center mb-8">
             <button
               onClick={() => locationTab !== "av" && setLocationTab("av")}
-              className={`relative flex items-center gap-2 px-8 py-3 cta-text font-bold transition-colors after:content-[''] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-5 after:w-px after:bg-cream-100/30 ${
+              className={`relative flex items-center gap-2 px-4 sm:px-8 py-3 cta-text font-bold transition-colors after:content-[''] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-5 after:w-px after:bg-cream-100/30 ${
                 locationTab === "av" ? "text-gold-400" : "text-white hover:text-gold-400"
               }`}
             >
@@ -472,7 +472,7 @@ export default function Ecosystem() {
             </button>
             <button
               onClick={() => locationTab !== "map" && setLocationTab("map")}
-              className={`flex items-center gap-2 px-8 py-3 cta-text font-bold transition-colors ${
+              className={`flex items-center gap-2 px-4 sm:px-8 py-3 cta-text font-bold transition-colors ${
                 locationTab === "map" ? "text-gold-400" : "text-white hover:text-gold-400"
               }`}
             >
@@ -487,7 +487,7 @@ export default function Ecosystem() {
           <div
             ref={tabWrapRef}
             key={locationTab}
-            className="eco-tabpane relative max-w-[59rem] mx-auto overflow-hidden rounded-3xl bg-emerald-950/95 border border-emerald-500/20 shadow-2xl h-[340px] sm:h-[460px] lg:h-[600px] flex items-center justify-center p-0"
+            className="eco-tabpane relative max-w-[59rem] mx-auto overflow-hidden rounded-3xl bg-emerald-950/95 border border-emerald-500/20 shadow-2xl aspect-video lg:aspect-auto lg:h-[600px] flex items-center justify-center p-0"
           >
             {locationTab === "av" ? (
               <video

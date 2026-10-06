@@ -19,6 +19,17 @@ const MAX_FIELD_LENGTH = 200;
 
 const clean = (value: string | undefined) => (value ?? "").trim().slice(0, MAX_FIELD_LENGTH);
 
+// Reads attribution params from the current URL at submit time.
+export function getTrackingParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    utm_source: params.get("utm_source") ?? "",
+    utm_medium: params.get("utm_medium") ?? "",
+    utm_campaign: params.get("utm_campaign") ?? "",
+    agency: params.get("agency") ?? "", // submitLeadToSFDC falls back to SFDC_CONFIG.agencyName
+  };
+}
+
 export async function submitLeadToSFDC(data: LeadInput): Promise<LeadResult> {
   const payload = {
     name: clean(data.name),

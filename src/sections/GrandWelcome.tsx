@@ -60,7 +60,7 @@ export default function GrandWelcome() {
     <section
       id="arrival"
       ref={root}
-      className="relative w-screen min-h-screen overflow-hidden flex items-center justify-center bg-black"
+      className="relative w-full lg:min-h-screen overflow-hidden flex items-center justify-center bg-black"
     >
       <div className="grand-fade relative w-full h-full flex items-center justify-center">
         <img

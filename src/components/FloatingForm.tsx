@@ -1,15 +1,23 @@
 import { useState, useEffect, useRef } from "react";
 import { X, CheckCircle2, Loader2 } from "lucide-react";
 import { gsap } from "../lib/gsap";
-import { markEnquirySubmitted } from "../lib/enquiry";
+import { useLeadForm } from "../lib/useLeadForm";
+import { Honeypot, FieldError } from "./LeadFormParts";
 
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw4wCBlXXQvpEQZjhGdOYr0462N0sVV0Ec-x2HMHBDGewNwN08IGbz0HZgAPy9eBtoy/exec";
+const inputClass = (invalid: boolean) =>
+  `w-full px-3.5 py-2.5 rounded-lg bg-forest-900/90 border text-sm text-cream-50 placeholder:text-cream-100/40 focus:outline-none ${
+    invalid ? "border-red-400 focus:border-red-300" : "border-gold-400/30 focus:border-gold-400"
+  }`;
 
 export default function FloatingForm() {
   const [isOpen, setIsOpen] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({ name: "", phone: "", email: "" });
+  const lead = useLeadForm((reset) => {
+    setTimeout(() => {
+      setIsOpen(false);
+      reset();
+    }, 3500);
+  });
+  const { errors, submitting, submitted, submitError } = lead;
 
   const animBoxRef = useRef<HTMLDivElement>(null);
   const inactivityTimerRef = useRef<number | null>(null);
@@ -65,34 +73,6 @@ export default function FloatingForm() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isOpen]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (loading) return;
-    setLoading(true);
-
-    try {
-      // no-cors fetch request data ko seedha Google Script tak bhej deti hai
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        body: new URLSearchParams(formData),
-      });
-
-      markEnquirySubmitted();
-      setSubmitted(true);
-
-      setTimeout(() => {
-        setSubmitted(false);
-        setIsOpen(false);
-        setFormData({ name: "", phone: "", email: "" });
-      }, 3500);
-    } catch (err) {
-      console.error("Submission error:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <>
       {isOpen && (
@@ -111,7 +91,7 @@ export default function FloatingForm() {
                 className="relative max-h-[calc(100dvh-2rem)] overflow-y-auto bg-forest-950/98 backdrop-blur-xl border border-gold-400/40 rounded-xl p-6 shadow-2xl text-cream-50 w-full sm:w-[370px]"
               >
                 {submitted ? (
-                  <div className="py-4 text-center flex flex-col items-center justify-center gap-2.5">
+                  <div role="status" className="py-4 text-center flex flex-col items-center justify-center gap-2.5">
                     <CheckCircle2 className="text-gold-400 shrink-0" size={34} />
                     <div>
                       <p className="text-base font-semibold text-cream-50">Thank you!</p>
@@ -119,7 +99,7 @@ export default function FloatingForm() {
                     </div>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
+                  <form onSubmit={lead.handleSubmit} noValidate className="flex flex-col gap-3.5">
                     {/* Header with Close Button properly aligned */}
                     <div className="flex items-start justify-between gap-3 pr-8">
                       <div>
@@ -143,53 +123,73 @@ export default function FloatingForm() {
                     </button>
 
                     <div>
-                      <label className="block text-xs font-medium text-cream-100/80 mb-1.5 uppercase tracking-wider">
+                      <label
+                        htmlFor={lead.fieldId("name")}
+                        className="block text-xs font-medium text-cream-100/80 mb-1.5 uppercase tracking-wider"
+                      >
                         Name *
                       </label>
                       <input
+                        {...lead.fieldProps("name")}
                         type="text"
                         required
+                        autoComplete="name"
                         placeholder="Enter your name"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-lg bg-forest-900/90 border border-gold-400/30 text-sm text-cream-50 placeholder:text-cream-100/40 focus:outline-none focus:border-gold-400"
+                        className={inputClass(!!errors.name)}
                       />
+                      <FieldError id={lead.errorId("name")} message={errors.name} className="text-red-400" />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-cream-100/80 mb-1.5 uppercase tracking-wider">
+                      <label
+                        htmlFor={lead.fieldId("phone")}
+                        className="block text-xs font-medium text-cream-100/80 mb-1.5 uppercase tracking-wider"
+                      >
                         Phone *
                       </label>
                       <input
+                        {...lead.fieldProps("phone")}
                         type="tel"
                         required
-                        placeholder="Enter phone number"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-lg bg-forest-900/90 border border-gold-400/30 text-sm text-cream-50 placeholder:text-cream-100/40 focus:outline-none focus:border-gold-400"
+                        autoComplete="tel"
+                        maxLength={20}
+                        placeholder="10-digit mobile number"
+                        className={inputClass(!!errors.phone)}
                       />
+                      <FieldError id={lead.errorId("phone")} message={errors.phone} className="text-red-400" />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-cream-100/80 mb-1.5 uppercase tracking-wider">
+                      <label
+                        htmlFor={lead.fieldId("email")}
+                        className="block text-xs font-medium text-cream-100/80 mb-1.5 uppercase tracking-wider"
+                      >
                         Email <span className="text-cream-100/40 lowercase font-normal">(optional)</span>
                       </label>
                       <input
+                        {...lead.fieldProps("email")}
                         type="email"
+                        autoComplete="email"
                         placeholder="Enter email address"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-3.5 py-2.5 rounded-lg bg-forest-900/90 border border-gold-400/30 text-sm text-cream-50 placeholder:text-cream-100/40 focus:outline-none focus:border-gold-400"
+                        className={inputClass(!!errors.email)}
                       />
+                      <FieldError id={lead.errorId("email")} message={errors.email} className="text-red-400" />
                     </div>
+
+                    <Honeypot value={lead.values.company} onChange={(v) => lead.setField("company", v)} />
+
+                    {submitError && (
+                      <p role="alert" className="text-xs text-red-400">
+                        {submitError}
+                      </p>
+                    )}
 
                     <button
                       type="submit"
-                      disabled={loading}
-                      aria-label="Enquire Now"
-                      className="w-full py-3 px-4 rounded-lg bg-gold-500 hover:bg-gold-400 text-forest-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-gold-500/20 flex items-center justify-center gap-1.5 cursor-pointer mt-1.5 disabled:opacity-50"
+                      disabled={submitting}
+                      className="w-full py-3 px-4 rounded-lg bg-gold-500 hover:bg-gold-400 text-forest-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-gold-500/20 flex items-center justify-center gap-1.5 cursor-pointer mt-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {loading ? (
+                      {submitting ? (
                         <>
                           <Loader2 size={16} className="animate-spin" />
                           <span>Submitting...</span>

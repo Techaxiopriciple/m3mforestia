@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { X, Send, CheckCircle2, Loader2 } from "lucide-react";
-import { submitEnquiry } from "../lib/enquiry";
+import { submitLeadToSFDC } from "../lib/sfdcService"; //
 
 interface EnquiryDrawerProps {
   isOpen: boolean;
@@ -20,7 +20,30 @@ export default function EnquiryDrawer({ isOpen, onClose }: EnquiryDrawerProps) {
     setError("");
 
     try {
-      await submitEnquiry(formData);
+      // 1. URL se dynamically UTM parameters nikalna (Guidelines ke mutabiq)
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmSource = urlParams.get("utm_source") || "Direct";
+      const utmMedium = urlParams.get("utm_medium") || "";
+      const utmCampaign = urlParams.get("utm_campaign") || "";
+
+      // 2. SFDC service ko data bhejna
+      const response = await submitLeadToSFDC({
+        name: formData.name,       
+        phone: formData.phone,     
+        email: formData.email,     
+        budget: "2.5cr",         // Optional: e.g., '2-2.5'[cite: 1]
+        location: "Gurugram",     // Optional: e.g., 'GIC' or 'SPR'[cite: 1]
+        utm_source: urlParams.get("utm_source") || "",     
+        utm_medium: urlParams.get("utm_medium") || "",
+        utm_campaign: urlParams.get("utm_campaign") || "",
+        agency: urlParams.get("agency") || "",
+        company: "", // Honeypot field (must remain empty)[cite: 1]
+      });
+
+      if (!response.success) {
+        throw new Error("Failed to submit lead");
+      }
+
       setSubmitted(true);
 
       setTimeout(() => {
@@ -87,7 +110,7 @@ export default function EnquiryDrawer({ isOpen, onClose }: EnquiryDrawerProps) {
               <div className="space-y-4">
                 <div>
                   <label className="block text-xs font-semibold uppercase tracking-wider text-forest-700 mb-1.5">
-                    Full Name
+                    Full Name *
                   </label>
                   <input
                     type="text"
@@ -102,7 +125,7 @@ export default function EnquiryDrawer({ isOpen, onClose }: EnquiryDrawerProps) {
 
                 <div>
                   <label className="block text-xs font-semibold uppercase tracking-wider text-forest-700 mb-1.5">
-                    Phone Number
+                    Phone Number *
                   </label>
                   <input
                     type="tel"
@@ -117,12 +140,11 @@ export default function EnquiryDrawer({ isOpen, onClose }: EnquiryDrawerProps) {
 
                 <div>
                   <label className="block text-xs font-semibold uppercase tracking-wider text-forest-700 mb-1.5">
-                    Email Address
+                    Email Address <span className="text-xs font-normal text-forest-500">(Recommended)</span>
                   </label>
                   <input
                     type="email"
                     name="email"
-                    required
                     placeholder="john@example.com"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}

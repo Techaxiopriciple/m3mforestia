@@ -124,7 +124,6 @@ export default function NatureAddress() {
             loading="lazy"
             className="block aspect-[4/3] w-full object-cover sm:aspect-[16/9]"
           />
-          <span className="absolute bottom-3 right-3 text-[9px] tracking-wider text-white/80 bg-forest-950/40 px-2 py-1 rounded">Artistic impression</span>
         </div>
 
         <div className="nature-fade mt-10 flex items-center gap-4 sm:mt-12 sm:gap-6">

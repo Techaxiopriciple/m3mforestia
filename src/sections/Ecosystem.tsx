@@ -399,19 +399,30 @@ export default function Ecosystem() {
                       key={item.label}
                       className={`${index % 2 === 0 ? "eco-stat-down" : "eco-stat-up"} border-l-2 border-gold-400/60 pl-5 flex flex-col justify-start py-1`}
                     >
-                      <div className="card-title font-display text-gold-400">{item.heading}</div>
+                      {/* Heading with independent smaller asterisk size */}
+                      <div className="font-display text-gold-400 text-sm sm:text-base font-semibold">
+                        {item.heading.split(/(\*)/).map((part, i) =>
+                          part === "*" ? (
+                            <span key={i} className="text-[20px] align-super mx-0.5 font-normal">
+                              *
+                            </span>
+                          ) : (
+                            <span className="card-title" key={i}>{part}</span>
+                          )
+                        )}
+                      </div>
                       
                       {Array.isArray(item.text) ? (
                         <div className="mt-2 flex flex-col gap-1">
                           {item.text.map((place, pIdx) => (
-                            <span key={pIdx} className="info-text text-white/80">
+                            <span key={pIdx} className="info-text text-white/80 text-sm">
                               {place}
                             </span>
                           ))}
                         </div>
                       ) : (
                         item.text && (
-                          <p className="mt-2 info-text text-white/80">{item.text}</p>
+                          <p className="mt-2 info-text text-white/80 text-sm">{item.text}</p>
                         )
                       )} 
                     </div>

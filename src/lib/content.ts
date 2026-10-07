@@ -91,7 +91,7 @@ export const CONNECTIVITY = [
     time: "20* min",
   },
   {
-    title: "Gurugram-Rewari Expressway",
+    title: "Gurgaon-Rewari Expressway",
     time: "8* min",
   },
   

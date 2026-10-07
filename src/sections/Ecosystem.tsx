@@ -401,16 +401,30 @@ export default function Ecosystem() {
                     >
                       {/* Heading with independent smaller asterisk size */}
                       <div className="font-display text-gold-400 text-sm sm:text-base font-semibold">
-                        {item.heading.split(/(\*)/).map((part, i) =>
+                       {item.heading.split(/(\*)/).map((part, i) =>
                           part === "*" ? (
-                            <span key={i} className="text-[20px] align-super mx-0.5 font-normal">
+                            <sup key={i} className="text-[10px] font-normal leading-none mx-0.5">
                               *
-                            </span>
+                            </sup>
                           ) : (
-                            <span className="card-title" key={i}>{part}</span>
+                            <span className="card-title uppercase" key={i}>
+                              {part.split(/(\d+)/).map((sub, j) =>
+                                /^\d+$/.test(sub) ? (
+                                  // Number (e.g. 20, 8, 01) - Normal / Bada Font Size
+                                  <span key={j} className="text-base sm:text-lg font-bold">
+                                    {sub}
+                                  </span>
+                                ) : (
+                                  // Words (e.g. MIN, MINS, etc.) - Chhota Font Size
+                                  <span key={j} className="text-xs sm:text-sm font-medium opacity-90">
+                                    {sub}
+                                  </span>
+                                )
+                              )}
+                            </span>
                           )
                         )}
-                      </div>
+                        </div>
                       
                       {Array.isArray(item.text) ? (
                         <div className="mt-2 flex flex-col gap-1">

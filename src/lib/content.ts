@@ -87,25 +87,24 @@ export const CONNECTIVITY = [
     time: "20* min",
   },
   {
-    title: "KMP Expressway",
-    time: "01* min",
-  },
-  
-  {
     title: "Dwarka Expressway",
     time: "20* min",
+  },
+  {
+    title: "Gurugram-Rewari Expressway",
+    time: "8* min",
   },
   
 ];
 
 export const CENTRAL_CONNECTIVITY = [
   {
+    title: "KMP Expressway",
+    time: "01* min",
+  },
+  {
     title: "NH-8",
     time: "24* min",
-  },
-   {
-    title: "Gurugram-Rewari Expressway",
-    time: "8* min",
   },
   
 ];

@@ -132,7 +132,7 @@ export default function NatureAddress() {
           <span className="h-px flex-1 bg-gold-400/60" />
         </div>
 
-        <div className="nature-fade mt-8">
+        <div className="nature-fade mt-8" id="amenities">
           {/* Rounded Tabs with Leaf Icons */}
           <div
             role="tablist"

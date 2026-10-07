@@ -1,6 +1,11 @@
+"use client";
+
+import { useState } from "react";
 import { CONTACT, DISCLAIMER, RERA } from "../lib/content";
 
 export default function Footer() {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <footer className="bg-white border-t-2 border-forest-700 pt-16 pb-8">
       <div className="max-w-6xl mx-auto px-6">
@@ -38,7 +43,25 @@ export default function Footer() {
             </p>
           ))}
           <p className="text-[11px] text-forest-900/45">www.haryanarera.gov.in</p>
-          <p className="text-[10px] text-forest-900/35 leading-relaxed pt-4">{DISCLAIMER}</p>
+          
+          {/* Inline Expandable Disclaimer Content */}
+          <div className="pt-4">
+            <div
+              className={`text-[10px] text-forest-900/35 leading-relaxed transition-all duration-300 ease-in-out whitespace-pre-line ${
+                isExpanded ? "line-clamp-none" : "line-clamp-2"
+              }`}
+            >
+              {DISCLAIMER}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="mt-1 text-[11px] font-medium text-forest-700 hover:text-forest-900 underline cursor-pointer transition-colors"
+            >
+              {isExpanded ? "Read Less" : "Read More"}
+            </button>
+          </div>
         </div>
 
         <p className="mt-8 text-center text-[11px] text-forest-900/30">

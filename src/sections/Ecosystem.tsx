@@ -399,32 +399,18 @@ export default function Ecosystem() {
                       key={item.label}
                       className={`${index % 2 === 0 ? "eco-stat-down" : "eco-stat-up"} border-l-2 border-gold-400/60 pl-5 flex flex-col justify-start py-1`}
                     >
-                      {/* Heading with independent smaller asterisk size */}
-                      <div className="font-display text-gold-400 text-sm sm:text-base font-semibold">
-                       {item.heading.split(/(\*)/).map((part, i) =>
+                      {/* Heading: numbers, units and labels share one font; only the asterisk is a smaller superscript */}
+                      <div className="card-title font-sans text-gold-400 text-xs sm:text-sm font-semibold uppercase">
+                        {item.heading.split(/(\*)/).map((part, i) =>
                           part === "*" ? (
                             <sup key={i} className="text-[10px] font-normal leading-none mx-0.5">
                               *
                             </sup>
                           ) : (
-                            <span className="card-title uppercase" key={i}>
-                              {part.split(/(\d+)/).map((sub, j) =>
-                                /^\d+$/.test(sub) ? (
-                                  // Number (e.g. 20, 8, 01) - Normal / Bada Font Size
-                                  <span key={j} className="text-base sm:text-lg font-bold">
-                                    {sub}
-                                  </span>
-                                ) : (
-                                  // Words (e.g. MIN, MINS, etc.) - Chhota Font Size
-                                  <span key={j} className="text-xs sm:text-sm font-medium opacity-90">
-                                    {sub}
-                                  </span>
-                                )
-                              )}
-                            </span>
+                            <span key={i}>{part}</span>
                           )
                         )}
-                        </div>
+                      </div>
                       
                       {Array.isArray(item.text) ? (
                         <div className="mt-2 flex flex-col gap-1">

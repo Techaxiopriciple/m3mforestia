@@ -9,6 +9,7 @@ export interface LeadInput {
   utm_source?: string;
   utm_medium?: string;
   utm_campaign?: string;
+  utm_content?: string;
   agency?: string;
   company?: string; // Honeypot: real users never see this field, so it must stay empty
 }
@@ -16,6 +17,10 @@ export interface LeadInput {
 export type LeadResult = { success: true } | { success: false; message: string };
 
 const MAX_FIELD_LENGTH = 200;
+
+// Every phone field is validated as a bare 10-digit Indian mobile number (see
+// leadValidation.ts) with no country selector in the UI, so the code is always +91.
+const COUNTRY_CODE = "+91";
 
 const clean = (value: string | undefined) => (value ?? "").trim().slice(0, MAX_FIELD_LENGTH);
 
@@ -26,7 +31,8 @@ export function getTrackingParams() {
     utm_source: params.get("utm_source") ?? "",
     utm_medium: params.get("utm_medium") ?? "",
     utm_campaign: params.get("utm_campaign") ?? "",
-    agency: params.get("agency") ?? "", // submitLeadToSFDC falls back to SFDC_CONFIG.agencyName
+    utm_content: params.get("utm_content") ?? "",
+    agency: params.get("agency") ?? "",
   };
 }
 
@@ -35,12 +41,17 @@ export async function submitLeadToSFDC(data: LeadInput): Promise<LeadResult> {
     name: clean(data.name),
     phone: clean(data.phone),
     email: clean(data.email),
-    budget: clean(data.budget),
+    salutation: "",
+    country_code: COUNTRY_CODE,
     location: clean(data.location),
+    budget: clean(data.budget),
     utm_source: clean(data.utm_source),
     utm_medium: clean(data.utm_medium),
     utm_campaign: clean(data.utm_campaign),
-    agency: clean(data.agency) || SFDC_CONFIG.agencyName,
+    utm_content: clean(data.utm_content),
+    google_id: "",
+    agency: clean(data.agency),
+    requirement: "",
     company: clean(data.company),
   };
 

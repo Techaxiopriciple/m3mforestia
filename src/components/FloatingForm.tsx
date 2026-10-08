@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { X, CheckCircle2, Loader2 } from "lucide-react";
 import { gsap } from "../lib/gsap";
 import { useLeadForm } from "../lib/useLeadForm";
-import { Honeypot, FieldError } from "./LeadFormParts";
+import { Honeypot, FieldError, BudgetSelect } from "./LeadFormParts";
 
 const inputClass = (invalid: boolean) =>
   `w-full px-3.5 py-2.5 rounded-lg bg-forest-900/90 border text-sm text-cream-50 placeholder:text-cream-100/40 focus:outline-none ${
@@ -82,13 +82,14 @@ export default function FloatingForm() {
         />
       )}
 
-      <div className="fixed bottom-6 left-4 right-4 sm:bottom-auto sm:top-[53%] sm:-translate-y-1/2 sm:left-auto sm:right-8 z-50 pointer-events-none flex justify-center sm:justify-end">
+      {/* Anchored above FloatingContact's WhatsApp/Call stack (bottom-6 + two size-13 buttons + gap ≈ 9rem) so it never covers them */}
+      <div className="fixed bottom-40 left-4 right-4 sm:left-auto sm:right-5 z-50 pointer-events-none flex justify-center sm:justify-end">
         <div className="w-full max-w-sm pointer-events-none flex justify-center sm:justify-end">
           <div className="pointer-events-auto w-full sm:w-auto">
             {isOpen && (
               <div
                 ref={animBoxRef}
-                className="relative max-h-[calc(100dvh-2rem)] overflow-y-auto bg-forest-950/98 backdrop-blur-xl border border-gold-400/40 rounded-xl p-6 shadow-2xl text-cream-50 w-full sm:w-[370px]"
+                className="relative max-h-[calc(100dvh-11rem)] overflow-y-auto overscroll-contain bg-forest-950/98 backdrop-blur-xl border border-gold-400/40 rounded-xl p-5 sm:p-6 shadow-2xl text-cream-50 w-full sm:w-[370px]"
               >
                 {submitted ? (
                   <div role="status" className="py-4 text-center flex flex-col items-center justify-center gap-2.5">
@@ -99,7 +100,7 @@ export default function FloatingForm() {
                     </div>
                   </div>
                 ) : (
-                  <form onSubmit={lead.handleSubmit} noValidate className="flex flex-col gap-3.5">
+                  <form onSubmit={lead.handleSubmit} noValidate className="flex flex-col gap-3 sm:gap-3.5">
                     {/* Header with Close Button properly aligned */}
                     <div className="flex items-start justify-between gap-3 pr-8">
                       <div>
@@ -174,6 +175,20 @@ export default function FloatingForm() {
                         className={inputClass(!!errors.email)}
                       />
                       <FieldError id={lead.errorId("email")} message={errors.email} className="text-red-400" />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor={lead.fieldId("budget")}
+                        className="block text-xs font-medium text-cream-100/80 mb-1.5 uppercase tracking-wider"
+                      >
+                        What is your preferred budget range?
+                      </label>
+                      <BudgetSelect
+                        {...lead.fieldProps("budget")}
+                        className={inputClass(false)}
+                        iconClassName="text-gold-400"
+                      />
                     </div>
 
                     <Honeypot value={lead.values.company} onChange={(v) => lead.setField("company", v)} />

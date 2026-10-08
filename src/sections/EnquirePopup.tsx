@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { X, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { useLeadForm } from "../lib/useLeadForm";
-import { Honeypot, FieldError } from "../components/LeadFormParts";
+import { Honeypot, FieldError, BudgetSelect } from "../components/LeadFormParts";
 
 interface EnquirePopupProps {
   isOpen?: boolean;
@@ -129,6 +129,17 @@ export default function EnquirePopup({ isOpen: externalIsOpen, onClose: external
                   />
                   <FieldError id={lead.errorId("email")} message={errors.email} />
                 </div>
+              </div>
+
+              <div>
+                <label htmlFor={lead.fieldId("budget")} className="block text-xs font-semibold text-forest-800 mb-1">
+                  What is your preferred budget range?
+                </label>
+                <BudgetSelect
+                  {...lead.fieldProps("budget")}
+                  className={inputClass(false)}
+                  iconClassName="text-forest-600"
+                />
               </div>
 
               <Honeypot value={lead.values.company} onChange={(v) => lead.setField("company", v)} />

@@ -1,6 +1,6 @@
 import { CheckCircle2, Loader2, Send } from "lucide-react";
 import { useLeadForm } from "../lib/useLeadForm";
-import { Honeypot, FieldError } from "./LeadFormParts";
+import { Honeypot, FieldError, BudgetSelect } from "./LeadFormParts";
 
 const inputClass = (invalid: boolean) =>
   `w-full rounded-lg bg-white border px-4 py-3 text-forest-950 text-sm focus:outline-none ${
@@ -75,6 +75,13 @@ export default function EnquiryForm({
           <FieldError id={lead.errorId("email")} message={errors.email} />
         </div>
       )}
+      <BudgetSelect
+        {...lead.fieldProps("budget")}
+        aria-label="What is your preferred budget range?"
+        placeholder="Preferred budget range"
+        className={inputClass(false)}
+        iconClassName="text-forest-600"
+      />
 
       <Honeypot value={lead.values.company} onChange={(v) => lead.setField("company", v)} />
 

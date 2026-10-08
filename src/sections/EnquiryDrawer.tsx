@@ -1,5 +1,6 @@
-import { X, Send, CheckCircle2, Loader2 } from "lucide-react";
+import { X, Send, CheckCircle2, Loader2, ChevronDown } from "lucide-react";
 import { useLeadForm } from "../lib/useLeadForm";
+import { BUDGET_OPTIONS } from "../lib/leadValidation";
 import { Honeypot, FieldError } from "../components/LeadFormParts";
 
 interface EnquiryDrawerProps {
@@ -122,6 +123,33 @@ export default function EnquiryDrawer({ isOpen, onClose }: EnquiryDrawerProps) {
                     className={inputClass(!!errors.email)}
                   />
                   <FieldError id={lead.errorId("email")} message={errors.email} />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor={lead.fieldId("budget")}
+                    className="block text-xs font-semibold uppercase tracking-wider text-forest-700 mb-1.5"
+                  >
+                    What is your preferred budget range?
+                  </label>
+                  <div className="relative">
+                    <select
+                      {...lead.fieldProps("budget")}
+                      className={`${inputClass(false)} appearance-none pr-10 cursor-pointer`}
+                    >
+                      <option value="">Select a budget range</option>
+                      {BUDGET_OPTIONS.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown
+                      size={18}
+                      aria-hidden="true"
+                      className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-forest-600"
+                    />
+                  </div>
                 </div>
 
                 <Honeypot value={lead.values.company} onChange={(v) => lead.setField("company", v)} />

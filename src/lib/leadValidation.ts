@@ -12,6 +12,9 @@ export interface LeadFields {
 
 export type LeadErrors = Partial<Record<"name" | "phone" | "email", string>>;
 
+// Sent to the lead endpoint verbatim, so changing a label changes what lands in the CRM.
+export const BUDGET_OPTIONS = ["₹2.5 Cr – ₹3 Cr", "₹3 Cr – ₹4 Cr", "Above ₹4 Cr"] as const;
+
 export const EMPTY_LEAD: LeadFields = {
   name: "",
   phone: "",

@@ -9,13 +9,17 @@ const LINKS = [
   { href: "#gallery", label: "Gallery" },
 ];
 
-export default function Nav() {
+interface NavProps {
+  isDrawerOpen: boolean;
+  setIsDrawerOpen: (open: boolean) => void;
+}
+
+export default function Nav({ isDrawerOpen, setIsDrawerOpen }: NavProps) {
   const [scrolled, setScrolled] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-  const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
 
   // Track scroll for navbar hide/show, background style, and Hero section reset
   useEffect(() => {
@@ -76,7 +80,7 @@ export default function Nav() {
   const handleOpenEnquiry = (e: React.MouseEvent) => {
     e.preventDefault();
     setOpen(false);
-    setIsEnquiryOpen(true);
+    setIsDrawerOpen(true);
   };
 
   return (
@@ -168,7 +172,7 @@ export default function Nav() {
         )}
       </header>
 
-      <EnquiryDrawer isOpen={isEnquiryOpen} onClose={() => setIsEnquiryOpen(false)} />
+      <EnquiryDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
     </>
   );
 }

@@ -16,11 +16,12 @@ import FloatingForm from "./components/FloatingForm";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
     <>
       {loading && <Preloader onDone={() => setLoading(false)} />}
-      <Nav />
+      <Nav isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
       <FloatingContact />
       <main>
         <Hero />
@@ -32,7 +33,7 @@ export default function App() {
         <Biodiversity />
         <FloorPlans />
         <ImmersiveTour />
-        <FloatingForm />
+        {!isDrawerOpen && <FloatingForm />}
       </main>
       <Footer />
     </>

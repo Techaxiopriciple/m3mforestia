@@ -2,8 +2,8 @@ import { Phone } from "lucide-react";
 import { whatsappLink } from "../lib/content";
 
 export default function FloatingContact() {
-  // Random placeholder phone number
-  const phoneNumber = "+91 98765 43210";
+  // phone number
+  const phoneNumber = "+91 8882557799";
 
   return (
     <div className="fixed bottom-6 right-5 z-50 flex flex-col gap-3">

@@ -75,13 +75,17 @@ export default function EnquiryForm({
           <FieldError id={lead.errorId("email")} message={errors.email} />
         </div>
       )}
-      <BudgetSelect
-        {...lead.fieldProps("budget")}
-        aria-label="What is your preferred budget range?"
-        placeholder="Preferred budget range"
-        className={inputClass(false)}
-        iconClassName="text-forest-600"
-      />
+      <div>
+        <BudgetSelect
+          {...lead.fieldProps("budget")}
+          required
+          aria-label="What is your preferred budget range?"
+          placeholder="Preferred budget range"
+          className={inputClass(!!errors.budget)}
+          iconClassName="text-forest-600"
+        />
+        <FieldError id={lead.errorId("budget")} message={errors.budget} />
+      </div>
 
       <Honeypot value={lead.values.company} onChange={(v) => lead.setField("company", v)} />
 

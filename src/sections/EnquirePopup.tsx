@@ -137,9 +137,11 @@ export default function EnquirePopup({ isOpen: externalIsOpen, onClose: external
                 </label>
                 <BudgetSelect
                   {...lead.fieldProps("budget")}
-                  className={inputClass(false)}
+                  required
+                  className={inputClass(!!errors.budget)}
                   iconClassName="text-forest-600"
                 />
+                <FieldError id={lead.errorId("budget")} message={errors.budget} />
               </div>
 
               <Honeypot value={lead.values.company} onChange={(v) => lead.setField("company", v)} />

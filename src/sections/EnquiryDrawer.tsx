@@ -129,13 +129,15 @@ export default function EnquiryDrawer({ isOpen, onClose }: EnquiryDrawerProps) {
                     htmlFor={lead.fieldId("budget")}
                     className="block text-xs font-semibold uppercase tracking-wider text-forest-700 mb-1.5"
                   >
-                    What is your preferred budget range?
+                    What is your preferred budget range? *
                   </label>
                   <BudgetSelect
                     {...lead.fieldProps("budget")}
-                    className={inputClass(false)}
+                    required
+                    className={inputClass(!!errors.budget)}
                     iconClassName="text-forest-600"
                   />
+                  <FieldError id={lead.errorId("budget")} message={errors.budget} />
                 </div>
 
                 <Honeypot value={lead.values.company} onChange={(v) => lead.setField("company", v)} />

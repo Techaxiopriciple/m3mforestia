@@ -10,7 +10,7 @@ export interface LeadFields {
   company: string; // Honeypot: must stay empty for real visitors
 }
 
-export type LeadErrors = Partial<Record<"name" | "phone" | "email", string>>;
+export type LeadErrors = Partial<Record<"name" | "phone" | "email" | "budget", string>>;
 
 // Sent to the lead endpoint verbatim, so changing a label changes what lands in the CRM.
 export const BUDGET_OPTIONS = ["₹2.5 Cr – ₹3 Cr", "₹3 Cr – ₹4 Cr", "Above ₹4 Cr"] as const;
@@ -59,6 +59,10 @@ export function validateLead(values: LeadFields): LeadErrors {
   const email = values.email.trim();
   if (email && !EMAIL_PATTERN.test(email)) {
     errors.email = "Enter a valid email address.";
+  }
+
+  if (!(BUDGET_OPTIONS as readonly string[]).includes(values.budget)) {
+    errors.budget = "Please select your budget range.";
   }
 
   return errors;

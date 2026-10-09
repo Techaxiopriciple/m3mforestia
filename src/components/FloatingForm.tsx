@@ -182,13 +182,15 @@ export default function FloatingForm() {
                         htmlFor={lead.fieldId("budget")}
                         className="block text-xs font-medium text-cream-100/80 mb-1.5 uppercase tracking-wider"
                       >
-                        What is your preferred budget range?
+                        What is your preferred budget range? *
                       </label>
                       <BudgetSelect
                         {...lead.fieldProps("budget")}
-                        className={inputClass(false)}
+                        required
+                        className={inputClass(!!errors.budget)}
                         iconClassName="text-gold-400"
                       />
+                      <FieldError id={lead.errorId("budget")} message={errors.budget} className="text-red-400" />
                     </div>
 
                     <Honeypot value={lead.values.company} onChange={(v) => lead.setField("company", v)} />

@@ -2,15 +2,15 @@
 // Do NOT add a possession date/year anywhere — explicitly withheld per source doc.
 
 export const CONTACT = {
-  phone: "+919711005826",
-  phoneDisplay: "+91 97110 05826",
+  phone: "+918882557799",
+  phoneDisplay: "+91 8882557799",
   tollFree: "1800 123 3333",
   email: "feedback@M3Mindia.com",
-  whatsappNumber: "919711005826",
+  whatsappNumber: "919821300912",
 };
 
-export function whatsappLink(message: string) {
-  return `https://wa.me/${CONTACT.whatsappNumber}?text=${encodeURIComponent(message)}`;
+export function whatsappLink(message = "I want to know about Forestia west") {
+  return `https://api.whatsapp.com/send?phone=${CONTACT.whatsappNumber}&text=${encodeURIComponent(message)}`;
 }
 
 export const RERA = [

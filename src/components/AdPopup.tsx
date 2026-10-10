@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { X } from "lucide-react";
 
 const CARD_WIDTH = "min(400px, 90vw)";
+// 800px WebP (2x the card width); preloaded from index.html while the preloader runs
+const BANNER_SRC = "/images/ad-banner.webp";
 
 interface AdPopupProps {
   isOpen: boolean;
@@ -9,6 +11,12 @@ interface AdPopupProps {
 }
 
 export default function AdPopup({ isOpen, onClose }: AdPopupProps) {
+  // Keep the card invisible until the banner has decoded, then fade it in (no empty box / flash)
+  const [imgReady, setImgReady] = useState(false);
+  const imgRef = useCallback((img: HTMLImageElement | null) => {
+    // Already in cache (preloaded): onLoad may have fired before React attached the handler
+    if (img?.complete && img.naturalWidth > 0) setImgReady(true);
+  }, []);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -35,7 +43,9 @@ export default function AdPopup({ isOpen, onClose }: AdPopupProps) {
         aria-modal="true"
         aria-label="Big Festive Offer"
         style={{ width: CARD_WIDTH }}
-        className="relative overflow-hidden rounded-2xl bg-white shadow-2xl flex flex-col"
+        className={`relative overflow-hidden rounded-2xl bg-white shadow-2xl flex flex-col transition-[opacity,transform] duration-300 ease-out ${
+          imgReady ? "opacity-100 scale-100" : "opacity-0 scale-95"
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button: shifted further down (top-10) and towards the right side (right-3) */}
@@ -48,12 +58,17 @@ export default function AdPopup({ isOpen, onClose }: AdPopupProps) {
         </button>
 
         {/* Banner Image Container */}
-        <div className="relative w-full bg-black flex items-center justify-center overflow-hidden">
+        <div className="relative w-full flex items-center justify-center overflow-hidden">
           <img
-            src="/images/ad-banner.jpeg"
+            ref={imgRef}
+            src={BANNER_SRC}
             alt="M3M Forestia Big Festive Offer"
-            width={1080}
-            height={1920}
+            width={800}
+            height={1422}
+            decoding="async"
+            fetchPriority="high"
+            onLoad={() => setImgReady(true)}
+            onError={() => setImgReady(true)}
             className="w-full h-auto object-contain block"
           />
         </div>

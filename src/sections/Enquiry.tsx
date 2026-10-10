@@ -30,8 +30,7 @@ export default function Enquiry() {
             Experience a <span className="italic text-forest-600">Different Rhythm of Living</span>
           </h2>
           <p className="mt-5 text-forest-900/70 leading-relaxed">
-            Share your details and our team will reach out with floor plans,
-            pricing, and a personal walkthrough of M3M Forestia West.
+            Share your details and our senior sales executive will reach out.
           </p>
 
           <div className="mt-10 space-y-4">

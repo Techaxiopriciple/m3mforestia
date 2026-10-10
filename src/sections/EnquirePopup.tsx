@@ -79,7 +79,7 @@ export default function EnquirePopup({ isOpen: externalIsOpen, onClose: external
                 Enquire Now
               </h3>
               <p className="text-forest-600 text-xs sm:text-sm">
-                Register your interest to receive detailed pricing, floor plans, and priority invites.
+                Share your details and our senior sales executive will reach out.
               </p>
             </div>
 

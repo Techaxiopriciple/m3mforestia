@@ -65,7 +65,7 @@ export default function EnquiryDrawer({ isOpen, onClose }: EnquiryDrawerProps) {
               <div className="space-y-2">
                 <h4 className="font-display text-[1.6rem] md:text-[2rem] leading-tight text-forest-950">Request Callback</h4>
                 <p className="text-sm text-forest-600">
-                  Fill in your details below to schedule a site visit or receive the e-brochure.
+                  Share your details and our senior sales executive will reach out.
                 </p>
               </div>
 
@@ -166,10 +166,6 @@ export default function EnquiryDrawer({ isOpen, onClose }: EnquiryDrawerProps) {
                   </>
                 )}
               </button>
-
-              <p className="text-[11px] text-center text-forest-500">
-                By submitting, you agree to our terms & conditions and privacy policy.
-              </p>
             </form>
           )}
         </div>

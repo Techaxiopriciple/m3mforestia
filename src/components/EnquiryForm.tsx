@@ -112,14 +112,6 @@ export default function EnquiryForm({
           </>
         )}
       </button>
-      <div className="pt-1 text-center space-y-1">
-        <p className="text-[10px] text-forest-900/45 leading-relaxed">
-          RERA REG. NO. RC/REP/HARERA/GGM/1030/762/2026/02
-        </p>
-        <p className="text-[10px] text-forest-900/45 leading-relaxed">
-          RERA REG. NO. RC/REP/HARERA/GGM/991/723/2025/94
-        </p>
-      </div>
     </form>
   );
 }

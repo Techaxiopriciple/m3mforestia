@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { X } from "lucide-react";
 
 const CARD_WIDTH = "min(400px, 90vw)";
@@ -9,8 +9,6 @@ interface AdPopupProps {
 }
 
 export default function AdPopup({ isOpen, onClose }: AdPopupProps) {
-  const [phone, setPhone] = useState("");
-  const [agreed, setAgreed] = useState(true);
 
   useEffect(() => {
     if (!isOpen) return;

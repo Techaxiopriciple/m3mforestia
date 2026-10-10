@@ -2,7 +2,7 @@ import { Phone } from "lucide-react";
 import { whatsappLink } from "../lib/content";
 
 export default function FloatingContact() {
-  // phone number
+  //  phone number
   const phoneNumber = "+91 8882557799";
 
   return (

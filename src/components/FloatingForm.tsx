@@ -154,7 +154,7 @@ export default function FloatingForm() {
                         required
                         autoComplete="tel"
                         maxLength={20}
-                        placeholder="10-digit mobile number"
+                        placeholder="+91 98765 43210"
                         className={inputClass(!!errors.phone)}
                       />
                       <FieldError id={lead.errorId("phone")} message={errors.phone} className="text-red-400" />

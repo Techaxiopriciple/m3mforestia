@@ -2,7 +2,8 @@ import { SFDC_CONFIG } from "../config/sfdcConfig";
 
 export interface LeadInput {
   name: string;
-  phone: string;
+  phone: string; // National number, without the country code
+  countryCode: string; // "+91", "+971", ... as detected from the visitor's input
   email?: string;
   budget?: string;
   location?: string;
@@ -14,13 +15,11 @@ export interface LeadInput {
   company?: string; // Honeypot: real users never see this field, so it must stay empty
 }
 
-export type LeadResult = { success: true } | { success: false; message: string };
+// `field` is set when the endpoint rejected a specific field (currently only "phone"),
+// so the form can show the message next to that input.
+export type LeadResult = { success: true } | { success: false; message: string; field?: "phone" };
 
 const MAX_FIELD_LENGTH = 200;
-
-// Every phone field is validated as a bare 10-digit Indian mobile number (see
-// leadValidation.ts) with no country selector in the UI, so the code is always +91.
-const COUNTRY_CODE = "+91";
 
 const clean = (value: string | undefined) => (value ?? "").trim().slice(0, MAX_FIELD_LENGTH);
 
@@ -42,7 +41,7 @@ export async function submitLeadToSFDC(data: LeadInput): Promise<LeadResult> {
     phone: clean(data.phone),
     email: clean(data.email),
     salutation: "",
-    country_code: COUNTRY_CODE,
+    country_code: clean(data.countryCode),
     location: clean(data.location),
     budget: clean(data.budget),
     utm_source: clean(data.utm_source),
@@ -74,7 +73,7 @@ export async function submitLeadToSFDC(data: LeadInput): Promise<LeadResult> {
 
     // Apps Script returns HTML (not JSON) on script errors or permission problems.
     const text = await response.text();
-    let result: { status?: string; message?: string };
+    let result: { status?: string; message?: string; field?: string };
     try {
       result = JSON.parse(text);
     } catch {
@@ -82,7 +81,11 @@ export async function submitLeadToSFDC(data: LeadInput): Promise<LeadResult> {
     }
 
     if (result.status === "error") {
-      return { success: false, message: result.message || "Failed to submit lead" };
+      return {
+        success: false,
+        message: result.message || "Failed to submit lead",
+        field: result.field === "phone" ? "phone" : undefined,
+      };
     }
 
     return { success: true };

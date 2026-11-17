@@ -144,6 +144,7 @@ export default function FloorPlans() {
           </button>
         </div>
 
+        {/* Download Brochure button — temporarily disabled
         <div className="fp-fade flex justify-center mt-10">
           {unlocked ? (
             <a
@@ -162,6 +163,7 @@ export default function FloorPlans() {
             </button>
           )}
         </div>
+        */}
       </div>
 
       {/* Render Enquire Popup */}
